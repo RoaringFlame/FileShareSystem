@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>寄售：增加售货地址</title>
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width,initial-scale=1.0"/>
+    <!-- 禁止将数字变为电话号码 -->
+    <meta name="format-detection" content="telephone=no"/>
+    <!-- iphone设备中的safari私有meta标签,允许全屏模式浏览，隐藏浏览器导航栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- iphone的私有标签,它指定的iphone中safari顶端的状态条的样式 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <link rel="stylesheet" href="../static/css/master.css" th:href="@{/css/master.css}"/>
+    <link rel="stylesheet" href="../static/css/module.css" th:href="@{/css/module.css}"/>
+
+    <script type="text/javascript" src="../static/scripts/lib/jquery.1.10.2.js"
+            th:src="@{/scripts/lib/jquery.1.10.2.js}"></script>
+    <script type="text/javascript" src="../static/scripts/lib/bootstrap/bootstrap.min.js"
+            th:src="@{/scripts/lib/bootstrap/bootstrap.min.js}"></script>
+    <script type="text/javascript" src="../static/scripts/common.js" th:src="@{/scripts/common.js}"></script>
+    <script type="text/javascript" src="../static/scripts/consale.js" th:src="@{/scripts/consale.js}"></script>
+</head>
+
+<body>
+<div class="content-index">
+    <!--标题-->
+    <header>
+        增加售货地址
+        <!--操作按钮-->
+        <div class="header-box">
+            <a href="pay.html" th:href="@{/consignment}">
+                <p class="header-left">
+                    <i class="icon icon-return"></i>
+                    返回
+                </p>
+            </a>
+        </div>
+        <!--操作按钮 END-->
+    </header>
+    <!--标题 END-->
+    <!-- 编辑收货地址 -->
+    <form id="edit-add" action="sell/receiptPlaceAdd" th:href="@{/sell/receiptPlaceAdd}" method="post">
+        <div class="edit-add-box">
+            <p class="p-tit">请填写您的地址及电话，我们会安排上门收货</p>
+            <label>
+                <input name="recipients" type="text" placeholder="收件人："/>
+            </label>
+            <label>
+                <input name="tel" type="text" placeholder="手机号："/>
+            </label>
+            <p class="address">所在地：</p>
+            <!-- 省市级联地址 -->
+            <label>
+                <select>
+                    <option value="请选择">请选择</option>
+                </select>
+                <select>
+                    <option value="请选择">请选择</option>
+                </select>
+                <select>
+                    <option value="请选择">请选择</option>
+                </select>
+                <input name="areaId" type="hidden"/>
+            </label>
+            <!-- 省市级联地址END -->
+            <label>
+                <input name="location" type="text" class="write" placeholder="详细地址："/>
+            </label>
+            <div class="clear"></div>
+        </div>
+        <!-- 清除浮动 -->
+    </form>
+    <!--服务条款-->
+    <label class="terms">
+            <textarea name="terms" cols="30" rows="10">服务条款
+            </textarea>
+    </label>
+    <!-- 清除浮动 -->
+    <div class="clear"></div>
+    <label class="terms">
+        <input type="checkbox" checked="checked"/>
+        <span class="agree">我同意寄售服务条款</span>
+    </label>
+    <!--服务条款END-->
+    <div class="edit-add-input ">
+        <!-- 保存按钮 -->
+        <label>
+            <input type="button" value="提交" form="edit-add"/>
+        </label>
+        <!-- 保存按钮END -->
+    </div>
+    <!-- 编辑收货地址END -->
+    <div class="tip" id="textShow" style="display: none"></div>
+</div>
+</body>
+</html>

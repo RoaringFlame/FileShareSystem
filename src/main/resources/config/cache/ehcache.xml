@@ -1,0 +1,18 @@
+<ehcache>
+  <cache name="userAlert"
+          maxBytesLocalHeap="10m"
+          timeToLiveSeconds="300">
+  </cache>
+  <cache name="userReceive"
+         maxBytesLocalHeap="10m"
+         timeToLiveSeconds="1000">
+  </cache>
+  <cache name="userReceived"
+         maxBytesLocalHeap="10m"
+         timeToLiveSeconds="1000">
+  </cache>
+  <cache name="userUploaded"
+         maxBytesLocalHeap="10m"
+         timeToLiveSeconds="1000">
+  </cache>
+</ehcache>

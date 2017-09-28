@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>自助发布：转让宝物</title>
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width,initial-scale=1.0"/>
+    <!-- 禁止将数字变为电话号码 -->
+    <meta name="format-detection" content="telephone=no"/>
+    <!-- iphone设备中的safari私有meta标签,允许全屏模式浏览，隐藏浏览器导航栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- iphone的私有标签,它指定的iphone中safari顶端的状态条的样式 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/css/master.css" th:href="@{/css/master.css}"/>
+    <link rel="stylesheet" href="../static/css/module.css" th:href="@{/css/module.css}"/>
+
+    <script src="../static/scripts/lib/jquery.1.10.2.js" th:src="@{/scripts/lib/jquery.1.10.2.js}"></script>
+    <script src="../static/scripts/lib/bootstrap/bootstrap.min.js"
+            th:src="@{/scripts/lib/bootstrap/bootstrap.min.js}"></script>
+    <script src="../static/scripts/lib/iscroll/iscroll.js" th:src="@{/scripts/lib/iscroll/iscroll.js}"></script>
+
+    <script src="../static/scripts/common.js" th:src="@{/scripts/common.js}"></script>
+    <script src="../static/scripts/selfup.js" th:src="@{/scripts/selfup.js}"></script>
+
+    <!--<%&#45;&#45;宝宝生日相关&#45;&#45;%>-->
+    <link href="../static/scripts/lib/date/dev/css/mobiscroll_core.2.6.2.css"
+          rel="stylesheet" th:href="@{/scripts/lib/date/dev/css/mobiscroll_core.2.6.2.css}"/>
+    <link href="../static/scripts/lib/date/dev/css/mobiscroll_android.2.6.2.css" rel="stylesheet"
+          th:href="@{/scripts/lib/date/dev/css/mobiscroll_android.2.6.2.css}"/>
+    <link href="../static/scripts/lib/date/dev/css/mobiscroll_android.ics.2.6.2.css" rel="stylesheet"
+          th:href="@{/scripts/lib/date/dev/css/mobiscroll_android.ics.2.6.2.css}"/>
+    <link href="../static/scripts/lib/date/dev/css/mobiscroll_ios.2.6.2.css" rel="stylesheet"
+          th:href="@{/scripts/lib/date/dev/css/mobiscroll_ios.2.6.2.css}"/>
+
+    <script src="../static/scripts/lib/date/dev/js/mobiscroll.core.2.6.2.js"
+            th:src="@{/scripts/lib/date/dev/js/mobiscroll.core.2.6.2.js}"></script>
+    <script src="../static/scripts/lib/date/dev/js/mobiscroll.datetime.2.6.2.js"
+            th:src="@{/scripts/lib/date/dev/js/mobiscroll.datetime.2.6.2.js}"></script>
+    <script src="../static/scripts/lib/date/dev/js/mobiscroll.list.2.6.2.js"
+            th:src="@{/scripts/lib/date/dev/js/mobiscroll.list.2.6.2.js}"></script>
+    <script src="../static/scripts/lib/date/dev/js/mobiscroll.select.2.6.2.js"
+            th:src="@{/scripts/lib/date/dev/js/mobiscroll.select.2.6.2.js}"></script>
+    <script src="../static/scripts/lib/date/dev/js/mobiscroll.android.2.6.2.js"
+            th:src="@{/scripts/lib/date/dev/js/mobiscroll.android.2.6.2.js}"></script>
+    <script src="../static/scripts/lib/date/dev/js/mobiscroll.android.ics.2.6.2.js"
+            th:src="@{/scripts/lib/date/dev/js/mobiscroll.android.ics.2.6.2.js}"></script>
+    <script src="../static/scripts/lib/date/dev/js/mobiscroll.ios.2.6.2.js"
+            th:src="@{/scripts/lib/date/dev/js/mobiscroll.ios.2.6.2.js}"></script>
+</head>
+
+<body>
+<div class="content-index">
+    <!--标题-->
+    <header>
+        转让宝物
+        <!--操作按钮-->
+        <div class="header-box">
+            <a href="consignment.html" th:href="@{/consignment}">
+                <p class="header-left">
+                    <i class="icon icon-return"></i>
+                    返回
+                </p>
+            </a>
+        </div>
+        <!--操作按钮 END-->
+    </header>
+    <!--标题 END-->
+
+    <!--转让宝物信息填写-->
+    <div class="transfer-box">
+        <!--提示信息-->
+        <p>
+            <span>请如实填写您的转让信息</span>
+            <a>卖家须知</a>
+        </p>
+        <!--提示信息END-->
+        <!--转让宝物信息表单-->
+        <form class="transfer-form" action="sell/release" enctype="multipart/form-data" id="console-form" method="post"
+              th:action="@{/sell/release}" th:method="post">
+            <label class="title">
+                <input id="goodsTitle" type="text" name="title" placeholder="输入标题"/>
+            </label>
+            <!--宝物信息选框-->
+            <ul class="transfer-info" id="transferInfo">
+                <li>
+                    <label for="kind">宝物类型：</label>
+                    <select name="typeId" id="kind">
+                        <option th:each="type:${goodsType}" th:value="${type.key}"
+                                th:text="${type.value}"></option>
+                    </select>
+                </li>
+                <li>
+                    <label for="brand">宝物品牌：</label>
+                    <select name="brandId" id="brand">
+                        <option th:each="one_brand:${brand}" th:value="${one_brand.key}"
+                                th:text="${one_brand.value}"></option>
+                    </select>
+                </li>
+                <li>
+                    <!--<label for="time">购物时间：</label>-->
+                    <!--<input name="upTime" id="time" &lt;%&ndash;type="date" &ndash;%&gt;/>-->
+                    <div style="display: none">
+                        <label for="demo">Demo</label>
+                        <select name="demo" id="demo" class="changes">
+                            <option value="date" selected="selected">Date</option>
+                            Demos
+                        </select>
+                    </div>
+                    <div id="demo_default" class="demos">
+                        <label for="test_default">购物时间：</label>
+                        <input type="text" name="upTime" id="test_default" style="font-size: 1.2rem;"/>
+                    </div>
+                </li>
+                <li>
+                    <label for="level">新旧程度：</label>
+                    <select name="newDegree" id="level">
+                        <option th:each="degree:${newDegree}" th:value="${degree.key}"
+                                th:text="${degree.value}"></option>
+                    </select>
+
+                </li>
+                <li>
+                    <label for="size">宝物尺码：</label>
+                    <select name="size" id="size">goodsSize
+                        <option th:each="size:${goodsSize}" th:value="${size.key}"
+                                th:text="${size.value}"></option>
+                    </select>
+                </li>
+
+                <li>
+                    <label for="sex">适合宝宝：</label>
+                    <select name="babyType" id="sex">
+                        <option th:each="babygender:${gender}" th:value="${babygender.key}"
+                                th:text="${babygender.value}"></option>
+                    </select>
+                </li>
+                <li>
+                    <label for="packet">原装包装：
+                        <input name="pack" id="packet" type="checkbox" checked="" data-size="mini"/>
+                    </label>
+                </li>
+                <li>
+                    <label for="invoice">发票小票：
+                        <input name="receipt" id="invoice" type="checkbox" checked="" data-size="mini"/>
+                    </label>
+                </li>
+                <li>
+                    <label for="oldPrice">购买原价：
+                        <input type="text" name="oldPrice" id="oldPrice"/>
+                    </label>
+
+                </li>
+                <li>
+                    <label for="newPrice">转让现价：
+                        <input type="text" name="price" id="newPrice"/>
+                    </label>
+
+                </li>
+            </ul>
+            <!--宝物信息选框END-->
+            <!--清楚浮动-->
+            <div class="clear"></div>
+            <!--买家寄语-->
+            <div class="transfer-form-bottom">
+                <label for="">卖家寄语：</label>
+                <textarea name="message" id="" cols="30" rows="10"></textarea>
+                <input name="state" style="display: none" value="0"/>
+                <!--上传照片-->
+                <div>
+                    <input name="goodsPic" type="file" accept="image/png,image/gif" style="display: none;"
+                           id="fileUpload"/>
+                    <img id="imgUpload" src="../static/images/1.png" th:src="@{/images/1.png}" alt=""/>
+                </div>
+                <!--上传照片END-->
+            </div>
+            <!--买家寄语END-->
+
+        </form>
+        <div class="tip" id="textShow" style="display: none"></div>
+        <!--转让宝物信息表单END-->
+        <!--提交按钮-->
+        <a class="transfer-form-button">
+            <button type="button" id="transferButton">一键卖出</button>
+        </a>
+        <!--提交按钮END-->
+    </div>
+</div>
+<!--转让宝物信息填写END-->
+</body>
+</html>
+
+<!-- //按钮 -->

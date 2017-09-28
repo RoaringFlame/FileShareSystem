@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>寄售订单</title>
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width,initial-scale=1.0"/>
+    <!-- 禁止将数字变为电话号码 -->
+    <meta name="format-detection" content="telephone=no"/>
+    <!-- iphone设备中的safari私有meta标签,允许全屏模式浏览，隐藏浏览器导航栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- iphone的私有标签,它指定的iphone中safari顶端的状态条的样式 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <link rel="stylesheet" href="../static/css/master.css" th:href="@{/css/master.css}"/>
+    <link rel="stylesheet" href="../static/css/module.css" th:href="@{/css/module.css}"/>
+</head>
+
+<body>
+    <div class="content-index">
+        <!--标题-->
+        <header>
+           已发布
+            <!--操作按钮-->
+           <div class="header-box">
+                <a href="personal.html" th:href="@{/user}">
+                  <p class="header-left">
+                  <i class="icon icon-return"></i>
+                   返回
+                </p>
+                </a>
+           </div>
+            <!--操作按钮 END-->
+        </header>
+         <!--标题 END-->
+
+        <div class="order">
+            <div th:each="goods:${goodsList}">
+                <!-- 商品-->
+                <div class="order-box">
+                    <p class="unpaid-txt" th:text="${goods.state}">已发布</p>
+                    <img  src="../static/images/u8.jpg" th:src="@{'/upload/'+${goods.picture}}" alt="宝物"/>
+                    <div class="order-box-right">
+                        <p th:text="${goods.brandName+' '+goods.title}">H-M CARDIGAN</p>
+                        <p th:text="'尺寸：'+${goods.size}">尺寸：S</p>
+                        <p class="order-box-left" th:text="'￥'+${goods.price}">￥35.5</p>
+                        <p class="order-box-left" th:text="'扣除佣金可得：￥'+${goods.price - 3.00}">扣除佣金可得：￥32.5</p>
+                    </div>
+                </div>
+                <!-- 商品END -->
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

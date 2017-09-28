@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title>首页</title>
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width,initial-scale=1.0"/>
+    <!-- 禁止将数字变为电话号码 -->
+    <meta name="format-detection" content="telephone=no"/>
+    <!-- iphone设备中的safari私有meta标签,允许全屏模式浏览，隐藏浏览器导航栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- iphone的私有标签,它指定的iphone中safari顶端的状态条的样式 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+    <link rel="icon" type="image/x-icon" href="../favicon.ico" th:href="@{/favicon.ico}"/>
+
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/css/master.css" th:href="@{/css/master.css}"/>
+    <link rel="stylesheet" href="../static/css/module.css" th:href="@{/css/module.css}"/>
+
+    <!--<link rel="stylesheet" href="../static/scripts/lib/iscroll/iscroll.css" th:href="@{/scripts/lib/iscroll/iscroll.css}"/>-->
+
+    <script src="../static/scripts/lib/jquery.1.10.2.js" th:src="@{/scripts/lib/jquery.1.10.2.js}"></script>
+    <script src="../static/scripts/lib/bootstrap/bootstrap.min.js"
+            th:src="@{/scripts/lib/bootstrap/bootstrap.min.js}"></script>
+    <script src="../static/scripts/lib/iscroll/iscroll.js" th:src="@{/scripts/lib/iscroll/iscroll.js}"></script>
+
+    <script src="../static/scripts/common.js" th:src="@{/scripts/common.js}"></script>
+    <script src="../static/scripts/index.js" th:src="@{/scripts/index.js}"></script>
+
+    <!--<%&#45;&#45;宝宝生日相关&#45;&#45;%>-->
+    <link href="../static/scripts/lib/date/dev/css/mobiscroll_core.2.6.2.css"
+          rel="stylesheet" th:href="@{/scripts/lib/date/dev/css/mobiscroll_core.2.6.2.css}"/>
+    <link href="../static/scripts/lib/date/dev/css/mobiscroll_android.2.6.2.css" rel="stylesheet"
+          th:href="@{/scripts/lib/date/dev/css/mobiscroll_android.2.6.2.css}"/>
+    <link href="../static/scripts/lib/date/dev/css/mobiscroll_android.ics.2.6.2.css" rel="stylesheet"
+          th:href="@{/scripts/lib/date/dev/css/mobiscroll_android.ics.2.6.2.css}"/>
+    <link href="../static/scripts/lib/date/dev/css/mobiscroll_ios.2.6.2.css" rel="stylesheet"
+          th:href="@{/scripts/lib/date/dev/css/mobiscroll_ios.2.6.2.css}"/>
+
+    <script src="../static/scripts/lib/date/dev/js/mobiscroll.core.2.6.2.js"
+            th:src="@{/scripts/lib/date/dev/js/mobiscroll.core.2.6.2.js}"></script>
+    <script src="../static/scripts/lib/date/dev/js/mobiscroll.datetime.2.6.2.js"
+            th:src="@{/scripts/lib/date/dev/js/mobiscroll.datetime.2.6.2.js}"></script>
+    <script src="../static/scripts/lib/date/dev/js/mobiscroll.list.2.6.2.js"
+            th:src="@{/scripts/lib/date/dev/js/mobiscroll.list.2.6.2.js}"></script>
+    <script src="../static/scripts/lib/date/dev/js/mobiscroll.select.2.6.2.js"
+            th:src="@{/scripts/lib/date/dev/js/mobiscroll.select.2.6.2.js}"></script>
+    <script src="../static/scripts/lib/date/dev/js/mobiscroll.android.2.6.2.js"
+            th:src="@{/scripts/lib/date/dev/js/mobiscroll.android.2.6.2.js}"></script>
+    <script src="../static/scripts/lib/date/dev/js/mobiscroll.android.ics.2.6.2.js"
+            th:src="@{/scripts/lib/date/dev/js/mobiscroll.android.ics.2.6.2.js}"></script>
+    <script src="../static/scripts/lib/date/dev/js/mobiscroll.ios.2.6.2.js"
+            th:src="@{/scripts/lib/date/dev/js/mobiscroll.ios.2.6.2.js}"></script>
+
+    <script src="../static/scripts/index_babybirthday.js" th:src="@{/scripts/index_babybirthday.js}"></script>
+</head>
+
+<body>
+<div class="content-index">
+    <!--标题-->
+    <header>
+        首页
+        <!--操作按钮-->
+        <div class="header-box">
+            <div sec:authorize="isAuthenticated()">
+                <a href="personal.html" th:href="@{/user}">
+                    <p class="header-left" style="font-size: 1.1rem;" th:text="${#authentication.name}"></p>
+                </a>
+            </div>
+            <div sec:authorize="!isAuthenticated()">
+                <a href="login.html" th:href="@{/login}">
+                    <p class="header-left">请登录</p>
+                </a>
+            </div>
+        </div>
+        <!--操作按钮 END-->
+    </header>
+    <!--标题 END-->
+
+    <!--搜索框-->
+    <div id="searchBox" class="search">
+        <!--商品类型查询-->
+        <div class="column">
+            <i class="icon icon-dire"></i>
+        </div>
+        <!--关键字查询-->
+        <div class="search-input">
+            <p>
+                <i id="searchButton" class="icon icon-search"></i>
+            </p>
+            <input id="txtSearch" title="请输入关键字"/>
+        </div>
+        <!-- 侧导航栏 -->
+        <div class="sidebar hide" id="sidebar">
+            <ul>
+            </ul>
+        </div>
+    </div>
+    <!--搜索框 END-->
+
+    <!--轮播图-->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- 轮播（Carousel）指标 -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+        <!-- 轮播（Carousel）项目 -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <img src="../static/images/img-01.png" alt="First slide" th:src="@{/images/img-01.png}"/>
+            </div>
+            <div class="item">
+                <img src="../static/images/img-01.png" alt="Second slide" th:src="@{/images/img-01.png}"/>
+            </div>
+            <div class="item">
+                <img src="../static/images/img-01.png" alt="Third slide" th:src="@{/images/img-01.png}"/>
+            </div>
+        </div>
+        <!-- 轮播（Carousel）导航 -->
+        <a class="carousel-control left" href="#myCarousel"
+           data-slide="prev">&lsaquo;</a>
+        <a class="carousel-control right" href="#myCarousel"
+           data-slide="next">&rsaquo;</a>
+    </div>
+    <!--轮播图 END-->
+
+    <!--商品-->
+    <div id="GoodsShow" class="goods">
+        <!-- 功能切换-->
+        <div class="scroll-menu">
+            <ul>
+                <li class="focus"> 新品</li>
+                <li>猜你喜欢</li>
+            </ul>
+        </div>
+        <!-- 功能切换 END-->
+
+        <!--新品列表的展示-->
+        <ul id="GoodsList" class="goods-list clearfix">
+            <!--新品列表-->
+            <li id="hideGoods">
+                <img src="../static/images/main-new1.png" alt="" th:src="@{/images/main-new1.png}"/>
+                <div>
+                    <p>
+                        <span>￥30.00000</span>
+                        <span>九成新</span>
+                    </p>
+                    <p>H-M &nbsp; CARDIGN</p>
+                    <p>纯棉轻薄，无刺激，适合宝宝娇嫩肌肤</p>
+                </div>
+            </li>
+            <!--新品列表 END-->
+            <!--新品列表-->
+            <li>
+                <img src="../static/images/main-new1.png" alt="" th:src="@{/images/main-new1.png}"/>
+                <div>
+                    <p>
+                        <span>￥30.00</span>
+                        <span>九成新</span>
+                    </p>
+                    <p>H-M &nbsp;CARDIGN</p>
+                    <p>纯棉轻薄，无刺激，适合宝宝娇嫩肌肤</p>
+                </div>
+            </li>
+            <!--新品列表 END-->
+            <!--新品列表-->
+            <li>
+                <img src="../static/images/main-new1.png" alt="" th:src="@{/images/main-new1.png}"/>
+                <div>
+                    <p>
+                        <span>￥30.00</span>
+                        <span>九成新</span>
+                    </p>
+                    <p>H-M &nbsp;CARDIGN</p>
+                    <p>纯棉轻薄，无刺激，适合宝宝娇嫩肌肤</p>
+                </div>
+            </li>
+            <!--新品列表 END-->
+            <!--新品列表-->
+            <li>
+                <img src="../static/images/main-new1.png" alt="" th:src="@{/images/main-new1.png}"/>
+                <div>
+                    <p>
+                        <span>￥30.00</span>
+                        <span>九成新</span>
+                    </p>
+                    <p>H-M &nbsp;CARDIGN</p>
+                    <p>纯棉轻薄，无刺激，适合宝宝娇嫩肌肤</p>
+                </div>
+            </li>
+            <!--新品列表 END-->
+            <!--新品列表-->
+            <li>
+                <img src="../static/images/main-new1.png" alt="" th:src="@{/images/main-new1.png}"/>
+                <div>
+                    <p>
+                        <span>￥30.00</span>
+                        <span>九成新</span>
+                    </p>
+                    <p>H-M &nbsp;CARDIGN</p>
+                    <p>纯棉轻薄，无刺激，适合宝宝娇嫩肌肤</p>
+                </div>
+            </li>
+            <!--新品列表 END-->
+            <!--新品列表-->
+            <li>
+                <img src="../static/images/main-new1.png" alt="" th:src="@{/images/main-new1.png}"/>
+                <div>
+                    <p>
+                        <span>￥30.00</span>
+                        <span>九成新</span>
+                    </p>
+                    <p>H-M &nbsp;CARDIGN</p>
+                    <p>纯棉轻薄，无刺激，适合宝宝娇嫩肌肤</p>
+                </div>
+            </li>
+            <!--新品列表 END-->
+        </ul>
+
+        <!-- 猜你喜欢 -->
+        <div id="likeForm" class="you-like hide">
+            <p>请填写以下信息</p>
+            <label>宝宝姓名：
+                <input name="babyName" type="text"/>
+            </label>
+            <div style="display: none">
+                <label for="demo">Demo</label>
+                <select name="demo" id="demo" class="changes">
+                    <option value="date">Date</option>
+                    Demos
+                </select>
+            </div>
+            <div id="demo_default" class="demos">
+                <label for="test_default">宝宝生日：
+                    <input type="date" name="babyBirthday" id="test_default" style="text-align:left "/>
+                </label>
+            </div>
+            <label>宝宝性别：
+                <select name="sex" id="sex">
+                </select>
+            </label>
+            <label>宝宝爱好：
+                <input type="text" name="hobby"/></label>
+            <button id="btnLikeSubmit" class="like-up-button" type="submit">提交</button>
+        </div>
+        <div class="clear"></div>
+        <!-- 猜你喜欢END -->
+
+        <div align="center">
+            <button id="loadMore" type="submit">点击加载更多...</button>
+        </div>
+        <div id="noMore" align="center">所有商品已展示...</div>
+    </div>
+
+    <div class="tip" id="textShow"></div>
+    <!--底部导航-->
+    <div th:include="footer::foot(state=1)"></div>
+    <!--底部导航 END-->
+</div>
+</body>
+</html>

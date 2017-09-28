@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="foot(state)">
+    <meta charset="utf-8"/>
+    <div class="menu" id="menu">
+        <a href="index.html" th:href="@{/}">
+            <i class="icon-menu icon-menu1">
+                <div th:if="${state eq 1}">
+                    <img src="../static/images/footer-c1.png" alt="" th:src="@{/images/footer-c1.png}"/>
+                </div>
+                <div th:if="${state ne 1}">
+                    <img src="../static/images/footer-1.png" alt="" th:src="@{/images/footer-1.png}"/>
+                </div>
+            </i>
+        </a>
+        <a href="developing.html" th:href="@{/developing}">
+            <i class="icon-menu icon-menu2">
+                <div th:if="${state eq 2}">
+                    <img src="../static/images/footer-c2.png" alt="" th:src="@{/images/footer-c2.png}"/>
+                </div>
+                <div th:if="${state ne 2}">
+                    <img src="../static/images/footer-2.png" alt="" th:src="@{/images/footer-2.png}"/>
+                </div>
+            </i>
+        </a>
+        <a href="consignment.html" th:href="@{/consignment}">
+            <i class="icon-menu icon-menu3">
+                <div th:if="${state eq 3}">
+                    <img src="../static/images/footer-c3.png" alt="" th:src="@{/images/footer-c3.png}"/>
+                </div>
+                <div th:if="${state ne 3}">
+                    <img src="../static/images/footer-3.png" alt="" th:src="@{/images/footer-3.png}"/>
+                </div>
+            </i>
+        </a>
+        <a href="shopping.html" id="shopping" th:href="@{/user/shopping}">
+            <i class="icon-menu icon-menu4">
+                <div th:if="${state eq 4}">
+                    <img src="../static/images/footer-c4.png" alt="" th:src="@{/images/footer-c4.png}"/>
+                </div>
+                <div th:if="${state ne 4}">
+                    <img src="../static/images/footer-4.png" alt="" th:src="@{/images/footer-4.png}"/>
+                </div>
+            </i>
+        </a>
+        <a href="personal.html" th:href="@{/user}">
+            <i class="icon-menu icon-menu5">
+                <div th:if="${state eq 5}">
+                    <img src="../static/images/footer-c1.png" alt="" th:src="@{/images/footer-c5.png}"/>
+                </div>
+                <div th:if="${state ne 5}">
+                    <img src="../static/images/footer-3.png" alt="" th:src="@{/images/footer-5.png}"/>
+                </div>
+            </i>
+        </a>
+    </div>
+</head>
+</html>

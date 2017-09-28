@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>我要寄售</title>
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width,initial-scale=1.0"/>
+    <!-- 禁止将数字变为电话号码 -->
+    <meta name="format-detection" content="telephone=no"/>
+    <!-- iphone设备中的safari私有meta标签,允许全屏模式浏览，隐藏浏览器导航栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- iphone的私有标签,它指定的iphone中safari顶端的状态条的样式 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+    <link rel="stylesheet" href="../static/css/master.css" th:href="@{/css/master.css}"/>
+    <link rel="stylesheet" href="../static/css/module.css" th:href="@{/css/module.css}"/>
+
+</head>
+
+<body>
+<div class="content-index">
+    <!--标题-->
+    <header>
+        我要寄售
+        <!--操作按钮-->
+        <div class="header-box">
+            <a href="personal.html" th:href="@{/user}">
+                <p class="header-left">
+                    <i class="icon icon-return"></i>
+                    返回
+                </p>
+            </a>
+        </div>
+        <!--操作按钮 END-->
+    </header>
+    <!--标题 END-->
+    <!-- 找回密码表单 -->
+    <div th:if="${phone ne ''}">
+        <div class="get-back-pwd">
+            <!--当前绑定手机号为用户号码-->
+            <p>请保持手机畅通！我们稍后将联系您！</p>
+            <p th:text="'当前绑定手机号'+${phone}">当前绑定手机号为159****3504</p>
+        </div>
+    </div>
+    <div th:if="${phone eq ''}">
+        <div class="publish-success-box">
+            <p>您暂未绑定手机号！</p>
+            <p><a class="button-bottom" th:href="@{/user/bindphone}" href="bindphone.html">
+                <button type="submit" class="submit" id="submit">前去绑定</button>
+            </a>
+            </p>
+        </div>
+    </div>
+    <!--找回密码表单END-->
+</div>
+</body>
+</html>

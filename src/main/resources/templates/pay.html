@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>付款</title>
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width,initial-scale=1.0"/>
+    <!-- 禁止将数字变为电话号码 -->
+    <meta name="format-detection" content="telephone=no"/>
+    <!-- iphone设备中的safari私有meta标签,允许全屏模式浏览，隐藏浏览器导航栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- iphone的私有标签,它指定的iphone中safari顶端的状态条的样式 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+    <link rel="stylesheet" href="../static/css/master.css" th:href="@{/css/master.css}"/>
+    <link rel="stylesheet" href="../static/css/module.css" th:href="@{/css/module.css}"/>
+
+    <script type="text/javascript" src="../static/scripts/lib/jquery.1.10.2.js"
+            th:src="@{/scripts/lib/jquery.1.10.2.js}"></script>
+    <script type="text/javascript" src="../static/scripts/common.js" th:src="@{/scripts/common.js}"></script>
+    <script type="text/javascript" src="../static/scripts/pay.js" th:src="@{/scripts/pay.js}"></script>
+</head>
+
+<body>
+<div class="content-index">
+    <!--标题-->
+    <header>
+        确认订单
+        <!--操作按钮-->
+        <div class="header-box">
+            <a href="shopping.html" th:href="@{/user/shopping}">
+                <p class="header-left">
+                    <i class="icon icon-return"></i>
+                    返回
+                </p>
+            </a>
+        </div>
+        <!--操作按钮 END-->
+    </header>
+    <!--标题 END-->
+    <!-- 收货地址 -->
+    <button class="add-jump-arrow"></button>
+
+    <form id="pay" action="order/payConfirm" th:action="@{/order/payConfirm}">
+        <div class="box add">
+            <div class="box-left">
+                <img src="../static/images/pay-1.png" th:src="@{/images/pay-1.png}" alt=""/>
+            </div>
+            <div class="box-right">
+                <input id="addressId" name="addressId" style="display: none" th:value="${defaultAddress.id}"/>
+                <div class="box-right-top">
+                    <dl>
+                        <dd th:text="${defaultAddress.recipients}">陈恒</dd>
+                        <dt th:text="${defaultAddress.tel}">13260592767</dt>
+                    </dl>
+                </div>
+                <div class="box-right-bottom">
+                    <p th:text="${defaultAddress.mergerName}">湖北省武汉市硚口区</p>
+                    <p th:text="${defaultAddress.location}">居仁门</p>
+                </div>
+            </div>
+        </div>
+        <!-- 收货地址 END-->
+        <!-- 购买订单 -->
+        <input name="cartIds" type="hidden" th:value="${cartIds}"/>
+        <div th:each="goods:${checkedGoodsList}">
+            <div class="order-box">
+                <div class="goodsId" style="display: none" th:text="${goods.goodsId}">${goods.goodsId}</div>
+                <img src="../static/images/main-new1.png" th:src="@{'/upload/'+ ${goods.picture}}" alt="宝物"/>
+                <div class="order-box-right">
+                    <p th:text="${goods.brandName} + '   ' +${goods.title}">H-M CARDIGAN</p>
+                    <p th:text="'尺寸：'+${goods.size}">尺寸：S</p>
+                    <!--<p class="order-box-left" th:text="'￥'+${goods.price}+' '">￥50.5&nbsp;&nbsp;</p>-->
+                    <!--<span th:text="'×'+${goods.quantity}">×2</span>-->
+                    <p class="order-box-left">
+                    <div th:text="'￥'+${goods.price}+' '">￥50.5&nbsp;&nbsp;</div>
+                    <span th:text="'×'+${goods.quantity}">×2</span>
+                    </p>
+                </div>
+            </div>
+            <!-- 购买订单END -->
+
+            <ul class="lists">
+                <li>
+                    <div th:text="'共计'+${goods.quantity}+'件商品'">共计2件商品</div>
+                    &nbsp;
+                    小计：<b th:text="'￥'+${#numbers.formatDecimal(goods.subtotal , 0, 'COMMA', 2, 'POINT')}">￥111</b>
+                </li>
+            </ul>
+        </div>
+        <ul class="lists">
+            <li><span>快递费</span>
+                <span><b th:text="'￥'+${freight}">￥10</b></span>
+            </li>
+        </ul>
+        <label class="notes">备注
+            <textarea name="message" cols="30" rows="10"></textarea>
+        </label>
+    </form>
+    <!--付款按钮-->
+    <div class="up-to-pay pay-fixed">
+        <ul>
+            <li>总计&nbsp;:&nbsp;
+                <b th:text="'￥'+${#numbers.formatDecimal(totalSum , 0, 'COMMA', 2, 'POINT')}">￥121
+                </b>
+            </li>
+            <li>
+                <button class="pay" id="payButton" type="submit" form="pay">付款</button>
+            </li>
+        </ul>
+    </div>
+    <!--付款按钮END-->
+    <div class="blank"></div>
+    <div class="tip" id="textShow"></div>
+</div>
+</body>
+</html>

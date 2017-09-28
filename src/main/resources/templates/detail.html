@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>宝物详情</title>
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width,initial-scale=1.0"/>
+    <!-- 禁止将数字变为电话号码 -->
+    <meta name="format-detection" content="telephone=no"/>
+    <!-- iphone设备中的safari私有meta标签,允许全屏模式浏览，隐藏浏览器导航栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- iphone的私有标签,它指定的iphone中safari顶端的状态条的样式 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+    <link rel="stylesheet" href="../static/css/master.css" th:href="@{/css/master.css}"/>
+    <link rel="stylesheet" href="../static/css/module.css" th:href="@{/css/module.css}"/>
+
+    <script type="text/javascript" src="../static/scripts/lib/jquery.1.10.2.js"
+            th:src="@{/scripts/lib/jquery.1.10.2.js}"></script>
+    <script type="text/javascript" src="../static/scripts/common.js" th:src="@{/scripts/common.js}"></script>
+    <script type="text/javascript" src="../static/scripts/detail.js" th:src="@{/scripts/detail.js}"></script>
+
+</head>
+
+<body>
+<div class="content-index">
+    <!--标题-->
+    <header>
+        宝物详情
+        <!--操作按钮-->
+        <div class="header-box">
+            <a href="index.html" th:href="@{/}">
+                <p class="header-left">
+                    <i class="icon icon-return"></i>
+                    返回
+                </p>
+            </a>
+        </div>
+        <div id="goodsId" style="display:none;" th:text="${goodsDetail.id}"></div>
+        <!--操作按钮 END-->
+    </header>
+    <!--标题 END-->
+    <!--宝物详情-->
+    <div class="goods-detail">
+        <!--宝物图片-->
+        <div class="goods-detail-top">
+            <img src="../static/images/main-new1.png" th:src="@{'/upload/'+ ${goodsDetail.picture}}" alt=""/>
+            <div>
+                <p th:text="${goodsDetail.brandName}"> H-M&nbsp;CARDIGN</p>
+                <p>
+                    <span th:text="'￥'+ ${#numbers.formatDecimal(goodsDetail.price , 0, 'COMMA', 2, 'POINT')}">￥35.5</span>
+                    <span th:text="'原价：￥'+ ${#numbers.formatDecimal(goodsDetail.oldPrice , 0, 'COMMA', 2, 'POINT')}">原价：￥100</span>
+                </p>
+            </div>
+        </div>
+        <!--宝物图片END-->
+        <!--宝物信息-->
+        <div class="goods-detail-content">
+            <p>
+                <span>宝物类型：</span>
+                <span th:text="${goodsDetail.typeName}">服装</span>
+            </p>
+            <p>
+                <span>宝物品牌：</span>
+                <span th:text="${goodsDetail.brandName}">贝儿</span>
+            </p>
+
+            <p>
+                <span>购物日期：</span>
+                <span th:text="${#calendars.format(goodsDetail.upTime,'yyyy/MM/dd')}">2016/7/11</span>
+            </p>
+            <p>
+                <span>新旧程度：</span>
+                <span th:text="${goodsDetail.newDegree}">全新</span>
+            </p>
+            <p>
+                <span>宝物尺码：</span>
+                <span th:text="${goodsDetail.size}">0-3m</span>
+            </p>
+            <p>
+                <span>原包装：</span>
+                <span th:text="${goodsDetail.pack?'有':'无'}">有</span>
+                <span>发票/小票：</span>
+                <span th:text="${goodsDetail.receipt?'有':'无'}">无</span>
+            </p>
+        </div>
+        <!--宝物信息END-->
+        <!--清楚浮动-->
+        <div class="clear"></div>
+        <!--买家分享-->
+        <div class="goods-detail-bottom">
+            <p>卖家分享：
+                <span th:text="${goodsDetail.message}">
+                    卖家分享卖家分享卖家分享卖家分分享卖家分分享卖家分分享卖家分享卖家分享卖家分享卖家分享卖家分分享卖家分分享卖家分分享卖家分
+                </span>
+            </p>
+            <div class="clear"></div>
+            <!--<p>宝物图片:</p>-->
+            <!--<div th:each="goodsPicture:${goodsDetail.pictureList}">-->
+                <!--<img src="../static/images/detail.jpg" th:src="@{'/upload/'+${goodsPicture}}"-->
+                     <!--alt="图片正在加载中..."/>-->
+            <!--</div>-->
+        </div>
+
+        <!--卖家分享END-->
+        <!--按钮-->
+        <div class="goods-detail-button">
+            <div>
+                <a>
+                    <button id="addToCarts">加入购物车</button>
+                </a>
+                <a>
+                    <button id="buyNow">立即购买</button>
+                </a>
+            </div>
+            <a href="consignment.html" th:href="@{/consignment}">
+                <button class="button">我要转让</button>
+            </a>
+        </div>
+        <!--按钮END-->
+        <!--宝物详情END-->
+    </div>
+    <div class="tip" id="textShow">商品已成功添加至购物车</div>
+</div>
+</body>
+</html>

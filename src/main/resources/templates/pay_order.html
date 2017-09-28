@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>支付订单</title>
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width,initial-scale=1.0"/>
+    <!-- 禁止将数字变为电话号码 -->
+    <meta name="format-detection" content="telephone=no"/>
+    <!-- iphone设备中的safari私有meta标签,允许全屏模式浏览，隐藏浏览器导航栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- iphone的私有标签,它指定的iphone中safari顶端的状态条的样式 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+    <link rel="stylesheet" href="../static/css/master.css" th:href="@{/css/master.css}"/>
+    <link rel="stylesheet" href="../static/css/module.css" th:href="@{/css/module.css}"/>
+
+    <script type="text/javascript" src="../static/scripts/lib/jquery.1.10.2.js"
+            th:src="@{/scripts/lib/jquery.1.10.2.js}"></script>
+    <script type="text/javascript" src="../static/scripts/common.js" th:src="@{/scripts/common.js}"></script>
+    <script type="text/javascript" src="../static/scripts/pay_order.js" th:src="@{/scripts/pay_order.js}"></script>
+</head>
+<body>
+<div class="content-index">
+    <!--标题-->
+    <header>
+        支付订单
+        <!--操作按钮-->
+        <div class="header-box">
+            <a href="personal.html" th:href="@{/user}">
+                <p class="header-left">
+                    <i class="icon icon-return"></i>
+                    返回
+                </p>
+            </a>
+        </div>
+        <!--操作按钮 END-->
+    </header>
+    <!--标题 END-->
+    <!-- 支付订单 -->
+    <form action="" class="pay-box">
+        <p class="pay-top"><img src="../static/images/pay3.jpg" th:src="@{/images/pay3.jpg}" alt=""/>
+            <span>微信支付</span>
+            <label id="WeiXinActive" class="checked-active">
+                <input id="WeiXin" type="radio"/>
+            </label>
+
+        </p>
+        <p class="pay-top pay-top-last"><img src="../static/images/pay4.png" th:src="@{/images/pay4.png}" alt=""/>
+            <span>支付宝支付</span>
+            <label id="ZhiFuBaoActive">
+                <input id="ZhiFuBao" type="radio" checked="checked" />
+            </label>
+        </p>
+        <div class="blank"></div>
+        <a class="button-bottom" href="nopackaged_order.html" th:href="@{'/order/paySuccess/'+${#httpServletRequest.getParameter('orderId')}}">
+            <button class="submit" type="button">支付</button>
+        </a>
+    </form>
+    <!-- 支付订单END -->
+</div>
+</body>
+</html>

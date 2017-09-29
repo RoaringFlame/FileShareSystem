@@ -1,0 +1,342 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorator="layout/layout">
+<head>
+    <title>首页-我的工作台</title>
+    <meta charset="utf-8"/>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div id="page-content">
+        <div class="panel-heading">
+            <h3 class="panel-title">首页-我的工作台</h3>
+        </div>
+        <div class="tab-base">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+                <li class="active" id="receiveButton">
+                    <a href="#demo-search-tab-1" data-toggle="tab" aria-expanded="false">待接收文件
+                        <span id="receiveCount" class="label label-purple" style="display: none">9</span></a>
+                </li>
+                <li class="" id="receivedButton">
+                    <a href="#demo-search-tab-2" data-toggle="tab" aria-expanded="true">已接收文件</a>
+                </li>
+                <li class="" id="uploadedButton">
+                    <a href="#demo-search-tab-3" data-toggle="tab" aria-expanded="false">已上传文件</a>
+                </li>
+            </ul>
+
+
+            <!-- Tabs Content -->
+            <div class="tab-content">
+
+                <!-- USERS SEARCH RECEIVE-->
+                <!--===================================================-->
+                <div class="tab-pane fade active in" id="demo-search-tab-1">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped table-vcenter mar-top">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th class="min-w-td">文件名</th>
+                                <th class="min-w-td">姓名</th>
+                                <th>目录</th>
+                                <th>部门</th>
+                                <th>上传时间</th>
+                                <th>版本号</th>
+                                <th>紧急程度</th>
+                                <th class="min-w-td text-center">相关操作</th>
+                            </tr>
+                            </thead>
+
+                            <tbody id="receiveList">
+                            <tr id="receiveBox" style="display:none">
+                                <td class="min-w-td">1</td>
+                                <td><a class="btn-link" href="#">《应届生入职指引.doc》</a></td>
+                                <td>彭代雪</td>
+                                <td>2017应届生招聘</td>
+                                <td>人力资源</td>
+                                <td><span class="text-muted"><i class="fa fa-clock-o"></i> 2017-9-1 17：05</span></td>
+                                <td>1.1</td>
+                                <td><span class="label label-table label-danger">紧急</span></td>
+
+                                <td class="min-w-td text-center">
+                                    <div class="btn-group">
+                                        <a class="btn btn-sm btn-default btn-icon btn-hover-info fa fa-download add-tooltip"
+                                           href="#" data-original-title="下载" data-container="body"></a>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+                        <hr/>
+
+                        <!--more-->
+                        <div class="text-right">
+                            <a href="../view/file_receive.html" th:href="@{/file/receive}">
+                                <button class="btn btn-primary btn-rounded" id="moreReceive">更多信息</button>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                <!--===================================================-->
+
+                <!-- USERS SEARCH RECEIVED-->
+                <!--===================================================-->
+                <div class="tab-pane fade" id="demo-search-tab-2">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped table-vcenter mar-top">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th class="min-w-td">文件名</th>
+                                <th class="min-w-td">姓名</th>
+                                <th>目录</th>
+                                <th>部门</th>
+                                <th>下载时间</th>
+                                <th>版本号</th>
+                                <th>紧急程度</th>
+                                <th class="min-w-td text-center">相关操作</th>
+                            </tr>
+                            </thead>
+
+                            <tbody id="receivedList">
+                            <tr id="receivedBox" style="display:none">
+                                <td class="min-w-td">1</td>
+                                <td><a class="btn-link" href="#">《应届生入职指引.doc》</a></td>
+                                <td>彭代雪</td>
+                                <td>2017应届生招聘</td>
+                                <td>人力资源</td>
+                                <td><span class="text-muted"><i class="fa fa-clock-o"></i> 2017-9-1 17：05</span></td>
+                                <td>1.1</td>
+                                <td><span class="label label-table label-danger">紧急</span></td>
+
+                                <td class="min-w-td text-center">
+                                    <div class="btn-group">
+                                        <button class="btn btn-sm btn-default btn-icon btn-hover-purple fa fa-pencil add-tooltip"
+                                                href="#" data-original-title="重传" data-container="body"></button>
+                                        <a class="btn btn-sm btn-default btn-icon btn-hover-info fa fa-download add-tooltip"
+                                           href="#" data-original-title="下载" data-container="body"></a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                        <hr/>
+
+                        <!--more-->
+                        <div class="text-right">
+                            <a href="../view/show_received.html" th:href="@{/file/showReceived}">
+                                <button class="btn btn-primary btn-rounded" id="moreReceived">查看更多</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- USERS SEARCH UPLOADED-->
+                <!--===================================================-->
+                <div class="tab-pane fade" id="demo-search-tab-3">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped table-vcenter mar-top">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th class="min-w-td">文件名</th>
+                                <th>目录</th>
+                                <th>上传时间</th>
+                                <th>最新版本号</th>
+                                <th class="min-w-td text-center">相关操作</th>
+                            </tr>
+                            </thead>
+
+                            <tbody id="uploadedList">
+                            <tr id="uploadedBox" style="display:none">
+                                <td class="min-w-td">1</td>
+                                <td><a class="btn-link" href="#">《应届生入职指引.doc》</a></td>
+                                <td>2017应届生招聘</td>
+                                <td><span class="text-muted"><i class="fa fa-clock-o"></i> 2017-9-1 17：05</span></td>
+                                <td>1.1</td>
+
+                                <td class="min-w-td text-center">
+                                    <div class="btn-group">
+                                        <button class="btn btn-sm btn-default btn-icon btn-hover-danger fa fa-remove add-tooltip"
+                                                data-original-title="删除" data-container="body"></button>
+                                        <button class="btn btn-sm btn-default btn-icon btn-hover-warning fa fa-users add-tooltip"
+                                                data-original-title="修改权限" data-container="body"></button>
+                                        <button class="btn btn-sm btn-default btn-icon btn-hover-purple fa fa-pencil add-tooltip"
+                                                data-original-title="重传" data-container="body"></button>
+                                        <a class="btn btn-sm btn-default btn-icon btn-hover-info fa fa-download add-tooltip"
+                                           href="#" data-original-title="下载" data-container="body"></a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                        <hr/>
+
+                        <!--more-->
+                        <div class="text-right">
+                            <a href="../view/show_uploaded.html" th:href="@{/file/showUploaded}">
+                                <button class="btn btn-primary btn-rounded">查看更多</button>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--Default Bootstrap Modal-->
+    <!--===================================================-->
+    <div class="modal fade" id="revise-modal" role="dialog" tabindex="-1" aria-labelledby="demo-default-modal"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" id="revise-content">
+                <!--Modal header-->
+                <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title" style="color: red">修改重传</h5>
+                    &nbsp; &nbsp;
+                    <h4>《模拟文件名》&nbsp;v1.0</h4>
+                </div>
+
+                <!--Modal body-->
+                <form id="postForm" method="post" enctype="multipart/form-data">
+                    <br/>
+                    <div class="row">
+                        <div class="center-block" style="width:200px">
+                            <input type="file" id="file" name="file"/>
+                            <div id="warning" style="color: red;display: none">请选择文件！</div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="panel-footer text-right">
+                        <label class="form-checkbox form-icon form-text">
+                            <input id="canCover" name="canCover" type="checkbox"/>
+                            <span>是否可覆盖</span>
+                        </label>
+                    </div>
+                </form>
+
+                <!--Modal footer-->
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+                    <button id="submit" class="btn btn-primary">确认上传</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--===================================================-->
+    <!--End Default Bootstrap Modal-->
+
+    <div class="modal fade" id="role-modal" role="dialog" tabindex="-1" aria-labelledby="demo-default-modal"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" id="role-content">
+                <!--Modal header-->
+                <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title" style="color: red">修改权限</h5>
+                    &nbsp; &nbsp;
+                    <h4>《模拟文件名》</h4>
+                </div>
+
+                <!--Modal body-->
+                <table width="800" align="center" border="0" cellpadding="0" cellspacing="0"
+                       class="newContTab">
+                    <tr>
+                        <th>&nbsp;</th>
+                        <td>
+                            <div style="margin-right: 178px;display:inline">
+                                <a class="btn btn-sm btn-default btn-hover-success active"> 全体</a>
+                            </div>
+                            <div style="margin-right: 154px;display:inline">
+                                <a class="btn btn-sm btn-default btn-hover-success active"> 下载权限</a>
+                            </div>
+                            <div style="display:inline">
+                                <a class="btn btn-sm btn-default btn-hover-success active"> 修改权限</a>
+                            </div>
+                            <div>
+                                <select multiple="multiple" id="select1"
+                                        style="width:130px;height:200px; float:left; border:4px #A0A0A4 outset; padding:4px; ">
+                                </select>
+                            </div>
+
+
+                            <div style="float:left">
+                                            <span id="add">
+                                                <input type="button" class="btn btn-info" value="添加&gt;"/>
+                                            </span><br/><br/>
+                                            <span id="add_all">
+                                                <input type="button" class="btn btn-info" value="添加全部"/>
+                                            </span> <br/><br/>
+                                            <span id="remove">
+                                                <input type="button" class="btn btn-info" value="&lt;移除"/>
+                                            </span><br/><br/>
+                                            <span id="remove_all">
+                                                <input type="button" class="btn btn-info" value="移除全部"/>
+                                            </span>
+                            </div>
+
+
+                            <div>
+                                <select multiple="multiple" id="select2" name="canLoadUserIds"
+                                        style="width: 130px;height:200px; float:left;border:4px #A0A0A4 outset; padding:4px;">
+                                </select>
+                            </div>
+
+
+                            <div style="float:left">
+                                            <span id="add2">
+                                                <input type="button" class="btn btn-info" value="添加&gt;"/>
+                                            </span><br/><br/>
+                                            <span id="add_all2">
+                                                <input type="button" class="btn btn-info" value="添加全部"/>
+                                            </span> <br/><br/>
+                                            <span id="remove2">
+                                                <input type="button" class="btn btn-info" value="&lt;移除"/>
+                                            </span><br/><br/>
+                                            <span id="remove_all2">
+                                                <input type="button" class="btn btn-info" value="移除全部"/>
+                                            </span>
+                            </div>
+
+
+                            <div>
+                                <select multiple="multiple" id="select3" name="canReviseUserIds"
+                                        style="width: 130px;height:200px; float:left;border:4px #A0A0A4 outset; padding:4px;">
+                                </select>
+                            </div>
+
+                        </td>
+                    </tr>
+                </table>
+                <!--Modal footer-->
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+                    <button id="submitRole" class="btn btn-primary">确认修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../../static/js/jquery-2.1.1.min.js" th:src="@{/js/jquery-2.1.1.min.js}"
+            type="text/javascript"></script>
+    <script src="../../static/js/scripts/index.js" th:src="@{/js/scripts/index.js}" type="text/javascript"></script>
+</th:block>
+</body>
+</html>

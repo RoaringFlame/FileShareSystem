@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.oauth.com/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<head>
+    <title>表单-模态框</title>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div id="page-content">
+
+        <div class="row">
+            <!--设置白色边框大小 col-sm-数字-->
+            <div class="col-sm-7">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">表单</h3>
+                    </div>
+
+                    <!--Block Styled Form -->
+                    <!--===================================================-->
+                    <form name="f" th:action="@{/client/ui}" method="get">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="control-label">clientId：</label>
+                                        <input type="text" class="form-control" name="clientId"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="control-label">resourceIds：</label>
+                                        <input type="text" class="form-control" name="resourceIds"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="control-label">clientSecret：</label>
+                                        <input type="text" class="form-control" name="clientSecret"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="control-label">authorizedGrantTypes：</label>
+                                        <input type="text" class="form-control" name="authorizedGrantTypes"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="control-label">webServerRedirectUri：</label>
+                                        <input type="text" class="form-control" name="webServerRedirectUri"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer text-right">
+                            <button class="btn btn-info" type="submit">提交</button>
+                        </div>
+                    </form>
+                    <!--===================================================-->
+                    <!--End Block Styled Form -->
+                </div>
+            </div>
+        </div>
+
+        <!--=======================第二行  模态框================================================-->
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div id="demo-panel-ref" class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">默认模态框</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <!--Launch demo default modal-->
+                        <p>Toggle a modal via JavaScript by clicking the button below. It will slide down and fade in from the top of the page.</p><br/>
+                        <button data-target="#demo-default-modal" data-toggle="modal" class="btn btn-primary btn-lg">启动模态框</button>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Remove animation</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <!--Launch demo modal wihtout animation-->
+                        <p>For modals that simply appear rather than fade in to view, remove the <code>.fade</code> class from your modal markup.</p><br/>
+                        <button data-target="#demo-modal-wo-anim" data-toggle="modal" class="btn btn-primary btn-lg">Launch demo modal</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Block styled form</h3>
+                    </div>
+
+                    <!--Block Styled Form -->
+                    <!--===================================================-->
+                    <form>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Firstname</label>
+                                        <input type="text" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Lastname</label>
+                                        <input type="text" class="form-control"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Email</label>
+                                        <input type="email" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Website</label>
+                                        <input type="url" class="form-control"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer text-right">
+                            <button class="btn btn-info" type="submit">Submit</button>
+                        </div>
+                    </form>
+                    <!--===================================================-->
+                    <!--End Block Styled Form -->
+                </div>
+            </div>
+
+
+            <div class="col-sm-6">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Horizontal form</h3>
+                    </div>
+
+                    <!--Horizontal Form-->
+                    <!--===================================================-->
+                    <form class="form-horizontal">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="demo-hor-inputemail">Email</label>
+                                <div class="col-sm-9">
+                                    <input type="email" placeholder="Email" id="demo-hor-inputemail"
+                                           class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="demo-hor-inputpass">Password</label>
+                                <div class="col-sm-9">
+                                    <input type="password" placeholder="Password" id="demo-hor-inputpass"
+                                           class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <label class="form-checkbox form-normal form-primary form-text">
+                                        <input type="checkbox"/> Remember me
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer text-right">
+                            <button class="btn btn-info" type="submit">Sign in</button>
+                        </div>
+                    </form>
+                    <!--===================================================-->
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">可删除表格</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="bootstrap-table">
+                    <div class="fixed-table-toolbar">
+                        <div class="bars pull-left">
+                            <button id="demo-add-row" class="btn btn-purple btn-labeled fa fa-times" disabled="">
+                                增加
+                            </button>
+                            <button id="demo-delete-row" class="btn btn-danger btn-labeled fa fa-times" disabled="">
+                                删除
+                            </button>
+                        </div>
+                        <div class="columns columns-right btn-group pull-right">
+                            <button class="btn btn-default" type="button" name="refresh" title="Refresh"><i
+                                    class="fa fa-refresh icon-refresh"></i></button>
+                            <button class="btn btn-default" type="button" name="toggle" title="Toggle"><i
+                                    class="fa fa fa-list-alt icon-list-alt"></i></button>
+                            <div class="keep-open btn-group" title="Columns">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false"><i class="fa fa-th icon-th"></i> <span
+                                        class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><label><input type="checkbox" data-field="id" value="1" checked="checked"/>
+                                        ID</label></li>
+                                    <li><label><input type="checkbox" data-field="name" value="2" checked="checked"/>
+                                        Name</label></li>
+                                    <li><label><input type="checkbox" data-field="date" value="3" checked="checked"/>
+                                        Order date</label></li>
+                                    <li><label><input type="checkbox" data-field="amount" value="4" checked="checked"/>
+                                        Balance</label></li>
+                                    <li><label><input type="checkbox" data-field="status" value="5" checked="checked"/>
+                                        Status</label></li>
+                                    <li><label><input type="checkbox" data-field="track" value="6" checked="checked"/>
+                                        Tracking Number</label></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="pull-right search"><input class="form-control" type="text" placeholder="Search"/>
+                        </div>
+                    </div>
+                    <div class="fixed-table-container" style="padding-bottom: 0px;">
+                        <div class="fixed-table-header" style="display: block;">
+                            <table></table>
+                        </div>
+                        <div class="fixed-table-body">
+                            <div class="fixed-table-loading" style="top: 37px; display: none;">Loading, please wait…
+                            </div>
+                            <table id="demo-custom-toolbar" class="demo-add-niftycheck table table-hover"
+                                   data-toggle="table" data-url="data/bs-table.json" data-toolbar="#demo-delete-row"
+                                   data-search="true" data-show-refresh="true" data-show-toggle="true"
+                                   data-show-columns="true" data-sort-name="id" data-page-size="5"
+                                   data-pagination="true"
+                                   data-show-pagination-switch="true" style="margin-top: 0px;">
+                                <thead style="display: table-header-group;">
+                                <tr>
+                                    <th class="bs-checkbox " style="width: 36px; ">
+                                        <div class="th-inner "><label class="form-checkbox form-icon"><input
+                                                name="btSelectAll" type="checkbox"/></label></div>
+                                        <div class="fht-cell"></div>
+                                    </th>
+                                    <th style="">
+                                        <div class="th-inner sortable">Name</div>
+                                        <div class="fht-cell"></div>
+                                    </th>
+                                    <th style="">
+                                        <div class="th-inner sortable">Order date</div>
+                                        <div class="fht-cell"></div>
+                                    </th>
+                                    <th style="text-align: center; ">
+                                        <div class="th-inner sortable">Balance</div>
+                                        <div class="fht-cell"></div>
+                                    </th>
+                                    <th style="text-align: center; ">
+                                        <div class="th-inner sortable">Status</div>
+                                        <div class="fht-cell"></div>
+                                    </th>
+                                    <th style="text-align: center; ">
+                                        <div class="th-inner sortable">Tracking Number</div>
+                                        <div class="fht-cell"></div>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr data-index="0">
+                                    <td class="bs-checkbox"><label class="form-checkbox form-icon">
+                                        <input data-index="0" name="btSelectItem" type="checkbox"/></label>
+                                    </td>
+                                    <td style="">Charles S Boyle</td>
+                                    <td style=""><span class="text-muted"><i
+                                            class="fa fa-clock-o"></i> Today 01:25 PM</span></td>
+                                    <td style="text-align: center; ">$132.20</td>
+                                    <td style="text-align: center; ">
+                                        <div class="label label-table label-success"> Paid</div>
+                                    </td>
+                                    <td style="text-align: center; ">-</td>
+                                </tr>
+                                <tr data-index="1">
+                                    <td class="bs-checkbox"><label class="form-checkbox form-icon">
+                                        <input data-index="1" name="btSelectItem" type="checkbox"/></label>
+                                    </td>
+                                    <td style="">Steve N. Horton</td>
+                                    <td style=""><span class="text-muted"><i
+                                            class="fa fa-clock-o"></i> Today 11:03 AM</span></td>
+                                    <td style="text-align: center; ">$74.00</td>
+                                    <td style="text-align: center; ">
+                                        <div class="label label-table label-success"> Paid</div>
+                                    </td>
+                                    <td style="text-align: center; ">-</td>
+                                </tr>
+                                <tr data-index="2">
+                                    <td class="bs-checkbox"><label class="form-checkbox form-icon">
+                                        <input data-index="2" name="btSelectItem" type="checkbox"/></label>
+                                    </td>
+                                    <td style="">Lucy Doe</td>
+                                    <td style=""><span class="text-muted"><i
+                                            class="fa fa-clock-o"></i> Today 10:56 PM</span></td>
+                                    <td style="text-align: center; ">$12.00</td>
+                                    <td style="text-align: center; ">
+                                        <div class="label label-table label-warning"> Unpaid</div>
+                                    </td>
+                                    <td style="text-align: center; ">-</td>
+                                </tr>
+                                <tr data-index="3">
+                                    <td class="bs-checkbox"><label class="form-checkbox form-icon">
+                                        <input data-index="3" name="btSelectItem" type="checkbox"/></label>
+                                    </td>
+                                    <td style="">Teresa L. Doe</td>
+                                    <td style=""><span class="text-muted"><i class="fa fa-clock-o"></i> Yesterday 05:25 PM</span>
+                                    </td>
+                                    <td style="text-align: center; ">$532.99</td>
+                                    <td style="text-align: center; ">
+                                        <div class="label label-table label-info"> Shipped</div>
+                                    </td>
+                                    <td style="text-align: center; "><i class="fa fa-plane"></i> CGX0089675674</td>
+                                </tr>
+                                <tr data-index="4">
+                                    <td class="bs-checkbox"><label class="form-checkbox form-icon">
+                                        <input data-index="4" name="btSelectItem" type="checkbox"/></label>
+                                    </td>
+                                    <td style="">Lucy Doe</td>
+                                    <td style=""><span class="text-muted"><i class="fa fa-clock-o"></i> Yesterday 03:25 PM</span>
+                                    </td>
+                                    <td style="text-align: center; ">$45.00</td>
+                                    <td style="text-align: center; ">
+                                        <div class="label label-table label-danger"> Refunded</div>
+                                    </td>
+                                    <td style="text-align: center; ">-</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fixed-table-pagination" style="display: block;">
+
+                            <div class="pull-right pagination">
+                                <ul class="pagination">
+                                    <li class="page-first disabled"><a href="javascript:void(0)">&lt;&lt;</a></li>
+                                    <li class="page-pre disabled"><a href="javascript:void(0)">&lt;</a></li>
+                                    <li class="page-number active disabled"><a href="javascript:void(0)">1</a></li>
+                                    <li class="page-number"><a href="javascript:void(0)">2</a></li>
+                                    <li class="page-number"><a href="javascript:void(0)">3</a></li>
+                                    <li class="page-number"><a href="javascript:void(0)">4</a></li>
+                                    <li class="page-number"><a href="javascript:void(0)">5</a></li>
+                                    <li class="page-next"><a href="javascript:void(0)">&gt;</a></li>
+                                    <li class="page-last"><a href="javascript:void(0)">&gt;&gt;</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+
+        <!--标签页-->
+        <div class="tab-base">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#demo-search-tab-1" data-toggle="tab" aria-expanded="false">Users <span
+                            class="badge badge-primary">6</span></a>
+                </li>
+                <li class="">
+                    <a href="#demo-search-tab-2" data-toggle="tab" aria-expanded="true">All <span
+                            class="label label-purple">27</span></a>
+                </li>
+                <li class="">
+                    <a href="#demo-search-tab-3" data-toggle="tab" aria-expanded="false">Messages</a>
+                </li>
+            </ul>
+
+
+            <!-- Tabs Content -->
+            <div class="tab-content">
+
+                <!-- USERS SEARCH -->
+                <!--===================================================-->
+                <div class="tab-pane fade active in" id="demo-search-tab-1">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped table-vcenter mar-top">
+                            <thead>
+                            <tr>
+                                <th class="min-w-td">#</th>
+                                <th class="min-w-td">User</th>
+                                <th>Full Name</th>
+                                <th>Email</th>
+                                <th>Join Date</th>
+                                <th>Balance</th>
+                                <th>Subscription</th>
+                                <th class="min-w-td text-center">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="min-w-td">1</td>
+                                <td><img src="../../static/img/av1.png" th:src="@{/img/av1.png}"
+                                         alt="Profile Picture" class="img-circle img-sm"/></td>
+                                <td><a class="btn-link" href="#">John Doe</a></td>
+                                <td>john.doe@example.com</td>
+                                <td><span class="text-muted"><i class="fa fa-clock-o"></i> Oct 22, 2014</span></td>
+                                <td>$24.98</td>
+                                <td><span class="label label-table label-info">Trial</span></td>
+                                <td class="min-w-td text-center">
+                                    <div class="btn-group">
+                                        <a class="btn btn-sm btn-default btn-icon btn-hover-success fa fa-pencil add-tooltip"
+                                           href="#" data-original-title="Edit" data-container="body"></a>
+                                        <a class="btn btn-sm btn-default btn-icon btn-hover-danger fa fa-times add-tooltip"
+                                           href="#" data-original-title="Delete" data-container="body"></a>
+                                        <a class="btn btn-sm btn-default btn-icon btn-hover-warning fa fa-lock add-tooltip"
+                                           href="#" data-original-title="Ban user" data-container="body"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="min-w-td">2</td>
+                                <td><img src="../../static/img/av2.png" th:src="@{/img/av2.png}"
+                                         alt="Profile Picture" class="img-circle img-sm"/></td>
+                                <td><a class="btn-link" href="#">Charles S Boyle</a></td>
+                                <td>char_boy90@example.com</td>
+                                <td><span class="text-muted"><i class="fa fa-clock-o"></i> Oct 24, 2014</span></td>
+                                <td>$564.00</td>
+                                <td><span class="label label-table label-success">Free</span></td>
+                                <td class="min-w-td text-center">
+                                    <div class="btn-group">
+                                        <a class="btn btn-sm btn-default btn-icon btn-hover-success fa fa-pencil add-tooltip"
+                                           href="#" data-original-title="Edit" data-container="body"></a>
+                                        <a class="btn btn-sm btn-default btn-icon btn-hover-danger fa fa-times add-tooltip"
+                                           href="#" data-original-title="Delete" data-container="body"></a>
+                                        <a class="btn btn-sm btn-default btn-icon btn-hover-warning fa fa-lock add-tooltip"
+                                           href="#" data-original-title="Ban user" data-container="body"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="min-w-td">3</td>
+                                <td><img src="../../static/img/av3.png" th:src="@{/img/av3.png}"
+                                         alt="Profile Picture" class="img-circle img-sm"/></td>
+                                <td><a class="btn-link" href="#">Scott S. Calabrese</a></td>
+                                <td>scot.em23@example.com</td>
+                                <td><span class="text-muted"><i class="fa fa-clock-o"></i> Oct 15, 2014</span></td>
+                                <td>$58.87</td>
+                                <td><span class="label label-table label-purple">Bussiness</span></td>
+                                <td class="min-w-td text-center">
+                                    <div class="btn-group">
+                                        <a class="btn btn-sm btn-default btn-icon btn-hover-success fa fa-pencil add-tooltip"
+                                           href="#" data-original-title="Edit" data-container="body"></a>
+                                        <a class="btn btn-sm btn-default btn-icon btn-hover-danger fa fa-times add-tooltip"
+                                           href="#" data-original-title="Delete" data-container="body"></a>
+                                        <a class="btn btn-sm btn-default btn-icon btn-hover-warning fa fa-lock add-tooltip"
+                                           href="#" data-original-title="Ban user" data-container="body"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="min-w-td">4</td>
+                                <td><img src="../../static/img/av4.png" th:src="@{/img/av4.png}"
+                                         alt="Profile Picture" class="img-circle img-sm"/></td>
+                                <td><a class="btn-link" href="#">Lucy Moon</a></td>
+                                <td>just_lucy.doe@example.com</td>
+                                <td><span class="text-muted"><i class="fa fa-clock-o"></i> Oct 12, 2014</span></td>
+                                <td>$97.50</td>
+                                <td><span class="label label-table label-mint">Personal</span></td>
+                                <td class="min-w-td text-center">
+                                    <div class="btn-group">
+                                        <a class="btn btn-sm btn-default btn-icon btn-hover-success fa fa-pencil add-tooltip"
+                                           href="#" data-original-title="Edit" data-container="body"></a>
+                                        <a class="btn btn-sm btn-default btn-icon btn-hover-danger fa fa-times add-tooltip"
+                                           href="#" data-original-title="Delete" data-container="body"></a>
+                                        <a class="btn btn-sm btn-default btn-icon btn-hover-warning fa fa-lock add-tooltip"
+                                           href="#" data-original-title="Ban user" data-container="body"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="min-w-td">5</td>
+                                <td><img src="../../static/img/av5.png" th:src="@{/img/av5.png}"
+                                         alt="Profile Picture" class="img-circle img-sm"/></td>
+                                <td><a class="btn-link" href="#">Teresa L. Doe</a></td>
+                                <td>ter.l.doe@example.com</td>
+                                <td><span class="text-muted"><i class="fa fa-clock-o"></i> Oct 24, 2014</span></td>
+                                <td>$12.79</td>
+                                <td><span class="label label-table label-success">Free</span></td>
+                                <td class="min-w-td text-center">
+                                    <div class="btn-group">
+                                        <a class="btn btn-sm btn-default btn-icon btn-hover-success fa fa-pencil add-tooltip"
+                                           href="#" data-original-title="Edit" data-container="body"></a>
+                                        <a class="btn btn-sm btn-default btn-icon btn-hover-danger fa fa-times add-tooltip"
+                                           href="#" data-original-title="Delete" data-container="body"></a>
+                                        <a class="btn btn-sm btn-default btn-icon btn-hover-warning fa fa-lock add-tooltip"
+                                           href="#" data-original-title="Ban user" data-container="body"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="min-w-td">6</td>
+                                <td><img src="../../static/img/av6.png" th:src="@{/img/av6.png}"
+                                         alt="Profile Picture" class="img-circle img-sm"/></td>
+                                <td><a class="btn-link" href="#">Maria Marz</a></td>
+                                <td>maria_545@example.com</td>
+                                <td><span class="text-muted"><i class="fa fa-clock-o"></i> Oct 12, 2014</span></td>
+                                <td>$249.99</td>
+                                <td><span class="label label-table label-info">Trial</span></td>
+                                <td class="min-w-td text-center">
+                                    <div class="btn-group">
+                                        <a class="btn btn-sm btn-default btn-icon btn-hover-success fa fa-pencil add-tooltip"
+                                           href="#" data-original-title="Edit" data-container="body"></a>
+                                        <a class="btn btn-sm btn-default btn-icon btn-hover-danger fa fa-times add-tooltip"
+                                           href="#" data-original-title="Delete" data-container="body"></a>
+                                        <a class="btn btn-sm btn-default btn-icon btn-hover-warning fa fa-lock add-tooltip"
+                                           href="#" data-original-title="Ban user" data-container="body"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <hr/>
+
+                        <!--Pagination-->
+                        <div class="text-right">
+                            <ul class="pagination mar-no">
+                                <li class="disabled"><a class="fa fa-angle-double-left" href="#"></a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><span>...</span></li>
+                                <li><a href="#">20</a></li>
+                                <li><a class="fa fa-angle-double-right" href="#"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--===================================================-->
+
+                <!-- DEFAULT SEARCH LAYOUT -->
+                <!--===================================================-->
+                <div class="tab-pane fade" id="demo-search-tab-2">
+                    <ul class="list-group bord-no">
+
+                        <li class="list-group-item mar-ver media">
+                            <div class="pull-left">
+                                <img class="img-lg" alt="Image" src="../../static/img/thumbs/img2.jpg"
+                                     th:src="@{/img/thumbs/img2.jpg}"/>
+                            </div>
+                            <div class="media-body">
+                                <div class="media-heading">
+                                    <a class="h4 btn-link" href="#">With Image</a>
+                                </div>
+                                <a class="btn-link text-success box-inline"
+                                   href="#">http://www.example.com/nifty/admin</a>
+                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+                                    euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+                                    minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut
+                                    aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in
+                                    vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis
+                                    at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril
+                                    delenit augue duis dolore te feugait nulla facilisi. </p>
+                            </div>
+                        </li>
+                        <li class="list-group-item mar-ver">
+                            <div class="media-heading">
+                                <a class="h4 btn-link" href="#">Tags</a>
+                            </div>
+                            <a class="btn-link text-success box-inline" href="#">http://www.example.com/nifty/admin</a>
+                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
+                                tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+                                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
+                                consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
+                                consequat.</p>
+
+                            <div class="pad-btm">
+                                <small class="text-muted">Tags:</small>
+                                <a class="label label-primary" href="#">Lorem</a>
+                                <a class="label label-primary" href="#">Ipsum</a>
+                                <a class="label label-primary" href="#">Dolor</a>
+                            </div>
+                        </li>
+                        <li class="list-group-item mar-ver">
+                            <div class="media-heading">
+                                <a class="h4 btn-link" href="#">Some Content</a>
+                            </div>
+                            <a class="btn-link text-success box-inline" href="#">http://www.example.com/nifty/admin</a>
+                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
+                                tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
+                                quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
+                                consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
+                                consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto
+                                odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait
+                                nulla facilisi. </p>
+                        </li>
+                        <li class="list-group-item mar-ver">
+                            <div class="media-heading">
+                                <span class="label label-warning">New</span>
+                                <a class="h4 btn-link" href="#">Label</a>
+                            </div>
+                            <a class="btn-link text-success box-inline" href="#">http://www.example.com/nifty/admin</a>
+                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
+                                tincidunt ut laoreet dolore magna aliquam erat volutpat. </p>
+                        </li>
+                    </ul>
+                    <hr class="hr-wide"/>
+
+                    <!--Pagination-->
+                    <div class="text-right">
+                        <ul class="pagination mar-no">
+                            <li class="disabled"><a class="fa fa-angle-double-left" href="#"></a></li>
+                            <li class="active"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><span>...</span></li>
+                            <li><a href="#">20</a></li>
+                            <li><a class="fa fa-angle-double-right" href="#"></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--===================================================-->
+
+
+                <!-- MESSAGES SEARCH -->
+                <!--===================================================-->
+                <div class="tab-pane fade" id="demo-search-tab-3">
+                    <ul class="mail-list mar-top" id="demo-mail-list">
+
+                        <!--Mail list item-->
+                        <li class="mail-list-unread mail-attach">
+                            <div class="mail-star"><a href="#"></a></div>
+                            <div class="mail-from"><a href="#">Michael Robert</a></div>
+                            <div class="mail-time">05:55 PM</div>
+                            <div class="mail-attach-icon"></div>
+                            <div class="mail-subject">
+                                <a href="mailbox-message.html">This is an example if there is a really really long text.
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, </a>
+                            </div>
+                        </li>
+
+                        <!--Mail list item-->
+                        <li class="mail-starred">
+                            <div class="mail-star"><a href="#"></a></div>
+                            <div class="mail-from"><a href="#">Shopping Mall</a></div>
+                            <div class="mail-time">10:45 AM</div>
+                            <div class="mail-attach-icon"></div>
+                            <div class="mail-subject">
+                                <a href="mailbox-message.html">Tracking Your Order - Shoes Store Online</a>
+                            </div>
+                        </li>
+
+                        <!--Mail list item-->
+                        <li class="mail-list-unread mail-starred mail-attach">
+                            <div class="mail-star"><a href="#"></a></div>
+                            <div class="mail-from"><a href="#">Dropbox</a></div>
+                            <div class="mail-time">07:18 AM</div>
+                            <div class="mail-attach-icon"></div>
+                            <div class="mail-subject">
+                                <a href="mailbox-message.html">Reset your account password</a>
+                            </div>
+                        </li>
+
+                        <!--Mail list item-->
+                        <li class="mail-list-unread">
+                            <div class="mail-star"><a href="#"></a></div>
+                            <div class="mail-from"><a href="#">Server Host</a></div>
+                            <div class="mail-time">01:51 PM</div>
+                            <div class="mail-attach-icon"></div>
+                            <div class="mail-subject">
+                                <a href="mailbox-message.html">
+																<span class="label label-normal label-danger">
+																	Bussines
+																</span>
+                                    Regarding to your website issues.
+                                </a>
+                            </div>
+                        </li>
+
+                        <!--Mail list item-->
+                        <li>
+                            <div class="mail-star"><a href="#"></a></div>
+                            <div class="mail-from"><a href="#">Lisa D. Smith</a></div>
+                            <div class="mail-time">Yesterday</div>
+                            <div class="mail-attach-icon"></div>
+                            <div class="mail-subject">
+                                <a href="mailbox-message.html">Hi John! How are you?</a>
+                            </div>
+                        </li>
+
+                        <!--Mail list item-->
+                        <li class="mail-starred">
+                            <div class="mail-star"><a href="#"></a></div>
+                            <div class="mail-from"><a href="#">Johny Juan</a></div>
+                            <div class="mail-time">Yesterday</div>
+                            <div class="mail-attach-icon"></div>
+                            <div class="mail-subject">
+                                <a href="mailbox-message.html">
+                                    <span class="label label-normal label-info">Partner</span>
+                                    Repair Status Unregistered User
+                                </a>
+                            </div>
+                        </li>
+
+                        <!--Mail list item-->
+                        <li class="mail-attach">
+                            <div class="mail-star"><a href="#"></a></div>
+                            <div class="mail-from"><a href="#">Bobby Marz</a></div>
+                            <div class="mail-time">Oct 10</div>
+                            <div class="mail-attach-icon"></div>
+                            <div class="mail-subject">
+                                <a href="mailbox-message.html">Bugs in your system.</a>
+                            </div>
+                        </li>
+
+                        <!--Mail list item-->
+                        <li class="mail-list-unread mail-starred">
+                            <div class="mail-star"><a href="#"></a></div>
+                            <div class="mail-from"><a href="#">Lucy Moon</a></div>
+                            <div class="mail-time">Oct 10</div>
+                            <div class="mail-attach-icon"></div>
+                            <div class="mail-subject">
+                                <a href="mailbox-message.html">We need to meet up soon</a>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+                <!--===================================================-->
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!--Default Bootstrap Modal-->
+    <!--===================================================-->
+    <div class="modal fade" id="demo-default-modal" role="dialog" tabindex="-1" aria-labelledby="demo-default-modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!--Modal header-->
+                <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Modal Heading</h4>
+                </div>
+
+                <!--Modal body-->
+                <div class="modal-body">
+                    <h4 class="text-thin">Bootstrap Modal Vertical Alignment Center</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+                    <hr/>
+                    <h4 class="text-thin">Popover in a modal</h4>
+                    <p>This
+                        <button class="btn btn-sm btn-warning demo-modal-popover add-popover" data-toggle="popover" data-trigger="focus" data-content="And here\'s some amazing content. It\'s very engaging. right?" data-original-title="Popover Title">button</button>
+                        should trigger a popover on click.
+                    </p>
+                    <hr/>
+                    <h4 class="text-thin">Tooltips in a modal</h4>
+                    <p>
+                        <a class="btn-link add-tooltip" href="#" data-original-title="Tooltip">This link</a> and
+                        <a class="btn-link add-tooltip" href="#" data-original-title="Tooltip">that link</a> should have tooltips on hover.
+                    </p>
+                </div>
+
+                <!--Modal footer-->
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                    <button class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--===================================================-->
+    <!--End Default Bootstrap Modal-->
+
+
+    <!--Bootstrap Modal without Animation-->
+    <!--===================================================-->
+    <div class="modal" id="demo-modal-wo-anim" role="dialog" tabindex="-1" aria-labelledby="demo-default-modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!--Modal header-->
+                <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Modal Heading</h4>
+                </div>
+
+
+                <!--Modal body-->
+                <div class="modal-body">
+                    <h4 class="text-thin">Bootstrap Modal Vertical Alignment Center</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+
+                    <hr/>
+                    <h4 class="text-thin">Popover in a modal</h4>
+                    <p>This
+                        <button class="btn btn-sm btn-warning demo-modal-popover add-popover" data-toggle="popover" data-trigger="focus" data-content="And here\'s some amazing content. It\'s very engaging. right?" data-original-title="Popover Title">button</button> should trigger a popover on click.</p>
+
+                    <hr/>
+
+                    <h4 class="text-thin">Tooltips in a modal</h4>
+                    <p><a class="btn-link add-tooltip" href="#" data-original-title="Tooltip">This link</a> and <a class="btn-link add-tooltip" data-toggle="tooltip" href="#" data-original-title="Tooltip" title="">that link</a> should have tooltips on hover.</p>
+                </div>
+
+
+                <!--Modal footer-->
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                    <button class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--===================================================-->
+    <!--End Bootstrap Modal without Animation-->
+
+</th:block>
+
+</body>
+</html>

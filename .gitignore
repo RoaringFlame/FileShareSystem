@@ -5,3 +5,4 @@ out/
 gradle/
 .settings/
 .gradle
+/src/main/resources/c3p0.properties

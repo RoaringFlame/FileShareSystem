@@ -1,7 +1,7 @@
 package com.fss.controller;
 
-import com.eshore.fss.util.RandomValidateCodeGenerator;
-import com.eshore.fss.vo.Conts;
+import com.fss.util.Conts;
+import com.fss.util.RandomValidateCodeGenerator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -14,15 +14,6 @@ import java.util.Map;
 
 @Controller
 public class LoginController {
-    @RequestMapping("/login")
-    public String login() {
-        return "view/login";
-    }
-
-    @RequestMapping("/")
-    public String index() {
-        return "view/index";
-    }
 
     @RequestMapping("/validate")
     public void validate(HttpSession session ,HttpServletRequest request, HttpServletResponse response) throws

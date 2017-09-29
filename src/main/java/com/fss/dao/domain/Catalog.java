@@ -1,39 +1,45 @@
 package com.fss.dao.domain;
 
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.*;
 
-import javax.persistence.Column;
+import javax.persistence.*;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "t_catalog", catalog = "")
-public class Catalog {
-    private String id;
-    private String parentId;
+@SQLDelete(sql = "UPDATE t_catalog SET state = 0 WHERE id = ?", check = ResultCheckStyle.COUNT)
+@Where(clause = "usable <> 0")
+public class Catalog extends BaseEntity implements Serializable {
+
+    private Catalog parentCatalog;
+    private List<Catalog> childCatalog;
     private String name;
     private String description;
-    private boolean usable;
 
-    @Id
-    @Column(name = "id")
-    @GenericGenerator(name = "uuid", strategy = "uuid")
-    public String getId() {
-        return id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
+    public Catalog getParentCatalog() {
+        return parentCatalog;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setParentCatalog(Catalog parentCatalog) {
+        this.parentCatalog = parentCatalog;
     }
 
-    @Column(name = "parent_id")
-    public String getParentId() {
-        return parentId;
+    @OneToMany(targetEntity = Catalog.class, cascade = { CascadeType.ALL }, mappedBy = "parentCatalog")
+    @Fetch(FetchMode.SUBSELECT)
+    @OrderBy("createTime desc")
+    public List<Catalog> getChildCatalog() {
+        return childCatalog;
     }
 
-    public void setParentId(String parentId) {
-        this.parentId = parentId;
+    public void setChildCatalog(List<Catalog> childCatalog) {
+        this.childCatalog = childCatalog;
     }
 
     @Column(name = "name")
@@ -52,38 +58,5 @@ public class Catalog {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    @Column(name = "usable")
-    public boolean getUsable() {
-        return usable;
-    }
-
-    public void setUsable(boolean usable) {
-        this.usable = usable;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Catalog catalog = (Catalog) o;
-
-        if (id != null ? !id.equals(catalog.id) : catalog.id != null) return false;
-        if (parentId != null ? !parentId.equals(catalog.parentId) : catalog.parentId != null) return false;
-        if (name != null ? !name.equals(catalog.name) : catalog.name != null) return false;
-        if (description != null ? !description.equals(catalog.description) : catalog.description != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (parentId != null ? parentId.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        return result;
     }
 }

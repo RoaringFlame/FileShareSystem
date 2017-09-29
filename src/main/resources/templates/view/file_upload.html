@@ -1,0 +1,131 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorator="layout/layout">
+<head>
+    <title>上传文件</title>
+    <meta charset="utf-8"/>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div id="page-content">
+        <div class="panel-heading">
+            <h3 class="panel-title">上传文件</h3>
+        </div>
+        <div class="row">
+            <!--设置白色边框大小 col-sm-数字-->
+            <div class="col-sm-12">
+                <div class="panel">
+                    <div class="panel-body">
+
+
+                        <form id="postForm" method="post" enctype="multipart/form-data">
+                            <input type="file" id="file" name="file" style="display:inline"/>
+
+                            <div style="display:inline">
+                                <h5 style="display:inline">选择目录</h5>
+                                <select id="catalogId" name="catalogId" data-placeholder="请选择" tabindex="2">
+                                    <option value="" selected="selected">选择目录</option>
+                                </select>
+                            </div>
+
+                            <br/>
+                            <br/>
+                            <br/>
+                            <table width="800" align="center" border="0" cellpadding="0" cellspacing="0"
+                                   class="newContTab">
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <td>
+                                        <div style="margin-right: 178px;display:inline">
+                                            <a class="btn btn-sm btn-default btn-hover-success active"> 全体</a>
+                                        </div>
+                                        <div style="margin-right: 154px;display:inline">
+                                            <a class="btn btn-sm btn-default btn-hover-success active"> 下载权限</a>
+                                        </div>
+                                        <div style="display:inline">
+                                            <a class="btn btn-sm btn-default btn-hover-success active"> 修改权限</a>
+                                        </div>
+                                        <div>
+                                            <select multiple="multiple" id="select1"
+                                                    style="width:150px;height:200px; float:left; border:4px #A0A0A4 outset; padding:4px; ">
+                                            </select>
+                                        </div>
+
+
+                                        <div style="float:left">
+                                            <span id="add">
+                                                <input type="button" class="btn btn-info" value="添加&gt;"/>
+                                            </span><br/><br/>
+                                            <span id="add_all">
+                                                <input type="button" class="btn btn-info" value="添加全部"/>
+                                            </span> <br/><br/>
+                                            <span id="remove">
+                                                <input type="button" class="btn btn-info" value="&lt;移除"/>
+                                            </span><br/><br/>
+                                            <span id="remove_all">
+                                                <input type="button" class="btn btn-info" value="移除全部"/>
+                                            </span>
+                                        </div>
+
+
+                                        <div>
+                                            <select multiple="multiple" id="select2" name="canLoadUserIds"
+                                                    style="width: 150px;height:200px; float:left;border:4px #A0A0A4 outset; padding:4px;">
+                                            </select>
+                                        </div>
+
+
+                                        <div style="float:left">
+                                            <span id="add2">
+                                                <input type="button" class="btn btn-info" value="添加&gt;"/>
+                                            </span><br/><br/>
+                                            <span id="add_all2">
+                                                <input type="button" class="btn btn-info" value="添加全部"/>
+                                            </span> <br/><br/>
+                                            <span id="remove2">
+                                                <input type="button" class="btn btn-info" value="&lt;移除"/>
+                                            </span><br/><br/>
+                                            <span id="remove_all2">
+                                                <input type="button" class="btn btn-info" value="移除全部"/>
+                                            </span>
+                                        </div>
+
+
+                                        <div>
+                                            <select multiple="multiple" id="select3" name="canReviseUserIds"
+                                                    style="width: 150px;height:200px; float:left;border:4px #A0A0A4 outset; padding:4px;">
+                                            </select>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <div class="panel-footer text-right">
+                                <label class="form-checkbox form-icon form-text">
+                                    <input id="canCover" name="canCover" type="checkbox"/>
+                                    <span>是否可覆盖</span>
+                                </label>
+                                <label class="form-checkbox form-icon form-text">
+                                    <input id="emailTo" name="isMailTo" type="checkbox"/>
+                                    <span>是否发送邮件通知</span>
+                                </label>
+                            </div>
+                            <div class="panel-footer text-right">
+                                <button id="submitButton" class="btn btn-info" type="button">提交</button>
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../static/js/jquery-2.1.1.min.js" th:src="@{/js/jquery-2.1.1.min.js}"></script>
+    <script src="../../static/js/scripts/file_upload.js" th:src="@{/js/scripts/file_upload.js}"></script>
+</th:block>
+</body>
+</html>

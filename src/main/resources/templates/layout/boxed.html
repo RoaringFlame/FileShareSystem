@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<meta charset="utf-8"/>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.oauth.com/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<div class="boxed">
+
+    <!--CONTENT CONTAINER-->
+    <!--===================================================-->
+    <div id="content-container">
+        <div id="page-title">
+            <h1 class="page-header text-overflow"></h1>
+
+            <!--Searchbox-->
+            <!--<div class="searchbox">-->
+                <!--<div class="input-group custom-search-form">-->
+                    <!--<input type="text" class="form-control" placeholder="搜索.."/>-->
+                    <!--<span class="input-group-btn">-->
+                        <!--<button class="text-muted" type="button"><i class="fa fa-search"></i></button>-->
+                    <!--</span>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <th:block layout:fragment="content"/>
+
+    </div>
+    <!--===================================================-->
+    <!--END CONTENT CONTAINER-->
+
+
+    <!--MAIN NAVIGATION-->
+    <!--===================================================-->
+    <nav id="mainnav-container">
+        <div id="mainnav">
+
+            <!--Shortcut buttons-->
+            <!--================================-->
+            <div id="mainnav-shortcut">
+
+            </div>
+            <!--================================-->
+            <!--End shortcut buttons-->
+
+
+            <!--Menu-->
+            <!--================================-->
+            <div id="mainnav-menu-wrap">
+                <div class="nano">
+                    <div class="nano-content">
+                        <ul id="mainnav-menu" class="list-group">
+
+                            <!--Category name-->
+                            <li class="list-header">Navigation</li>
+
+                            <!--Menu list item-->
+                            <li class="active-link">
+                                <a href="../view/index.html" th:href="@{/}">
+                                    <i class="fa fa-dashboard"></i>
+                                    <span class="menu-title">
+                                        <strong>我的工作台</strong>
+                                        <span class="label label-success pull-right">首页</span>
+                                    </span>
+                                </a>
+                            </li>
+
+
+                            <li class="list-divider"></li>
+
+                            <!--Category name-->
+                            <li class="list-header">Components</li>
+
+                            <!--Menu list item-->
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-file"></i>
+                                    <span class="menu-title">文件管理</span>
+                                    <i class="arrow"></i>
+                                </a>
+
+                                <!--Submenu-->
+                                <ul class="collapse">
+                                    <li><a href="../view/file_receive.html"
+                                           th:href="@{/file/receive}">待接收文件</a></li>
+                                    <li><a href="../view/show_received.html"
+                                           th:href="@{/file/showReceived}">已接收文件</a></li>
+                                    <li><a href="../view/show_uploaded.html"
+                                           th:href="@{/file/showUploaded}">已上传文件</a></li>
+                                    <!--<li><a href="../view/file_upload.html"-->
+                                           <!--th:href="@{/file/upload}">上传文件</a></li>-->
+                                </ul>
+                            </li>
+
+                            <!--Menu list item-->
+                            <li>
+                                <a href="../view/user_mgr.html" th:href="@{/user/ui}">
+                                    <i class="fa fa-users"></i>
+                                    <span class="menu-title">用户管理</span>
+                                    <!--<i class="arrow"></i>-->
+                                </a>
+                            </li>
+
+                            <!--Menu list item-->
+                            <li sec:authorize="hasAnyRole('ROLE_MANAGER','ROLE_SENIOR')">
+                                <a href="../view/catalog_mgr.html" th:href="@{/catalog/ui}">
+                                    <i class="fa fa-table"></i>
+                                    <span class="menu-title">目录管理</span>
+                                    <!--<i class="arrow"></i>-->
+                                </a>
+                            </li>
+
+                            <!--Menu list item-->
+                            <li>
+                                <a href="../view/change_pwd.html" th:href="@{/user/changePwd}">
+                                    <i class="fa fa-wrench"></i>
+                                    <span class="menu-title">修改密码</span>
+                                </a>
+                            </li>
+
+                            <!--<li>-->
+                                <!--<a href="../view/change_pwd.html" th:href="@{/client/ui}">-->
+                                    <!--<span class="menu-title">表单-模态框</span>-->
+                                <!--</a>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<a href="../view/change_pwd.html" th:href="@{/client/button}">-->
+                                    <!--<span class="menu-title">按钮-下拉框</span>-->
+                                <!--</a>-->
+                            <!--</li>-->
+
+                            <li class="list-divider"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--================================-->
+            <!--End menu-->
+
+        </div>
+    </nav>
+    <!--===================================================-->
+    <!--END MAIN NAVIGATION-->
+</div>
+</html>

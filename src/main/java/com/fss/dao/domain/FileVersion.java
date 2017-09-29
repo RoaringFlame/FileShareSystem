@@ -1,52 +1,43 @@
 package com.fss.dao.domain;
 
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.Date;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "t_file_version", catalog = "")
-public class FileVersion {
-    private String id;
-    private String userId;
-    private String fileId;
+@SQLDelete(sql = "UPDATE t_file_version SET state = 0 WHERE id = ?", check = ResultCheckStyle.COUNT)
+@Where(clause = "usable <> 0")
+public class FileVersion extends BaseEntity implements Serializable {
+
+    private User author;
+    private File file;
     private Double number;
     private String realName;
-    private Date createTime;
     private Integer count;
     private boolean canCover;
 
-    @Id
-    @Column(name = "id")
-    @GenericGenerator(name = "uuid", strategy = "uuid")
-    public String getId() {
-        return id;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    public User getAuthor() {
+        return author;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
-    @Column(name = "user_id")
-    public String getUserId() {
-        return userId;
+    @ManyToOne
+    @JoinColumn(name = "file_id")
+    public File getFile() {
+        return file;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    @Column(name = "file_id")
-    public String getFileId() {
-        return fileId;
-    }
-
-    public void setFileId(String fileId) {
-        this.fileId = fileId;
+    public void setFile(File file) {
+        this.file = file;
     }
 
     @Column(name = "number")
@@ -58,22 +49,13 @@ public class FileVersion {
         this.number = number;
     }
 
+    @Column(name = "real_name")
     public String getRealName() {
         return realName;
     }
 
-    @Column(name = "real_name")
     public void setRealName(String realName) {
         this.realName = realName;
-    }
-
-    @Column(name = "create_time")
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
     }
 
     @Column(name = "count")
@@ -94,31 +76,4 @@ public class FileVersion {
         this.canCover = canCover;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        FileVersion that = (FileVersion) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
-        if (fileId != null ? !fileId.equals(that.fileId) : that.fileId != null) return false;
-        if (number != null ? !number.equals(that.number) : that.number != null) return false;
-        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
-        if (count != null ? !count.equals(that.count) : that.count != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
-        result = 31 * result + (fileId != null ? fileId.hashCode() : 0);
-        result = 31 * result + (number != null ? number.hashCode() : 0);
-        result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
-        result = 31 * result + (count != null ? count.hashCode() : 0);
-        return result;
-    }
 }

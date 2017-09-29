@@ -1,61 +1,46 @@
 package com.fss.dao.domain;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.jws.HandlerChain;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "t_file_receive", catalog = "")
-public class FileReceive {
-    private String id;
-    private String versionId;
-    private String FileId;
-    private String userId;
+@SQLDelete(sql = "UPDATE t_file_receive SET state = 0 WHERE id = ?", check = ResultCheckStyle.COUNT)
+@Where(clause = "usable <> 0")
+public class FileReceive extends BaseEntity implements Serializable {
+
+    private File file;
+    private User receiver;
     private boolean isAlert;
     private boolean canRevise;
     private boolean isReceived;
     private Date downloadTime;
 
-    @Id
-    @Column(name = "id")
-    @GenericGenerator(name = "uuid", strategy = "uuid")
-    public String getId() {
-        return id;
+    @ManyToOne
+    @JoinColumn(name = "file_id")
+    public File getFile() {
+        return file;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setFile(File file) {
+        this.file = file;
     }
 
-    @Column(name = "version_id")
-    public String getVersionId() {
-        return versionId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    public User getReceiver() {
+        return receiver;
     }
 
-    public void setVersionId(String versionId) {
-        this.versionId = versionId;
-    }
-
-    @Column(name = "file_id")
-    public String getFileId() {
-        return FileId;
-    }
-
-    public void setFileId(String fileId) {
-        FileId = fileId;
-    }
-
-    @Column(name = "user_id")
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
     }
 
     @Column(name = "is_alert")
@@ -90,29 +75,5 @@ public class FileReceive {
 
     public void setDownloadTime(Date downloadTime) {
         this.downloadTime = downloadTime;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        FileReceive that = (FileReceive) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (versionId != null ? !versionId.equals(that.versionId) : that.versionId != null) return false;
-        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
-        if (downloadTime != null ? !downloadTime.equals(that.downloadTime) : that.downloadTime != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (versionId != null ? versionId.hashCode() : 0);
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
-        result = 31 * result + (downloadTime != null ? downloadTime.hashCode() : 0);
-        return result;
     }
 }

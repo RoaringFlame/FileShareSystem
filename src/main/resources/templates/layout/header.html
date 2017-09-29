@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<meta charset="utf-8"/>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<header id="navbar">
+    <div id="navbar-container" class="boxed">
+
+        <!--Brand logo & name-->
+        <!--================================-->
+        <div class="navbar-header">
+            <a th:href="@{/}" class="navbar-brand">
+                <img src="../../static/img/logo.png" th:src="@{/img/logo.png}"
+                     alt="Nifty Logo" class="brand-icon"/>
+                <div class="brand-title">
+                    <span class="brand-text">文件共享系统</span>
+                </div>
+            </a>
+        </div>
+        <!--================================-->
+        <!--End brand logo & name-->
+
+
+        <!--Navbar Dropdown-->
+        <!--================================-->
+        <div class="navbar-content clearfix">
+            <ul class="nav navbar-top-links pull-left">
+
+                <!--Navigation toogle button-->
+                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <li class="tgl-menu-btn">
+                    <a class="mainnav-toggle" href="#">
+                        <i class="fa fa-navicon fa-lg"></i>
+                    </a>
+                </li>
+                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <!--End Navigation toogle button-->
+
+                <!--Notification dropdown-->
+                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <!--<li class="dropdown">-->
+                    <!--<a href="#" data-toggle="dropdown" class="dropdown-toggle">-->
+                        <!--<i class="fa fa-bell fa-lg"></i>-->
+                        <!--<span id="alertCount" class="badge badge-header badge-danger" style="display: none">3</span>-->
+                    <!--</a>-->
+
+                    <!--&lt;!&ndash;Notification dropdown menu&ndash;&gt;-->
+                    <!--<div class="dropdown-menu dropdown-menu-md">-->
+                        <!--<div class="pad-all bord-btm">-->
+                            <!--<p class="text-lg text-muted text-semibold mar-no">您有<span id="count">3</span>个紧急文件待查看！-->
+                            <!--</p>-->
+                        <!--</div>-->
+                        <!--<div class="nano scrollable">-->
+                            <!--<div class="nano-content">-->
+                                <!--<ul id="alertList" class="head-list">-->
+                                    <!--&lt;!&ndash; Dropdown list&ndash;&gt;-->
+                                    <!--<li id="alertBox">-->
+                                        <!--<a href="#" class="media">-->
+                                            <!--<div class="media-left">-->
+                                                <!--<img src="../../static/img/av4.png" th:src="@{/img/av4.png}"-->
+                                                     <!--alt="Profile Picture" class="img-circle img-sm"/>-->
+                                            <!--</div>-->
+                                            <!--<div class="media-body">-->
+                                                <!--<div class="text-nowrap" style="width: 160px; overflow: hidden;-->
+                                                <!--text-overflow:ellipsis; white-space: nowrap;">彭代雪 &nbsp;《应届生入职指引》</div>-->
+                                                <!--<small class="text-muted">30分钟前</small>-->
+                                            <!--</div>-->
+                                        <!--</a>-->
+                                    <!--</li>-->
+
+                                    <!--&lt;!&ndash; Dropdown list&ndash;&gt;-->
+                                    <!--<li>-->
+                                        <!--<a href="#" class="media">-->
+                                            <!--<div class="media-left">-->
+                                                <!--<img src="../../static/img/av3.png" th:src="@{/img/av3.png}"-->
+                                                     <!--alt="Profile Picture" class="img-circle img-sm"/>-->
+                                            <!--</div>-->
+                                            <!--<div class="media-body">-->
+                                                <!--<div class="text-nowrap">柳军 &nbsp;《2017年8月重要活动》</div>-->
+                                                <!--<small class="text-muted">40分钟前</small>-->
+                                            <!--</div>-->
+                                        <!--</a>-->
+                                    <!--</li>-->
+                                    <!--<li>-->
+                                        <!--<a href="#" class="media">-->
+                                            <!--<div class="media-left">-->
+                                                <!--<img src="../../static/img/av6.png" th:src="@{/img/av6.png}"-->
+                                                     <!--alt="Profile Picture" class="img-circle img-sm"/>-->
+                                            <!--</div>-->
+                                            <!--<div class="media-body">-->
+                                                <!--<div class="text-nowrap">邓惠丹 &nbsp;《2017年8月报销记录》</div>-->
+                                                <!--<small class="text-muted">一天前</small>-->
+                                            <!--</div>-->
+                                        <!--</a>-->
+                                    <!--</li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--&lt;!&ndash;Dropdown footer&ndash;&gt;-->
+                        <!--<div class="pad-all bord-top">-->
+                            <!--<a href="../view/file_receive.html" th:href="@{/file/receive}"-->
+                               <!--class="btn-link text-dark box-block">-->
+                                <!--<i class="fa fa-angle-right fa-lg pull-right"></i>显示更多..-->
+                            <!--</a>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <!--End notifications dropdown-->
+
+            </ul>
+            <ul class="nav navbar-top-links pull-right">
+
+                <li>
+                    <a id="demo-lang-switch" class="lang-selector dropdown-toggle"
+                       href="../view/file_upload.html" th:href="@{/file/upload}" >
+                        <span class="lang-selected">
+                            上传
+                            <i class="fa fa-cloud-upload" aria-hidden="true" style="font-size: 20px"></i>
+                        </span>
+                    </a>
+                </li>
+
+                <!--<li>-->
+                    <!--<button id="email" class="btn btn-pink btn-icon btn-circle icon-lg fa fa-envelope"></button>-->
+                <!--</li>-->
+
+                <!--User dropdown-->
+                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <li id="dropdown-user" class="dropdown">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
+                                <span class="pull-right">
+                                    <img class="img-circle img-user media-object" src="../../static/img/av1.png"
+                                         th:src="@{'/img/'+${session['SPRING_SECURITY_CONTEXT'].authentication.principal.pictureName}}" alt="Profile Picture"/>
+                                </span>
+                        <div class="username hidden-xs" sec:authorize="isAuthenticated()">
+                            <span sec:authentication="principal.name"></span>
+                        </div>
+                    </a>
+
+                    <div class="dropdown-menu panel-default">
+
+                        <!-- Dropdown footer -->
+                        <div class="pad-all bord-btm">
+                            <form th:action="@{/logout}" method="post">
+                                <input type="submit" class="btn btn-primary" value="注销"/>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <!--End user dropdown-->
+
+            </ul>
+        </div>
+        <!--================================-->
+        <!--End Navbar Dropdown-->
+
+    </div>
+</header>
+</html>

@@ -26,6 +26,7 @@ dependencies {
     compile "mysql:mysql-connector-java:5.1.34"
     compile "javax.mail:mail:1.4.7"
     compile "c3p0:c3p0:0.9.1.2"
+    compile "com.google.guava:guava:17.0"
     compile "javax.inject:javax.inject:1"
 
     compile files('src\\main\\webapp\\WEB-INF\\lib\\taobao-sdk-java-auto_1455552377940-20160607.jar')

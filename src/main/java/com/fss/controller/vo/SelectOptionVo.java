@@ -4,7 +4,7 @@ import com.fss.util.Selector;
 
 import java.util.List;
 
-public class SelectOptionVo {
+public class SelectOptionVO {
 	private List<Selector> genderList;
 	private List<Selector> departmentList;
 	private List<Selector> roleList;

@@ -1,20 +1,20 @@
 package com.fss.service;
 
 
-import com.fss.controller.vo.CatalogVo;
-import com.fss.controller.vo.JsonResultVo;
+import com.fss.controller.vo.CatalogVO;
+import com.fss.controller.vo.JsonResultVO;
 
 import java.util.List;
 import java.util.Map;
 
 public interface ICatalogService {
-    public JsonResultVo addOrUpdate(CatalogVo catalogVo);
+    JsonResultVO addOrUpdate(CatalogVO catalogVO);
 
-    public JsonResultVo deleteCatalogById(String catalogId);
+    JsonResultVO deleteCatalogById(String catalogId);
 
-    public CatalogVo getCatalogInfo(String catalogId);
+    CatalogVO getCatalogInfo(String catalogId);
 
-    public Map<String,Map<String,String>> getAllCatalog();
+    Map<String,Map<String,String>> getAllCatalog();
 
-	public List<CatalogVo> getCatalogList();
+	List<CatalogVO> getCatalogList();
 }

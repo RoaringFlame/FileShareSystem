@@ -1,6 +1,9 @@
 package com.fss.dao.repositories;
 
+import com.fss.controller.vo.UserSearchKeys;
 import com.fss.dao.domain.User;
+import com.fss.util.PageConfig;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -16,17 +19,17 @@ public interface UserRepository extends BaseRepository<User> {
     /**
      * 用户姓名获取用户信息
      * SpringSecurity模块UserDetailsService接口使用
-     * @param name              用户姓名
+     * @param username              账号
      * @return                  用户对象
      */
-    User findByName(String name);
+    User findByUsername(String username);
 
     /**
-     * 通过邮箱查用户
-     * @param email             邮箱
-     * @return                  用户对象
+     * 根据关键字查询用户
+     * @param userSearchKeys
+     * @param pageConfig
+     * @return
      */
-    User findByEmail(String email);
-
-
+    // TODO: 2017/9/29 PageVO与PageConfig的使用有待改进，尽量用JPA自动查询
+    Page<User> queryUserPage(UserSearchKeys userSearchKeys, PageConfig pageConfig);
 }

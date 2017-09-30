@@ -2,7 +2,7 @@ package com.fss.controller.vo;
 
 import java.util.List;
 
-public class UserAlertVo {
+public class UserAlertVO {
     private List<UserAlert> alertList;
     private int count;
 

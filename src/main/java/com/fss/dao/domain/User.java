@@ -4,14 +4,12 @@ package com.fss.dao.domain;
 import com.fss.dao.enums.Department;
 import com.fss.dao.enums.Gender;
 import com.fss.dao.enums.UserRole;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 

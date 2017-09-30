@@ -1,8 +1,8 @@
 package com.fss.controller.rest;
 
 
-import com.fss.controller.vo.CatalogVo;
-import com.fss.controller.vo.JsonResultVo;
+import com.fss.controller.vo.CatalogVO;
+import com.fss.controller.vo.JsonResultVO;
 import com.fss.dao.domain.User;
 import com.fss.dao.enums.UserRole;
 import com.fss.service.ICatalogService;
@@ -28,17 +28,17 @@ public class CatalogRESTController {
 
     /**
      * 添加或修改目录，注：通过是否有传递catalogVo.id判断
-     * @param catalogVo 目录数据类
+     * @param catalogVO 目录数据类
      * @return json信息
      */
     // TODO: 2017/9/4 权限配置，最高级才可以发送这些请求，nowUser加cache！
     @RequestMapping(value = "/addOrUpdate",method = RequestMethod.POST)
-    public JsonResultVo addOrUpdateCatalog(CatalogVo catalogVo){
+    public JsonResultVO addOrUpdateCatalog(CatalogVO catalogVO){
     	User user = userService.getNowUser();
     	if(user.getRole()== UserRole.MANAGER)
-    		return this.catalogService.addOrUpdate(catalogVo);
+    		return this.catalogService.addOrUpdate(catalogVO);
     	else
-    		return new JsonResultVo(JsonResultVo.FAILURE, "权限不足");
+    		return new JsonResultVO(JsonResultVO.FAILURE, "权限不足");
     }
 
     /**
@@ -47,12 +47,12 @@ public class CatalogRESTController {
      * @return json信息
      */
     @RequestMapping(value = "/delete/{catalogId}", method = RequestMethod.DELETE)
-    public JsonResultVo deleteCatalog(@PathVariable String catalogId){
+    public JsonResultVO deleteCatalog(@PathVariable String catalogId){
     	User user = userService.getNowUser();
     	if(user.getRole()==UserRole.MANAGER)
     		return this.catalogService.deleteCatalogById(catalogId);
     	else
-    		return new JsonResultVo(JsonResultVo.FAILURE, "权限不足");
+    		return new JsonResultVO(JsonResultVO.FAILURE, "权限不足");
     }
 
     /**
@@ -61,7 +61,7 @@ public class CatalogRESTController {
      * @return
      */
     @RequestMapping(value = "/showInfo/{catalogId}",method = RequestMethod.GET)
-    public CatalogVo showCatalogInfo(@PathVariable String catalogId){
+    public CatalogVO showCatalogInfo(@PathVariable String catalogId){
         return this.catalogService.getCatalogInfo(catalogId);
     }
 
@@ -71,7 +71,7 @@ public class CatalogRESTController {
      * @return
      */
     @RequestMapping(value = "/showCatalogList",method = RequestMethod.GET)
-    public List<CatalogVo> showCatalogList(){
+    public List<CatalogVO> showCatalogList(){
         return this.catalogService.getCatalogList();
     }
     

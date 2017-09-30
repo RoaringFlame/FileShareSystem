@@ -1,9 +1,9 @@
 package com.fss.controller.vo;
 
-import com.fss.util.CustomDateSerializer;
-import com.fss.util.CustomJsonDateDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fss.util.CustomDateSerializer;
+import com.fss.util.CustomJsonDateDeserializer;
 
 import java.util.Date;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 页面文件展示类
  */
-public class HomeFileInfoVo {
+public class HomeFileInfoVO {
     private String userId;
     private String headPicture;
     private String name;

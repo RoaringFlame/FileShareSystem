@@ -7,7 +7,7 @@ import com.fss.util.CustomJsonDateDeserializer;
 
 import java.util.Date;
 
-public class FileHistoryVo {
+public class FileHistoryVO {
     private String versionId;
     private Double versionNumber;
     private String name;

@@ -10,20 +10,20 @@ import java.util.List;
 /**
  * 目录信息类
  */
-public class CatalogVo {
+public class CatalogVO {
     private String id;
     private String parentId;
     private String name;
     private String description;
 
-    public static CatalogVo generateBy(Catalog catalog) {
-        CatalogVo catalogVo = VoUtil.copyBasic(CatalogVo.class, catalog);
+    public static CatalogVO generateBy(Catalog catalog) {
+        CatalogVO catalogVO = VoUtil.copyBasic(CatalogVO.class, catalog);
         assert catalog != null;
-        return catalogVo;
+        return catalogVO;
     }
     
-    public static List<CatalogVo> generateBy(List<Catalog> catalogList) {
-    	List<CatalogVo> list = new ArrayList<>();
+    public static List<CatalogVO> generateBy(List<Catalog> catalogList) {
+    	List<CatalogVO> list = new ArrayList<>();
         for (Catalog u : catalogList) {
             list.add(generateBy(u));
         }

@@ -2,16 +2,16 @@ package com.fss.controller.vo;
 
 import java.util.List;
 
-public class HomeFileReceiveVo {
-    private List<FileInfoVo> fileInfoVoList;
+public class HomeFileReceiveVO {
+    private List<FileInfoVO> fileInfoVOList;
     private int count;
 
-    public List<FileInfoVo> getFileInfoVoList() {
-        return fileInfoVoList;
+    public List<FileInfoVO> getFileInfoVOList() {
+        return fileInfoVOList;
     }
 
-    public void setFileInfoVoList(List<FileInfoVo> fileInfoVoList) {
-        this.fileInfoVoList = fileInfoVoList;
+    public void setFileInfoVOList(List<FileInfoVO> fileInfoVOList) {
+        this.fileInfoVOList = fileInfoVOList;
     }
 
     public int getCount() {

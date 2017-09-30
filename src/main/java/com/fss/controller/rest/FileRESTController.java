@@ -3,7 +3,6 @@ package com.fss.controller.rest;
 import com.fss.controller.vo.*;
 import com.fss.service.IFileService;
 import com.fss.service.IUserService;
-import com.fss.util.PageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,7 +38,7 @@ public class FileRESTController {
      * @throws Exception 文件上传错误信息
      */
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public JsonResultVo updateUserPicture(
+    public JsonResultVO updateUserPicture(
             @RequestParam MultipartFile file, @RequestParam String catalogId, @RequestParam String canLoadUserIds,
             @RequestParam String canReviseUserIds,
             @RequestParam(required = false, defaultValue = "false") boolean canCover,
@@ -68,7 +67,7 @@ public class FileRESTController {
             fileUploadParam.setUserInfo(userInfo);
             return this.fileService.upload(userInfo.getName(),file, fileUploadParam, request);
         }
-        return new JsonResultVo(JsonResultVo.FAILURE, "请重新登录");
+        return new JsonResultVO(JsonResultVO.FAILURE, "请重新登录");
     }
 
     @RequestMapping(value = "/initRevise/{fileId}", method = RequestMethod.GET)
@@ -78,7 +77,7 @@ public class FileRESTController {
     }
 
     @RequestMapping(value = "/reviseRole/{fileId}", method = RequestMethod.POST)
-    public JsonResultVo reviseRole(@PathVariable String fileId,
+    public JsonResultVO reviseRole(@PathVariable String fileId,
                                    @RequestParam String canLoadUserIds,
                                    @RequestParam String canReviseUserIds) {
         UserInfo userInfo = userService.getNowUserInfo();
@@ -99,37 +98,37 @@ public class FileRESTController {
             canReviseSet.addAll(canReviseIds);
             FileUploadParam fileUploadParam = new FileUploadParam();
             return fileService.reviseRole(userInfo.getUserId(), fileId,canLoadIdSet,canReviseSet);
-        } else return new JsonResultVo(JsonResultVo.FAILURE, "请重新登录");
+        } else return new JsonResultVO(JsonResultVO.FAILURE, "请重新登录");
     }
 
     @RequestMapping(value = "/reviseFile/{fileVersionId}", method = RequestMethod.POST)
-    public JsonResultVo reviseFile(
+    public JsonResultVO reviseFile(
             @RequestParam MultipartFile file, @PathVariable String fileVersionId,
             @RequestParam(required = false, defaultValue = "false") boolean canCover, HttpServletRequest request) {
         UserInfo userInfo = userService.getNowUserInfo();
         if (userInfo != null) {
             return fileService.reviseFile(userInfo.getUserId(), file, fileVersionId, canCover, request);
         }
-        return new JsonResultVo(JsonResultVo.FAILURE, "请重新登录");
+        return new JsonResultVO(JsonResultVO.FAILURE, "请重新登录");
     }
 
     @RequestMapping(value = "/download/{versionId}", method = RequestMethod.GET)
-    public JsonResultVo downloadFile(
+    public JsonResultVO downloadFile(
             @PathVariable String versionId, HttpServletRequest request, HttpServletResponse response) {
         UserInfo userInfo = userService.getNowUserInfo();
         if (userInfo != null) {
             return fileService.download(userInfo.getUserId(), versionId, request, response);
         } else
-            return new JsonResultVo(JsonResultVo.FAILURE, "请重新登录");
+            return new JsonResultVO(JsonResultVO.FAILURE, "请重新登录");
     }
 
     @RequestMapping(value = "/delete/{fileId}", method = RequestMethod.POST)
-    public JsonResultVo deleteFile(@PathVariable String fileId) {
+    public JsonResultVO deleteFile(@PathVariable String fileId) {
         UserInfo userInfo = userService.getNowUserInfo();
         if (userInfo != null) {
             return fileService.deleteFile(fileId, userInfo.getUserId());
         } else
-            return new JsonResultVo(JsonResultVo.FAILURE, "请重新登录");
+            return new JsonResultVO(JsonResultVO.FAILURE, "请重新登录");
     }
 
     /**
@@ -138,7 +137,7 @@ public class FileRESTController {
      * @return 文件列表
      */
     @RequestMapping(value = "/home/needReceive", method = RequestMethod.GET)
-    public HomeFileReceiveVo getNeedReceive() {
+    public HomeFileReceiveVO getNeedReceive() {
         UserInfo userInfo = userService.getNowUserInfo();
         if (userInfo != null) {
             return fileService.getHomeFileNeedReceive(userInfo.getUserId());
@@ -152,7 +151,7 @@ public class FileRESTController {
      * @return 文件列表
      */
     @RequestMapping(value = "/home/received", method = RequestMethod.GET)
-    public List<FileInfoVo> getReceived() {
+    public List<FileInfoVO> getReceived() {
         UserInfo userInfo = userService.getNowUserInfo();
         if (userInfo != null) {
             return fileService.getHomeFileReceived(userInfo.getUserId());
@@ -166,7 +165,7 @@ public class FileRESTController {
      * @return 文件列表
      */
     @RequestMapping(value = "/home/uploaded", method = RequestMethod.GET)
-    private List<FileInfoVo> getUploaded() {
+    private List<FileInfoVO> getUploaded() {
         UserInfo userinfo = userService.getNowUserInfo();
         if (userinfo != null) {
             return fileService.getHomeFileUploaded(userinfo.getUserId());
@@ -184,7 +183,7 @@ public class FileRESTController {
      * @return 文件列表
      */
     @RequestMapping(value = "/pageNeedReceive", method = RequestMethod.GET)
-    private PageVo<FileInfoVo> getPageNeedReceive(
+    private PageVO<FileInfoVO> getPageNeedReceive(
             @RequestParam(required = false, defaultValue = "") String departmentKey,
             @RequestParam(required = false, defaultValue = "") String catalogNameKey,
             @RequestParam(required = false, defaultValue = "") String nameKey,
@@ -217,7 +216,7 @@ public class FileRESTController {
      * @return 文件列表
      */
     @RequestMapping(value = "/pageReceived", method = RequestMethod.GET)
-    private PageVo<FileInfoVo> getPageReceived(
+    private PageVO<FileInfoVO> getPageReceived(
             @RequestParam(required = false, defaultValue = "") String departmentKey,
             @RequestParam(required = false, defaultValue = "") String catalogNameKey,
             @RequestParam(required = false, defaultValue = "") String nameKey,
@@ -249,7 +248,7 @@ public class FileRESTController {
      * @return 文件列表
      */
     @RequestMapping(value = "/pageUploaded", method = RequestMethod.GET)
-    private PageVo<FileInfoVo> getPageUploaded(
+    private PageVO<FileInfoVO> getPageUploaded(
             @RequestParam(required = false, defaultValue = "") String catalogNameKey,
             @RequestParam(required = false, defaultValue = "") String fileNameKey,
             @RequestParam(required = false, defaultValue = "1") int pageNum,

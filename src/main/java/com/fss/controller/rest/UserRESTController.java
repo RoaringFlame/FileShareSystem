@@ -27,49 +27,49 @@ public class UserRESTController {
     private IFileService fileService;
 
     @RequestMapping(value = "/alert", method = RequestMethod.GET)
-    public UserAlertVo userAlert() {
+    public UserAlertVO userAlert() {
         UserInfo userInfo = userService.getNowUserInfo();
         if (userInfo != null) {
             return fileService.getAlertById(userInfo.getUserId());
         }
-        return new UserAlertVo();
+        return new UserAlertVO();
     }
 
     @RequestMapping(value = "/changePwd", method = RequestMethod.POST)
-    public JsonResultVo changePwd(
+    public JsonResultVO changePwd(
             @RequestParam String oldPwd, @RequestParam String newPwd) {
         UserInfo userInfo = userService.getNowUserInfo();
         if (userInfo != null) {
             return userService.changePwd(userInfo.getUserId(), oldPwd, newPwd);
         }
-        return new JsonResultVo(JsonResultVo.FAILURE, "请重新登录！");
+        return new JsonResultVO(JsonResultVO.FAILURE, "请重新登录！");
     }
 
     @RequestMapping(value = "/mailTest", method = RequestMethod.GET)
-    public JsonResultVo sendAttacheMail(
+    public JsonResultVO sendAttacheMail(
             HttpServletRequest request) {
         // TODO: 2017/9/3 测试通过，需集成到项目中
         try {
             mailService.sendEmailWithAttachment(request, "13260592767@163.com", "测试邮件发送", "mail-test.txt");
         } catch (MessagingException e) {
-            return new JsonResultVo(JsonResultVo.FAILURE, "发送失败", e.toString());
+            return new JsonResultVO(JsonResultVO.FAILURE, "发送失败", e.toString());
         }
-        return new JsonResultVo(JsonResultVo.SUCCESS, "发送成功");
+        return new JsonResultVO(JsonResultVO.SUCCESS, "发送成功");
     }
 
     /**
      * 添加或修改用户信息
      *
-     * @param userVo 用户数据类
+     * @param userVO 用户数据类
      * @return json处理类
      */
     @RequestMapping(value = "/addOrUpdate", method = RequestMethod.POST)
-    public JsonResultVo addOrUpdateUser(UserVo userVo) {
+    public JsonResultVO addOrUpdateUser(UserVO userVO) {
         User user = userService.getNowUser();
-        if (user.getRole().ordinal() <= Integer.parseInt(userVo.getDepartmentId())) {
-            return this.userService.addOrUpdate(userVo);
+        if (user.getRole().ordinal() <= Integer.parseInt(userVO.getDepartmentId())) {
+            return this.userService.addOrUpdate(userVO);
         } else
-            return new JsonResultVo(JsonResultVo.FAILURE, "权限不足！");
+            return new JsonResultVO(JsonResultVO.FAILURE, "权限不足！");
     }
 
     /**
@@ -79,12 +79,12 @@ public class UserRESTController {
      * @return json处理类
      */
     @RequestMapping(value = "/resetPwd/{userId}", method = RequestMethod.POST)
-    public JsonResultVo resetUserPwd(@PathVariable String userId) {
+    public JsonResultVO resetUserPwd(@PathVariable String userId) {
         User user = userService.getNowUser();
         if (user.getRole().ordinal() == 0) {
             return this.userService.resetPwd(userId);
         } else
-            return new JsonResultVo(JsonResultVo.FAILURE, "权限不足！");
+            return new JsonResultVO(JsonResultVO.FAILURE, "权限不足！");
     }
 
 
@@ -95,14 +95,14 @@ public class UserRESTController {
      * @return json处理类
      */
     @RequestMapping(value = "/delete/{userId}", method = RequestMethod.DELETE)
-    public JsonResultVo deleteUser(
+    public JsonResultVO deleteUser(
             @PathVariable String userId) {
         User user = userService.getNowUser();
         User dUser = userService.findUserBy(userId);
         if (user.getRole().ordinal() <= dUser.getRole().ordinal()) {
             return this.userService.deleteUserById(userId);
         } else
-            return new JsonResultVo(JsonResultVo.FAILURE, "权限不足！");
+            return new JsonResultVO(JsonResultVO.FAILURE, "权限不足！");
     }
 
     /**
@@ -112,17 +112,17 @@ public class UserRESTController {
      * @return 用户信息数据类
      */
     @RequestMapping(value = "/showInfo/{userId}", method = RequestMethod.DELETE)
-    public UserVo showUserInfo(@PathVariable String userId) {
+    public UserVO showUserInfo(@PathVariable String userId) {
         return this.userService.showUserInfoById(userId);
     }
 
     /**
      * 根据条件返回用户信息列表
      *
-     * @return PageVo<UserInfoVo>
+     * @return PageVO<UserInfoVO>
      */
     @RequestMapping(value = "/showInfoList", method = RequestMethod.GET)
-    public PageVo<UserInfoVo> showUserList(
+    public PageVO<UserInfoVO> showUserList(
             @RequestParam(required = false, defaultValue = "") String departmentKey,
             @RequestParam(required = false, defaultValue = "") String roleKey,
             @RequestParam(required = false, defaultValue = "") String name,
@@ -153,7 +153,7 @@ public class UserRESTController {
      * @return
      */
     @RequestMapping(value = "/selectAllOption", method = RequestMethod.GET)
-    public SelectOptionVo selectAllOptionList() {
+    public SelectOptionVO selectAllOptionList() {
         return this.userService.getSelectOption();
     }
     
@@ -163,7 +163,7 @@ public class UserRESTController {
      * @return
      */
     @RequestMapping(value = "/selectOption", method = RequestMethod.GET)
-    public SelectOptionVo selectOptionList() {
+    public SelectOptionVO selectOptionList() {
     	User user = userService.getNowUser();
         return this.userService.getSelectOption(user);
     }

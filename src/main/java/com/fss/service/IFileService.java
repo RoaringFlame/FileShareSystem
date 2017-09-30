@@ -1,7 +1,6 @@
 package com.fss.service;
 
 import com.fss.controller.vo.*;
-import com.fss.util.PageVo;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,32 +13,32 @@ public interface IFileService {
 
     FileUploadInit getCatalogAndUserSelector(String userId);
 
-    JsonResultVo upload(String author, MultipartFile file, FileUploadParam fileUploadParam, HttpServletRequest request);
+    JsonResultVO upload(String author, MultipartFile file, FileUploadParam fileUploadParam, HttpServletRequest request);
 
-    UserAlertVo getAlertById(String userId);
+    UserAlertVO getAlertById(String userId);
 
     List<Map<String, Object>> getAlertBy(String userId);
 
-    HomeFileReceiveVo getHomeFileNeedReceive(String userId);
+    HomeFileReceiveVO getHomeFileNeedReceive(String userId);
 
-    List<FileInfoVo> getHomeFileReceived(String userId);
+    List<FileInfoVO> getHomeFileReceived(String userId);
 
-    List<FileInfoVo> getHomeFileUploaded(String userId);
+    List<FileInfoVO> getHomeFileUploaded(String userId);
 
-    PageVo<FileInfoVo> getPageFileNeedReceive(FileSearchKeys fileSearchKeys, PageConfig pageConfig);
+    PageVO<FileInfoVO> getPageFileNeedReceive(FileSearchKeys fileSearchKeys, PageConfig pageConfig);
 
-    PageVo<FileInfoVo> getPageFileReceived(FileSearchKeys fileSearchKeys, PageConfig pageConfig);
+    PageVO<FileInfoVO> getPageFileReceived(FileSearchKeys fileSearchKeys, PageConfig pageConfig);
 
-    PageVo<FileInfoVo> getPageUploaded(FileSearchKeys fileSearchKeys, PageConfig pageConfig);
+    PageVO<FileInfoVO> getPageUploaded(FileSearchKeys fileSearchKeys, PageConfig pageConfig);
 
-    JsonResultVo download(String userId, String versionId, HttpServletRequest request, HttpServletResponse response);
+    JsonResultVO download(String userId, String versionId, HttpServletRequest request, HttpServletResponse response);
 
-    JsonResultVo reviseFile(String userId, MultipartFile file, String fileVersionId, boolean canCover,
+    JsonResultVO reviseFile(String userId, MultipartFile file, String fileVersionId, boolean canCover,
             HttpServletRequest request);
 
     FileUploadInit getReviseSelector(String userId, String fileId);
 
-    JsonResultVo deleteFile(String fileId, String userId);
+    JsonResultVO deleteFile(String fileId, String userId);
 
-    JsonResultVo reviseRole(String userId, String fileId, Set<String> canLoadIds, Set<String> canReviseIds);
+    JsonResultVO reviseRole(String userId, String fileId, Set<String> canLoadIds, Set<String> canReviseIds);
 }

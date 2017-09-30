@@ -1,11 +1,9 @@
 package com.fss.dao.domain;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import javax.jws.HandlerChain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;

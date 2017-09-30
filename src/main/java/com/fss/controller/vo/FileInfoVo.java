@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * 页面文件展示类
  */
-public class FileInfoVo {
+public class FileInfoVO {
     private String versionId;
     private String fileId;
     private String name;

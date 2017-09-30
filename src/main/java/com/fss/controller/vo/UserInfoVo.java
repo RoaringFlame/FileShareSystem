@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 返回用户信息所用数据类
  */
-public class UserInfoVo {
+public class UserInfoVO {
     private String id;
     private String name;
     private String username;
@@ -23,21 +23,21 @@ public class UserInfoVo {
     private Integer role;
     private List<String> operation;
 
-    public static UserInfoVo generateBy(User user, UserRole searchRole) {
-        UserInfoVo userInfoVo = VoUtil.copyBasic(UserInfoVo.class, user);
-        assert userInfoVo != null;
+    public static UserInfoVO generateBy(User user, UserRole searchRole) {
+        UserInfoVO userInfoVO = VoUtil.copyBasic(UserInfoVO.class, user);
+        assert userInfoVO != null;
         
-        userInfoVo.setGender(user.getGender().ordinal());
-        userInfoVo.setDepartment(user.getDepartment().ordinal());
-        userInfoVo.setRole(user.getRole().ordinal());
-        userInfoVo.setDepartmentname(user.getDepartment().getText());
-        userInfoVo.setRolename(user.getRole().getText());
-        userInfoVo.setOperation(getOperationList(searchRole,user.getRole()));
-        return userInfoVo;
+        userInfoVO.setGender(user.getGender().ordinal());
+        userInfoVO.setDepartment(user.getDepartment().ordinal());
+        userInfoVO.setRole(user.getRole().ordinal());
+        userInfoVO.setDepartmentname(user.getDepartment().getText());
+        userInfoVO.setRolename(user.getRole().getText());
+        userInfoVO.setOperation(getOperationList(searchRole,user.getRole()));
+        return userInfoVO;
     }
 
-    public static List<UserInfoVo> generateBy(List<User> userList, UserRole searchRole) {
-        List<UserInfoVo> list = new ArrayList<>();
+    public static List<UserInfoVO> generateBy(List<User> userList, UserRole searchRole) {
+        List<UserInfoVO> list = new ArrayList<>();
         for (User u : userList) {
             list.add(generateBy(u, searchRole));
         }

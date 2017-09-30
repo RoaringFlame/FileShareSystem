@@ -1,8 +1,8 @@
 package com.fss.service.impl;
 
 
-import com.fss.controller.vo.CatalogVo;
-import com.fss.controller.vo.JsonResultVo;
+import com.fss.controller.vo.CatalogVO;
+import com.fss.controller.vo.JsonResultVO;
 import com.fss.dao.domain.Catalog;
 import com.fss.dao.repositories.CatalogDao;
 import com.fss.service.ICatalogService;
@@ -19,60 +19,60 @@ import java.util.Map;
 
     @Override
     @Transactional
-    public JsonResultVo addOrUpdate(CatalogVo catalogVo) {
+    public JsonResultVO addOrUpdate(CatalogVO catalogVO) {
     	Catalog catalog = new Catalog();
-        Catalog oCatalog = catalogDao.findByName(catalogVo.getName());
-        if(catalogVo.getId() != null) {		//修改目录
-        	catalog = catalogDao.findOne(catalogVo.getId());
-        	catalog.setName(catalogVo.getName());
-        	catalog.setParentId(catalogVo.getParentId());
-        	catalogVo.setDescription(catalogVo.getDescription());
+        Catalog oCatalog = catalogDao.findByName(catalogVO.getName());
+        if(catalogVO.getId() != null) {		//修改目录
+        	catalog = catalogDao.findOne(catalogVO.getId());
+        	catalog.setName(catalogVO.getName());
+        	catalog.setParentId(catalogVO.getParentId());
+        	catalogVO.setDescription(catalogVO.getDescription());
         }
         else {		//添加新目录
         	if (oCatalog == null) {		//目录名不存在
-        		catalog.setParentId(catalogVo.getParentId());
-                catalog.setDescription(catalogVo.getDescription());
-                catalog.setName(catalogVo.getName());
+        		catalog.setParentId(catalogVO.getParentId());
+                catalog.setDescription(catalogVO.getDescription());
+                catalog.setName(catalogVO.getName());
                 catalog.setUsable(true);
         	}
         	else if(!oCatalog.getUsable()) {		//目录名已存在
-        		oCatalog.setParentId(catalogVo.getParentId());
-        		oCatalog.setDescription(catalogVo.getDescription());
+        		oCatalog.setParentId(catalogVO.getParentId());
+        		oCatalog.setDescription(catalogVO.getDescription());
         		oCatalog.setUsable(true);
         		catalogDao.update(oCatalog);
-        		return new JsonResultVo(JsonResultVo.SUCCESS, "操作成功！");
+        		return new JsonResultVO(JsonResultVO.SUCCESS, "操作成功！");
         	}
         	else {
-        		return new JsonResultVo(JsonResultVo.FAILURE, "目录名重复！");
+        		return new JsonResultVO(JsonResultVO.FAILURE, "目录名重复！");
 			}
         }
 		boolean flag = catalogDao.saveOrUpdate(catalog);
 		if (flag)
-		    return new JsonResultVo(JsonResultVo.SUCCESS, "操作成功！");
+		    return new JsonResultVO(JsonResultVO.SUCCESS, "操作成功！");
 		else
-			return new JsonResultVo(JsonResultVo.FAILURE, "操作失败！");
+			return new JsonResultVO(JsonResultVO.FAILURE, "操作失败！");
     }
 
-    @Override public JsonResultVo deleteCatalogById(String catalogId) {
+    @Override public JsonResultVO deleteCatalogById(String catalogId) {
         boolean flag = catalogDao.deleteCatalog(catalogId);
         if (flag) {
-            return new JsonResultVo(JsonResultVo.SUCCESS, "删除成功！");
+            return new JsonResultVO(JsonResultVO.SUCCESS, "删除成功！");
         }
-        return new JsonResultVo(JsonResultVo.FAILURE, "删除失败！");
+        return new JsonResultVO(JsonResultVO.FAILURE, "删除失败！");
     }
 
-    @Override public CatalogVo getCatalogInfo(String catalogId) {
+    @Override public CatalogVO getCatalogInfo(String catalogId) {
         Catalog catalog = catalogDao.findOne(catalogId);
         if (catalog != null) {
-            return CatalogVo.generateBy(catalog);
+            return CatalogVO.generateBy(catalog);
         }
         return null;
     }
 
     @Override
-	public List<CatalogVo> getCatalogList() {
+	public List<CatalogVO> getCatalogList() {
     	List<Catalog> catalogList = catalogDao.getAll();
-    	List<CatalogVo> catalogAllList = CatalogVo.generateBy(catalogList);
+    	List<CatalogVO> catalogAllList = CatalogVO.generateBy(catalogList);
 		return catalogAllList;
 	}
     

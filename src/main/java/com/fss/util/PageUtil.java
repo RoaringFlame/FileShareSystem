@@ -1,14 +1,13 @@
 package com.fss.util;
 
-import com.eshore.fss.vo.PageVo;
-import com.eshore.khala.common.model.PageConfig;
+import com.fss.controller.vo.PageVO;
 
 import java.util.List;
 
 public class PageUtil {
 
-	public static PageVo getPageList(PageConfig page , List list ){
-		PageVo pageVo = new PageVo();
+	public static PageVO getPageList(PageConfig page , List list ){
+		PageVO pageVo = new PageVO();
 		pageVo.setDataList(list);
 		pageVo.setPageNum(page.getPageNum());
 		pageVo.setDataCount(page.getRowCount());

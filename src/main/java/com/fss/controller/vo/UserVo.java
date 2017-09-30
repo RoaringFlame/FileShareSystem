@@ -9,7 +9,7 @@ import com.fss.util.VoUtil;
 /**
  * 增加，修改用户所用数据类
  */
-public class UserVo {
+public class UserVO {
     private String id;
     private String username;
     private String name;
@@ -21,13 +21,13 @@ public class UserVo {
     private String departmentId;
     private String roleId;
 
-    public static UserVo generateBy(User user){
-        UserVo  userVo = VoUtil.copyBasic(UserVo.class,user);
-        assert userVo!=null;
-        userVo.setGender(user.getGender());
-        userVo.setDepartment(user.getDepartment());
-        userVo.setRole(user.getRole());
-        return userVo;
+    public static UserVO generateBy(User user){
+        UserVO userVO = VoUtil.copyBasic(UserVO.class,user);
+        assert userVO !=null;
+        userVO.setGender(user.getGender());
+        userVO.setDepartment(user.getDepartment());
+        userVO.setRole(user.getRole());
+        return userVO;
     }
 
     public String getId() {

@@ -2,7 +2,7 @@ package com.fss.service.impl;
 
 import com.fss.controller.vo.FileUploadInit;
 import com.fss.controller.vo.FileUploadParam;
-import com.fss.controller.vo.JsonResultVo;
+import com.fss.controller.vo.JsonResultVO;
 import com.fss.dao.domain.*;
 import com.fss.dao.repositories.*;
 import com.fss.service.*;
@@ -96,7 +96,7 @@ public class FileServiceImpl implements IFileService {
      */
     @Override
     @CacheEvict(value = "userAlert", allEntries = true)
-    public JsonResultVo upload(String author,MultipartFile file,
+    public JsonResultVO upload(String author,MultipartFile file,
                                FileUploadParam fileUploadParam, HttpServletRequest request) {
         try {
             //写入文件
@@ -109,7 +109,7 @@ public class FileServiceImpl implements IFileService {
             //写入数据库
             fileDao.uploadFile(fileName, fileUploadParam);
         } catch (Exception e) {
-            return new JsonResultVo(JsonResultVo.FAILURE, e.getMessage());
+            return new JsonResultVO(JsonResultVO.FAILURE, e.getMessage());
         }
 //        if(fileUploadParam.isMailTo()) {
 //            SendEmail sendEmail = new SendEmail(request,file.getOriginalFilename(),author,fileUploadParam);
@@ -117,20 +117,20 @@ public class FileServiceImpl implements IFileService {
 //            sendEmail.setUserService(userService);
 //            taskExecutor.execute(sendEmail); //线程执行发送邮件
 //        }
-        return new JsonResultVo(JsonResultVo.SUCCESS, "文件上传成功！");
+        return new JsonResultVO(JsonResultVO.SUCCESS, "文件上传成功！");
     }
 
     @Override
-    public JsonResultVo download(String userId, String versionId, HttpServletRequest request,
+    public JsonResultVO download(String userId, String versionId, HttpServletRequest request,
                                  HttpServletResponse response) {
         FileReceive fileReceive = fileReceiveDao.getReceiveBy(userId, versionId);
         FileVersion fileVersion = fileVersionDao.get(versionId);
         File file = fileDao.get(fileVersion.getFileId());
         if (!file.getUserId().equals(userId) && fileReceive == null) {
-            return new JsonResultVo(JsonResultVo.FAILURE, "无权下载此文件！");
+            return new JsonResultVO(JsonResultVO.FAILURE, "无权下载此文件！");
         }
         if (!file.getUsable()) { //判断文件是否被删除
-            return new JsonResultVo(JsonResultVo.FAILURE, "文件已被删除！");
+            return new JsonResultVO(JsonResultVO.FAILURE, "文件已被删除！");
         }
         String fileName = file.getFileName();
         String filePath = FILE_PATH_HEAD + fileVersion.getRealName();
@@ -143,14 +143,14 @@ public class FileServiceImpl implements IFileService {
                 operateService.downloadFile(fileReceive);
             }
         } catch (Exception e) {
-            return new JsonResultVo(JsonResultVo.FAILURE, e.getMessage());
+            return new JsonResultVO(JsonResultVO.FAILURE, e.getMessage());
         }
-        return new JsonResultVo(JsonResultVo.SUCCESS, "下载成功！");
+        return new JsonResultVO(JsonResultVO.SUCCESS, "下载成功！");
     }
 
     @Override
     @Transactional
-    public JsonResultVo reviseFile(String userId, MultipartFile file, String fileVersionId,
+    public JsonResultVO reviseFile(String userId, MultipartFile file, String fileVersionId,
                                    boolean canCover, HttpServletRequest request) {
         FileVersion fileVersion = fileVersionDao.get(fileVersionId);
         File oldFile = fileDao.get(fileVersion.getFileId());
@@ -165,11 +165,11 @@ public class FileServiceImpl implements IFileService {
                 fileVersion.setRealName(fileRealName);
                 this.writeReceive(userId, fileVersion, canCover);
             } catch (Exception e) {
-                return new JsonResultVo(JsonResultVo.FAILURE, e.getMessage());
+                return new JsonResultVO(JsonResultVO.FAILURE, e.getMessage());
             }
-            return new JsonResultVo(JsonResultVo.SUCCESS, "文件修改成功！");
+            return new JsonResultVO(JsonResultVO.SUCCESS, "文件修改成功！");
         } else
-            return new JsonResultVo(JsonResultVo.FAILURE, "文件已被删除！");
+            return new JsonResultVO(JsonResultVO.FAILURE, "文件已被删除！");
     }
 
     private void writeReceive(String userId, FileVersion fileVersion, boolean canCover) {
@@ -268,7 +268,7 @@ public class FileServiceImpl implements IFileService {
 
     @Override
     @Transactional
-    public JsonResultVo deleteFile(String fileId, String userId) {
+    public JsonResultVO deleteFile(String fileId, String userId) {
         try {
             //写文件表
             File file = fileDao.get(fileId);
@@ -285,9 +285,9 @@ public class FileServiceImpl implements IFileService {
             operate.setOperateTime(date);
             operate.setOperateFlag(3);
             operateDao.save(operate);
-            return new JsonResultVo(JsonResultVo.SUCCESS, "删除成功!");
+            return new JsonResultVO(JsonResultVO.SUCCESS, "删除成功!");
         } catch (Exception e) {
-            return new JsonResultVo(JsonResultVo.FAILURE, "删除失败!");
+            return new JsonResultVO(JsonResultVO.FAILURE, "删除失败!");
         }
     }
 
@@ -299,7 +299,7 @@ public class FileServiceImpl implements IFileService {
      */
     @Override
     @Transactional
-    public JsonResultVo reviseRole(String userId, String fileId, Set<String> canLoadIds, Set<String> canReviseIds) {
+    public JsonResultVO reviseRole(String userId, String fileId, Set<String> canLoadIds, Set<String> canReviseIds) {
         File file = fileDao.get(fileId);
         String versionId = file.getNewVersionId();
         Date date = new Date();
@@ -350,8 +350,8 @@ public class FileServiceImpl implements IFileService {
                 fileReceive.setIsReceived(false);
                 fileReceiveDao.save(fileReceive);
             }
-            return new JsonResultVo(JsonResultVo.SUCCESS, "权限修改成功！");
-        } else return new JsonResultVo(JsonResultVo.FAILURE, "您无权修改本文件权限!");
+            return new JsonResultVO(JsonResultVO.SUCCESS, "权限修改成功！");
+        } else return new JsonResultVO(JsonResultVO.FAILURE, "您无权修改本文件权限!");
     }
 
     /**

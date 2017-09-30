@@ -1,11 +1,11 @@
 package com.fss.controller.rest;
 
-import com.fss.controller.vo.FileHistoryVo;
+import com.fss.controller.vo.FileHistoryVO;
 import com.fss.controller.vo.HistorySearchKeys;
+import com.fss.controller.vo.PageVO;
 import com.fss.controller.vo.UserInfo;
 import com.fss.service.IOperateService;
 import com.fss.service.IUserService;
-import com.fss.util.PageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +19,7 @@ public class HistoryRESTController {
     @Autowired
     private IOperateService operateService;
 
-    @RequestMapping(value = "/fileDownload/{fileId}", method = RequestMethod.GET) PageVo<FileHistoryVo> getFileDownloadHist(@PathVariable String fileId,
+    @RequestMapping(value = "/fileDownload/{fileId}", method = RequestMethod.GET) PageVO<FileHistoryVO> getFileDownloadHist(@PathVariable String fileId,
                                               @RequestParam(required = false, defaultValue = "1") int pageNum,
                                               @RequestParam(required = false, defaultValue = "5") int pageSize) {
         UserInfo userInfo = userService.getNowUserInfo();
@@ -35,8 +35,7 @@ public class HistoryRESTController {
         } else return null;
     }
 
-    @RequestMapping(value = "/fileRevise/{fileId}", method = RequestMethod.GET)
-    PageVo<FileHistoryVo> getFileReviseHist(@PathVariable String fileId,
+    @RequestMapping(value = "/fileRevise/{fileId}", method = RequestMethod.GET) PageVO<FileHistoryVO> getFileReviseHist(@PathVariable String fileId,
                                             @RequestParam(required = false, defaultValue = "1") int pageNum,
                                             @RequestParam(required = false, defaultValue = "5") int pageSize) {
         UserInfo userInfo = userService.getNowUserInfo();
@@ -52,8 +51,7 @@ public class HistoryRESTController {
         } else return null;
     }
 
-    @RequestMapping(value = "/versionDownload/{versionId}", method = RequestMethod.GET)
-    PageVo<FileHistoryVo> getVersionDownloadHist(@PathVariable String versionId,
+    @RequestMapping(value = "/versionDownload/{versionId}", method = RequestMethod.GET) PageVO<FileHistoryVO> getVersionDownloadHist(@PathVariable String versionId,
                                                  @RequestParam(required = false, defaultValue = "1") int pageNum,
                                                  @RequestParam(required = false, defaultValue = "5") int pageSize) {
         UserInfo userInfo = userService.getNowUserInfo();

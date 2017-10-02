@@ -27,8 +27,7 @@ import javax.sql.DataSource;
       /**
        * 连接池的初始化，自动读取/resources/c3p0.properties文件
        */
-      ComboPooledDataSource dataSource = new ComboPooledDataSource();
-      return dataSource;
+    return new ComboPooledDataSource();
   }
 
   @Bean

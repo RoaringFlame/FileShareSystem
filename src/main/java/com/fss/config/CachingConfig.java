@@ -17,7 +17,7 @@ import org.springframework.core.io.ClassPathResource;
 
     @Bean public EhCacheManagerFactoryBean ehcache() {
         EhCacheManagerFactoryBean ehCacheFactoryBean = new EhCacheManagerFactoryBean();
-        ehCacheFactoryBean.setConfigLocation(new ClassPathResource("conf/config.cache/ehcache.xml"));
+        ehCacheFactoryBean.setConfigLocation(new ClassPathResource("config/cache/ehcache.xml"));
         return ehCacheFactoryBean;
     }
 

@@ -3,9 +3,9 @@ package com.fss.controller.rest;
 import com.fss.controller.vo.*;
 import com.fss.dao.domain.User;
 import com.fss.dao.enums.UserRole;
-import com.fss.service.IFileService;
-import com.fss.service.IMailService;
-import com.fss.service.IUserService;
+import com.fss.service.MailService;
+import com.fss.service.UserService;
+import com.fss.util.PageConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,22 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 public class UserRESTController {
 
     @Autowired
-    private IUserService userService;
+    private UserService userService;
 
     @Autowired
-    private IMailService mailService;
+    private MailService mailService;
 
-    @Autowired
-    private IFileService fileService;
-
-    @RequestMapping(value = "/alert", method = RequestMethod.GET)
-    public UserAlertVO userAlert() {
-        UserInfo userInfo = userService.getNowUserInfo();
-        if (userInfo != null) {
-            return fileService.getAlertById(userInfo.getUserId());
-        }
-        return new UserAlertVO();
-    }
 
     @RequestMapping(value = "/changePwd", method = RequestMethod.POST)
     public JsonResultVO changePwd(

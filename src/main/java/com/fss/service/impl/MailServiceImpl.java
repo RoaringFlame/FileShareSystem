@@ -1,6 +1,6 @@
 package com.fss.service.impl;
 
-import com.fss.service.IMailService;
+import com.fss.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 
 @Component
-public class MailServiceImpl implements IMailService {
+public class MailServiceImpl implements MailService {
 
     private JavaMailSender mailSender;
 

@@ -1,8 +1,9 @@
 package com.fss.util.security;
 
-import com.eshore.fss.sysmgr.dao.UserDao;
-import com.eshore.fss.sysmgr.pojo.User;
-import com.eshore.fss.util.HeadPictureUtil;
+import com.fss.controller.vo.UserInfo;
+import com.fss.dao.domain.User;
+import com.fss.dao.repositories.UserRepository;
+import com.fss.util.HeadPictureUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,16 +18,16 @@ import java.util.List;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     public UserDetails loadUserByUsername(String username) {
-        User user = userDao.findByUsername(username);
+        User user = userRepository.findByUsername(username);
         if (user != null) {
             List<GrantedAuthority> authorities = new ArrayList<>();
             String role = "ROLE_" + user.getRole().name();
             authorities.add(new SimpleGrantedAuthority(role));
 
-            UserInfo userInfo = new UserInfo(user.getUsername(), user.getPassword(), user.getUsable(),
+            UserInfo userInfo = new UserInfo(user.getUsername(), user.getPassword(), user.isUsable(),
                     authorities);
             userInfo.setUserId(user.getId());
             userInfo.setName(user.getName());

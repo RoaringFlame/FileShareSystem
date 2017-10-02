@@ -3,8 +3,8 @@ package com.fss.util;
 
 import com.fss.controller.vo.FileUploadParam;
 import com.fss.dao.domain.User;
-import com.fss.service.IMailService;
-import com.fss.service.IUserService;
+import com.fss.service.MailService;
+import com.fss.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -15,8 +15,8 @@ public class SendEmail implements Runnable {
     private String fileName;
     private String author;
     private FileUploadParam fileUploadParam;
-    private IMailService mailService;
-    private IUserService userService;
+    private MailService mailService;
+    private UserService userService;
 
     public SendEmail(HttpServletRequest request, String fileName, String author, FileUploadParam fileUploadParam) {
         this.request = request;
@@ -25,19 +25,19 @@ public class SendEmail implements Runnable {
         this.fileUploadParam = fileUploadParam;
     }
 
-    public IMailService getMailService() {
+    public MailService getMailService() {
         return mailService;
     }
 
-    public void setMailService(IMailService mailService) {
+    public void setMailService(MailService mailService) {
         this.mailService = mailService;
     }
 
-    public IUserService getUserService() {
+    public UserService getUserService() {
         return userService;
     }
 
-    public void setUserService(IUserService userService) {
+    public void setUserService(UserService userService) {
         this.userService = userService;
     }
 

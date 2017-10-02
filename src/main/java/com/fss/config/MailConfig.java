@@ -13,7 +13,7 @@ import java.util.Properties;
 
 @Configuration
 @ComponentScan("com.fss.service.impl")
-@PropertySource("classpath:conf/config.mail/config.mail.properties")
+@PropertySource("classpath:config/mail/mail.properties")
 public class MailConfig {
 
   @Bean

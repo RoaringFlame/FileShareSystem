@@ -2,10 +2,11 @@ package com.fss.service;
 
 import com.fss.controller.vo.*;
 import com.fss.dao.domain.User;
+import com.fss.util.PageConfig;
 
 import java.util.List;
 
-public interface IUserService {
+public interface UserService {
     User findUserBy(String id);
 
     UserInfo getNowUserInfo();

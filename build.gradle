@@ -21,6 +21,7 @@ dependencies {
 
     compile "net.sf.ehcache:ehcache:$ehcacheVersion"
     compile "net.sf.ehcache:ehcache-jcache:$ehcacheJCacheVersion"
+    compile "javax.cache:cache-api:1.0.0"
 
     compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity4:2.1.3.RELEASE"
     compile "mysql:mysql-connector-java:5.1.34"

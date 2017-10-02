@@ -3,7 +3,7 @@ package com.fss.service;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
-public interface IMailService {
+public interface MailService {
 
     public abstract void sendSimpleEmail(HttpServletRequest request, String to, String context);
 

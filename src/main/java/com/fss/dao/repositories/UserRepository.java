@@ -31,5 +31,5 @@ public interface UserRepository extends BaseRepository<User> {
      * @return
      */
     // TODO: 2017/9/29 PageVO与PageConfig的使用有待改进，尽量用JPA自动查询
-    Page<User> queryUserPage(UserSearchKeys userSearchKeys, PageConfig pageConfig);
+//    Page<User> queryUserPage(UserSearchKeys userSearchKeys, PageConfig pageConfig);
 }

@@ -1,7 +1,7 @@
 package com.fss.util;
 
-import com.eshore.fss.enums.Gender;
-import com.eshore.fss.enums.UserRole;
+import com.fss.dao.enums.Gender;
+import com.fss.dao.enums.UserRole;
 
 public class HeadPictureUtil {
     public static Integer getPictureId(Gender gender, UserRole userRole) {

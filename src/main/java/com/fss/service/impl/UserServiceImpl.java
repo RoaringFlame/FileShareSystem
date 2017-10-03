@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +67,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override public PageVO<UserInfoVO> getUserInfoList(UserSearchKeys userSearchKeys, PageConfig pageConfig) {
+        StringBuilder hql = new StringBuilder("from User u where 1=1");
+        List params = new ArrayList();
+        if (!StringUtils.isEmpty(userSearchKeys.getDepartmentKey())) {
+            int index = Integer.valueOf(userSearchKeys.getDepartmentKey());
+            Department department = Department.values()[index];
+            hql.append(" and u.department=?");
+            params.add(department);
+        }
+        if (!StringUtils.isEmpty(userSearchKeys.getRoleKey())) {
+            int index = Integer.valueOf(userSearchKeys.getRoleKey());
+            UserRole role = UserRole.values()[index];
+            hql.append(" and u.role=?");
+            params.add(role);
+        }
+        if (!StringUtils.isEmpty(userSearchKeys.getNameKey())) {
+            hql.append(" and u.name like ?");
+            params.add("%" + userSearchKeys.getNameKey() + "%");
+        }
+        if (!StringUtils.isEmpty(userSearchKeys.getUsernameKey())) {
+            hql.append(" and u.username like ?");
+            params.add("%" + userSearchKeys.getUsernameKey() + "%");
+        }
+        hql.append(" and u.usable = true");
+        hql.append(" order by name");
         return null;
     }
 

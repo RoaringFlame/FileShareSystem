@@ -19,7 +19,7 @@ public interface UserService {
 
     UserVO showUserInfoById(String userId);
 
-    PageVO<UserInfoVO> getUserInfoList(UserSearchKeys userSearchKeys, PageConfig pageConfig);
+    PageVO getUserInfoList(UserSearchKeys userSearchKeys, PageConfig pageConfig);
     
     SelectOptionVO getSelectOption();
     

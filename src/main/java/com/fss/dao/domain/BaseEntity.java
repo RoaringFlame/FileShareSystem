@@ -20,7 +20,7 @@ public class BaseEntity {
     private Integer version;
 
     @Column(name = "usable")
-    private boolean usable;
+    private Boolean usable;
 
     @Column(name = "create_time",columnDefinition = "timestamp default now()")
     @Temporal(value = TemporalType.TIMESTAMP)
@@ -42,11 +42,11 @@ public class BaseEntity {
         this.version = version;
     }
 
-    public boolean isUsable() {
+    public Boolean isUsable() {
         return usable;
     }
 
-    public void setUsable(boolean usable) {
+    public void setUsable(Boolean usable) {
         this.usable = usable;
     }
 

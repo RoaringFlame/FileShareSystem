@@ -19,6 +19,7 @@ public class CatalogVO {
     public static CatalogVO generateBy(Catalog catalog) {
         CatalogVO catalogVO = VoUtil.copyBasic(CatalogVO.class, catalog);
         assert catalog != null;
+        catalogVO.setParentId(catalog.getParentCatalog().getId());
         return catalogVO;
     }
     

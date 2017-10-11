@@ -16,8 +16,12 @@ import java.util.List;
 @Where(clause = "usable <> 0")
 public class Catalog extends BaseEntity implements Serializable {
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
     private Catalog parentCatalog;
+
     private String name;
+
     private String description;
 
     @OneToMany(targetEntity = Catalog.class, cascade = { CascadeType.ALL }, mappedBy = "parentCatalog")
@@ -25,8 +29,6 @@ public class Catalog extends BaseEntity implements Serializable {
     @OrderBy("createTime desc")
     private List<Catalog> childCatalog;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id")
     public Catalog getParentCatalog() {
         return parentCatalog;
     }

@@ -1,15 +1,12 @@
 package com.fss.dao.domain;
 
-/**
- * 用户实体类
- * 不使用逻辑删除
- * 方便添加修改信息判断账户是否存在等问题
- * 其他实体类均使用逻辑删除
- */
 
 import com.fss.dao.enums.Department;
 import com.fss.dao.enums.Gender;
 import com.fss.dao.enums.UserRole;
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +15,8 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "t_user", catalog = "")
+@SQLDelete(sql = "UPDATE t_user SET usable = 0 WHERE id = ? and version = ?", check = ResultCheckStyle.COUNT)
+@Where(clause = "usable <> 0")
 public class User extends BaseEntity implements Serializable {
     private String username;
     private String password;

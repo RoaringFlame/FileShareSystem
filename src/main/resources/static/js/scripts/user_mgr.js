@@ -348,12 +348,12 @@ $(function () {
 
     function success(message) {
         FSS.pageAlert('success', 'fa fa-check fa-lg',
-            '成功', message, 0)
+            '成功', message, 3000)
     }
 
     function failure(message) {
         FSS.pageAlert('danger', 'fa fa-times fa-lg',
-            '错误', message, 0)
+            '错误', message, 3000)
     }
     
   //初始化搜索条件下拉框

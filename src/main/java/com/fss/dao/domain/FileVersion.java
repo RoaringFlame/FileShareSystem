@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "t_file_version", catalog = "")
-@SQLDelete(sql = "UPDATE t_file_version SET state = 0 WHERE id = ?", check = ResultCheckStyle.COUNT)
+@SQLDelete(sql = "UPDATE t_file_version SET usable = 0 WHERE id = ? and version = ?", check = ResultCheckStyle.COUNT)
 @Where(clause = "usable <> 0")
 public class FileVersion extends BaseEntity implements Serializable {
 

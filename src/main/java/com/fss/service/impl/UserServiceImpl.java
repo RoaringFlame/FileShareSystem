@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -63,19 +64,56 @@ public class UserServiceImpl implements UserService {
             return null;
     }
 
+    /**
+     * 增加或者修改用户
+     * 注意：增加用户必须保证账号唯一
+     * @param userVO
+     * @return
+     */
     @Override public JsonResultVO addOrUpdate(UserVO userVO) {
+        User user = new User();
+        User oUser = userRepository.findByUsername(userVO.getUsername());
+        if(userVO.getId() == null){ //增加用户
+            if(oUser != null){
+                return new JsonResultVO(JsonResultVO.FAILURE, "帐号已被使用！");
+            }
+            Md5PasswordEncoder md5 = new Md5PasswordEncoder();
+            user.setPassword(md5.encodePassword("123456", ""));
+            user.setUsable(true);
+        }else{ //修改用户信息(用户名肯定一致且唯一)
+            user = oUser;
+        }
+        user.setUsername(userVO.getUsername());
+        user.setName(userVO.getName());
+        user.setEmail(userVO.getEmail());
+        user.setDepartment(userVO.getDepartmentById());
+        user.setGender(userVO.getGenderById());
+        user.setRole(userVO.getRoleById());
+        userRepository.saveAndFlush(user);
+        return new JsonResultVO(JsonResultVO.SUCCESS, "操作成功！");
+    }
+
+    @Override
+    public JsonResultVO deleteUserById(String userId) {
+        try {
+            userRepository.delete(userId);
+            return new JsonResultVO(JsonResultVO.SUCCESS, "删除成功！");
+        }catch (Exception e){
+            return new JsonResultVO(JsonResultVO.FAILURE, "删除失败！");
+        }
+    }
+
+    @Override
+    public UserVO showUserInfoById(String userId) {
+        User user = userRepository.findOne(userId);
+        if(user!=null){
+            return UserVO.generateBy(user);
+        }
         return null;
     }
 
-    @Override public JsonResultVO deleteUserById(String userId) {
-        return null;
-    }
-
-    @Override public UserVO showUserInfoById(String userId) {
-        return null;
-    }
-
-    @Override public PageVO<UserInfoVO> getUserInfoList(UserSearchKeys userSearchKeys, PageConfig pageConfig) {
+    @Override
+    public PageVO<UserInfoVO> getUserInfoList(UserSearchKeys userSearchKeys, PageConfig pageConfig) {
         Specification<User> specification = getWhereClause(userSearchKeys);
         Page<User> userPage = userRepository.findAll(specification,
                 new PageRequest(pageConfig.getPageNum()-1,pageConfig.getPageSize(),
@@ -105,7 +143,6 @@ public class UserServiceImpl implements UserService {
                 if (!StringUtils.isEmpty(userSearchKeys.getUsernameKey())) {
                     predicates.add(cb.like(root.get("username").as(String.class), "%" +userSearchKeys.getUsernameKey()+ "%" ));
                 }
-                predicates.add(cb.equal(root.get("usable").as(Boolean.class),true));
                 Predicate[] pre = new Predicate[predicates.size()];
                 return query.where(predicates.toArray(pre)).getRestriction();
             }
@@ -121,12 +158,34 @@ public class UserServiceImpl implements UserService {
         return selectOptionVo;
     }
 
-    @Override public JsonResultVO changePwd(String userId, String oldPwd, String newPwd) {
-        return null;
+    @Override
+    public JsonResultVO changePwd(String userId, String oldPwd, String newPwd) {
+        try {
+            User user = this.findUserBy(userId);
+            if (!oldPwd.equals(user.getPassword())) {
+                return new JsonResultVO(JsonResultVO.FAILURE, "原密码输入错误！");
+            }
+            user.setPassword(newPwd);
+            userRepository.saveAndFlush(user);
+            return new JsonResultVO(JsonResultVO.SUCCESS, "密码修改成功！");
+        } catch (Exception e) {
+        return new JsonResultVO(JsonResultVO.FAILURE, "修改失败！");
+        }
     }
 
     @Override public JsonResultVO resetPwd(String userId) {
-        return null;
+        User user = userRepository.findOne(userId);
+        if (user != null) {
+            Md5PasswordEncoder md5 = new Md5PasswordEncoder();
+            user.setPassword(md5.encodePassword("123456", ""));
+            try {
+                userRepository.saveAndFlush(user);
+                return new JsonResultVO(JsonResultVO.SUCCESS, "重置密码成功！");
+            }catch (Exception e){
+                return new JsonResultVO(JsonResultVO.FAILURE, "重置失败！");
+            }
+        } else
+            return new JsonResultVO(JsonResultVO.FAILURE, "账号不存在！");
     }
 
     @Override

@@ -13,15 +13,26 @@ import java.io.Serializable;
 @Where(clause = "usable <> 0")
 public class FileVersion extends BaseEntity implements Serializable {
 
-    private User author;
-    private File file;
-    private Double number;
-    private String realName;
-    private Integer count;
-    private boolean canCover;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
+    private User author;
+
+    @ManyToOne
+    @JoinColumn(name = "file_id")
+    private File file;
+
+    @Column(name = "number")
+    private Double number;
+
+    @Column(name = "real_name")
+    private String realName;
+
+    @Column(name = "count")
+    private Integer count;
+
+    @Column(name = "can_cover")
+    private boolean canCover;
+
     public User getAuthor() {
         return author;
     }
@@ -30,8 +41,6 @@ public class FileVersion extends BaseEntity implements Serializable {
         this.author = author;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "file_id")
     public File getFile() {
         return file;
     }
@@ -40,7 +49,6 @@ public class FileVersion extends BaseEntity implements Serializable {
         this.file = file;
     }
 
-    @Column(name = "number")
     public Double getNumber() {
         return number;
     }
@@ -49,7 +57,6 @@ public class FileVersion extends BaseEntity implements Serializable {
         this.number = number;
     }
 
-    @Column(name = "real_name")
     public String getRealName() {
         return realName;
     }
@@ -58,7 +65,6 @@ public class FileVersion extends BaseEntity implements Serializable {
         this.realName = realName;
     }
 
-    @Column(name = "count")
     public Integer getCount() {
         return count;
     }
@@ -67,7 +73,6 @@ public class FileVersion extends BaseEntity implements Serializable {
         this.count = count;
     }
 
-    @Column(name = "can_cover")
     public boolean getCanCover() {
         return canCover;
     }

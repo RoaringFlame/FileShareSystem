@@ -34,18 +34,6 @@ public class UserRESTController {
         return new JsonResultVO(JsonResultVO.FAILURE, "请重新登录！");
     }
 
-    @RequestMapping(value = "/mailTest", method = RequestMethod.GET)
-    public JsonResultVO sendAttacheMail(
-            HttpServletRequest request) {
-        // TODO: 2017/9/3 测试通过，需集成到项目中
-        try {
-            mailService.sendEmailWithAttachment(request, "13260592767@163.com", "测试邮件发送", "mail-test.txt");
-        } catch (MessagingException e) {
-            return new JsonResultVO(JsonResultVO.FAILURE, "发送失败", e.toString());
-        }
-        return new JsonResultVO(JsonResultVO.SUCCESS, "发送成功");
-    }
-
     /**
      * 添加或修改用户信息
      *

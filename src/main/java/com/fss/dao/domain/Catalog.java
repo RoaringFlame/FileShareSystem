@@ -20,8 +20,10 @@ public class Catalog extends BaseEntity implements Serializable {
     @JoinColumn(name = "parent_id")
     private Catalog parentCatalog;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "description")
     private String description;
 
     @OneToMany(targetEntity = Catalog.class, cascade = { CascadeType.ALL }, mappedBy = "parentCatalog")
@@ -45,7 +47,6 @@ public class Catalog extends BaseEntity implements Serializable {
         this.childCatalog = childCatalog;
     }
 
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -54,7 +55,6 @@ public class Catalog extends BaseEntity implements Serializable {
         this.name = name;
     }
 
-    @Column(name = "description")
     public String getDescription() {
         return description;
     }

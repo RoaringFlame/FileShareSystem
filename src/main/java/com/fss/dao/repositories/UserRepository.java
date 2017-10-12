@@ -24,13 +24,4 @@ public interface UserRepository extends BaseRepository<User>,UserRepositoryCusto
      * @return                  用户对象
      */
     User findByUsername(String username);
-
-    /**
-     * 根据关键字查询用户
-     * @param userSearchKeys
-     * @param pageConfig
-     * @return
-     */
-    // TODO: 2017/9/29 PageVO与PageConfig的使用有待改进，尽量用JPA自动查询
-//    Page<User> queryUserPage(UserSearchKeys userSearchKeys, PageConfig pageConfig);
 }

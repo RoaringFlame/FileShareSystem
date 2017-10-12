@@ -14,15 +14,26 @@ import java.util.Date;
 @Where(clause = "usable <> 0")
 public class FileReceive extends BaseEntity implements Serializable {
 
-    private File file;
-    private User receiver;
-    private boolean isAlert;
-    private boolean canRevise;
-    private boolean isReceived;
-    private Date downloadTime;
-
     @ManyToOne
     @JoinColumn(name = "file_id")
+    private File file;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User receiver;
+
+    @Column(name = "is_alert")
+    private boolean isAlert;
+
+    @Column(name = "can_revise")
+    private boolean canRevise;
+
+    @Column(name = "is_received")
+    private boolean isReceived;
+
+    @Column(name = "download_time")
+    private Date downloadTime;
+
     public File getFile() {
         return file;
     }
@@ -31,8 +42,6 @@ public class FileReceive extends BaseEntity implements Serializable {
         this.file = file;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
     public User getReceiver() {
         return receiver;
     }
@@ -41,14 +50,12 @@ public class FileReceive extends BaseEntity implements Serializable {
         this.receiver = receiver;
     }
 
-    @Column(name = "is_alert")
     public boolean getIsAlert(){return isAlert;}
 
     public void setIsAlert(boolean isAlert){
         this.isAlert = isAlert;
     }
 
-    @Column(name = "can_revise")
     public boolean getCanRevise() {
         return canRevise;
     }
@@ -57,7 +64,6 @@ public class FileReceive extends BaseEntity implements Serializable {
         this.canRevise = canRevise;
     }
 
-    @Column(name = "is_received")
     public boolean getIsReceived() {
         return isReceived;
     }
@@ -66,7 +72,6 @@ public class FileReceive extends BaseEntity implements Serializable {
         this.isReceived = isReceived;
     }
 
-    @Column(name = "download_time")
     public Date getDownloadTime() {
         return downloadTime;
     }

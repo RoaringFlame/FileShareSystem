@@ -13,13 +13,20 @@ import java.io.Serializable;
 @Where(clause = "usable <> 0")
 public class File extends BaseEntity implements Serializable {
 
-    private User author;
-    private Catalog catalog;
-    private String newVersionId;
-    private String fileName;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
+    private User author;
+
+    @ManyToOne
+    @JoinColumn(name = "catalog_id")
+    private Catalog catalog;
+
+    @Column(name = "new_version_id")
+    private String newVersionId;
+
+    @Column(name = "file_name")
+    private String fileName;
+
     public User getAuthor() {
         return author;
     }
@@ -28,8 +35,6 @@ public class File extends BaseEntity implements Serializable {
         this.author = author;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "catalog_id")
     public Catalog getCatalog() {
         return catalog;
     }
@@ -38,7 +43,6 @@ public class File extends BaseEntity implements Serializable {
         this.catalog = catalog;
     }
 
-    @Column(name = "new_version_id")
     public String getNewVersionId() {
         return newVersionId;
     }
@@ -47,7 +51,6 @@ public class File extends BaseEntity implements Serializable {
         this.newVersionId = newVersionId;
     }
 
-    @Column(name = "file_name")
     public String getFileName() {
         return fileName;
     }

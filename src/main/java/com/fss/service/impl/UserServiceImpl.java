@@ -25,6 +25,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -162,9 +163,12 @@ public class UserServiceImpl implements UserService {
     public JsonResultVO changePwd(String userId, String oldPwd, String newPwd) {
         try {
             User user = this.findUserBy(userId);
+            Md5PasswordEncoder md5 = new Md5PasswordEncoder();
+            oldPwd = md5.encodePassword(oldPwd, "");
             if (!oldPwd.equals(user.getPassword())) {
                 return new JsonResultVO(JsonResultVO.FAILURE, "原密码输入错误！");
             }
+            newPwd = md5.encodePassword(newPwd, "");
             user.setPassword(newPwd);
             userRepository.saveAndFlush(user);
             return new JsonResultVO(JsonResultVO.SUCCESS, "密码修改成功！");
@@ -199,6 +203,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    @Transactional
     public List<User> getByUserIdList(List<String> sendIds) {
         List<User> users = new ArrayList<>();
         for(String id:sendIds){

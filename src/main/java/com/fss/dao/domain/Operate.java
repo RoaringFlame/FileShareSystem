@@ -14,13 +14,20 @@ import java.util.Date;
 @Where(clause = "usable <> 0")
 public class Operate extends BaseEntity implements Serializable {
 
-    private User operator;
-    private FileVersion fileVersion ;
-    private Date operateTime;
-    private Integer operateFlag;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
+    private User operator;
+
+    @ManyToOne
+    @JoinColumn(name = "version_id")
+    private FileVersion fileVersion ;
+
+    @Column(name = "operate_time")
+    private Date operateTime;
+
+    @Column(name = "operate_flag")
+    private Integer operateFlag;
+
     public User getOperator() {
         return operator;
     }
@@ -29,8 +36,6 @@ public class Operate extends BaseEntity implements Serializable {
         this.operator = operator;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "version_id")
     public FileVersion getFileVersion() {
         return fileVersion;
     }
@@ -39,7 +44,6 @@ public class Operate extends BaseEntity implements Serializable {
         this.fileVersion = fileVersion;
     }
 
-    @Column(name = "operate_time")
     public Date getOperateTime() {
         return operateTime;
     }
@@ -48,7 +52,6 @@ public class Operate extends BaseEntity implements Serializable {
         this.operateTime = operateTime;
     }
 
-    @Column(name = "operate_flag")
     public Integer getOperateFlag() {
         return operateFlag;
     }

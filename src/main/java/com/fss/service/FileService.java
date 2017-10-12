@@ -6,6 +6,7 @@ import com.fss.controller.vo.JsonResultVO;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.util.Map;
 
 public interface FileService {
@@ -14,5 +15,6 @@ public interface FileService {
     JsonResultVO upload(String author,MultipartFile file,
             FileUploadParam fileUploadParam, HttpServletRequest request);
 
+    @Transactional
     void uploadFile(Map<String, String> fileName, FileUploadParam fileUploadParam);
 }

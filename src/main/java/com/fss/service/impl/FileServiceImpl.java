@@ -107,7 +107,6 @@ public class FileServiceImpl implements FileService{
         return new JsonResultVO(JsonResultVO.SUCCESS, "文件上传成功！");
     }
 
-    @Transactional
     public void uploadFile(Map<String, String> fileName, FileUploadParam fileUploadParam) {
         Date date = new Date();
         String fileName1 = fileName.get("fileName");

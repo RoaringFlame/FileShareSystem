@@ -97,12 +97,12 @@ public class FileServiceImpl implements FileService{
         } catch (Exception e) {
             return new JsonResultVO(JsonResultVO.FAILURE, e.getMessage());
         }
-        if(fileUploadParam.isMailTo()) {
-            SendEmail sendEmail = new SendEmail(file.getOriginalFilename(),author,fileUploadParam);
-            sendEmail.setMailService(mailService);
-            sendEmail.setUserService(userService);
-            taskExecutor.execute(sendEmail); //线程执行发送邮件
-        }
+//        if(fileUploadParam.isMailTo()) {
+//            SendEmail sendEmail = new SendEmail(file.getOriginalFilename(),author,fileUploadParam);
+//            sendEmail.setMailService(mailService);
+//            sendEmail.setUserService(userService);
+//            taskExecutor.execute(sendEmail); //线程执行发送邮件
+//        }
         return new JsonResultVO(JsonResultVO.SUCCESS, "文件上传成功！");
     }
 

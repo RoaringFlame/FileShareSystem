@@ -23,11 +23,11 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public void sendSimpleEmail(HttpServletRequest request, String to, String context) {
+    public void sendSimpleEmail(String to, String subject,String context) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("747522309@qq.com");
         message.setTo(to);
-        message.setSubject("亿讯文件管理系统-文件分享提示");
+        message.setSubject(subject);
         message.setText(context);
         mailSender.send(message);
     }

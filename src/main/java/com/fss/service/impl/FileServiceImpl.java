@@ -14,7 +14,6 @@ import com.fss.util.SendEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -99,7 +98,7 @@ public class FileServiceImpl implements FileService{
             return new JsonResultVO(JsonResultVO.FAILURE, e.getMessage());
         }
         if(fileUploadParam.isMailTo()) {
-            SendEmail sendEmail = new SendEmail(request,file.getOriginalFilename(),author,fileUploadParam);
+            SendEmail sendEmail = new SendEmail(file.getOriginalFilename(),author,fileUploadParam);
             sendEmail.setMailService(mailService);
             sendEmail.setUserService(userService);
             taskExecutor.execute(sendEmail); //线程执行发送邮件
@@ -107,7 +106,7 @@ public class FileServiceImpl implements FileService{
         return new JsonResultVO(JsonResultVO.SUCCESS, "文件上传成功！");
     }
 
-    public void uploadFile(Map<String, String> fileName, FileUploadParam fileUploadParam) {
+    private void uploadFile(Map<String, String> fileName, FileUploadParam fileUploadParam) {
         Date date = new Date();
         String fileName1 = fileName.get("fileName");
         boolean mailTo = fileUploadParam.isMailTo();
@@ -163,7 +162,7 @@ public class FileServiceImpl implements FileService{
                 fileReceive.setIsReceived(false);
                 fileReceive.setDownloadTime(date);
                 fileReceive.setCanRevise(false);
-//                fileReceive.setUsable(true);
+                fileReceive.setUsable(true);
                 fileReceiveRepository.save(fileReceive);
             }
         }
@@ -179,7 +178,7 @@ public class FileServiceImpl implements FileService{
                 fileReceive.setIsReceived(false);
                 fileReceive.setDownloadTime(date);
                 fileReceive.setCanRevise(true);
-//                fileReceive.setUsable(true);
+                fileReceive.setUsable(true);
                 fileReceiveRepository.save(fileReceive);
             }
         }

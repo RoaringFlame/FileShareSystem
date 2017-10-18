@@ -21,7 +21,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages= "com.fss.dao.repositories")    //  创建代理实例
-  public class SpringDataJpaConfig {
+public class SpringDataJpaConfig {
 
   @Bean
   public DataSource dataSource() {

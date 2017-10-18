@@ -18,6 +18,7 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-security:$springBootVersion"
     compile "org.springframework.boot:spring-boot-starter-tomcat:$springBootVersion"
     compile "org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion"
+    compile "org.springframework.boot:spring-boot-starter-mail:$springBootVersion"
 
     compile "net.sf.ehcache:ehcache:$ehcacheVersion"
     compile "net.sf.ehcache:ehcache-jcache:$ehcacheJCacheVersion"
@@ -25,7 +26,6 @@ dependencies {
 
     compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity4:2.1.3.RELEASE"
     compile "mysql:mysql-connector-java:5.1.34"
-    compile "javax.mail:mail:1.4.7"
     compile "c3p0:c3p0:0.9.1.2"
     compile "com.google.guava:guava:17.0"
     compile "javax.inject:javax.inject:1"
@@ -33,7 +33,9 @@ dependencies {
     compile files('src\\main\\webapp\\WEB-INF\\lib\\taobao-sdk-java-auto_1455552377940-20160607.jar')
     compile files('src\\main\\webapp\\WEB-INF\\lib\\taobao-sdk-java-auto_1455552377940-20160607-source.jar')
 
-    testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"}
+    testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
+    testCompile "com.icegreen:greenmail-spring:1.4.0"
+}
 
 repositories {
     maven { url 'http://www.70mm.cn:9000/nexus/content/repositories/central' }

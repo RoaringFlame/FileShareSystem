@@ -144,4 +144,15 @@ public class UserRESTController {
     	User user = userService.getNowUser();
         return this.userService.getSelectOption(user);
     }
+
+    @RequestMapping(value = "/mailTest", method = RequestMethod.GET)
+    public JsonResultVO sendAttacheMail(
+            HttpServletRequest request) {
+        try {
+            mailService.sendEmailWithAttachment(request, "13260592767@163.com", "测试邮件发送", "mail-test.txt");
+        } catch (MessagingException e) {
+            return new JsonResultVO(JsonResultVO.FAILURE, "发送失败", e.toString());
+        }
+        return new JsonResultVO(JsonResultVO.SUCCESS, "发送成功");
+    }
 }

@@ -21,8 +21,9 @@ public class File extends BaseEntity implements Serializable {
     @JoinColumn(name = "catalog_id")
     private Catalog catalog;
 
-    @Column(name = "new_version_id")
-    private String newVersionId;
+    @ManyToOne
+    @JoinColumn(name = "new_version_id")
+    private FileVersion newFileVersion;
 
     @Column(name = "file_name")
     private String fileName;
@@ -43,12 +44,12 @@ public class File extends BaseEntity implements Serializable {
         this.catalog = catalog;
     }
 
-    public String getNewVersionId() {
-        return newVersionId;
+    public FileVersion getNewFileVersion() {
+        return newFileVersion;
     }
 
-    public void setNewVersionId(String newVersionId) {
-        this.newVersionId = newVersionId;
+    public void setNewFileVersion(FileVersion newFileVersion) {
+        this.newFileVersion = newFileVersion;
     }
 
     public String getFileName() {

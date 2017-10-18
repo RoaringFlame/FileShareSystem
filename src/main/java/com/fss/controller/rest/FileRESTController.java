@@ -1,17 +1,16 @@
 package com.fss.controller.rest;
 
-import com.fss.controller.vo.FileUploadInit;
-import com.fss.controller.vo.FileUploadParam;
-import com.fss.controller.vo.JsonResultVO;
-import com.fss.controller.vo.UserInfo;
+import com.fss.controller.vo.*;
 import com.fss.service.FileService;
 import com.fss.service.UserService;
+import com.fss.util.PageConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 @RestController
@@ -74,5 +73,48 @@ public class FileRESTController {
             return this.fileService.upload(userInfo.getName(),file, fileUploadParam, request);
         }
         return new JsonResultVO(JsonResultVO.FAILURE, "请重新登录");
+    }
+
+    /**
+     * 已上传文件页面信息
+     *
+     * @param fileNameKey 根据文件名搜索
+     * @param pageNum     页码
+     * @param pageSize    页面大小
+     * @return 文件列表
+     */
+    @RequestMapping(value = "/pageUploaded", method = RequestMethod.GET)
+    private PageVO<FileInfoVO> getPageUploaded(
+            @RequestParam(required = false, defaultValue = "") String catalogNameKey,
+            @RequestParam(required = false, defaultValue = "") String fileNameKey,
+            @RequestParam(required = false, defaultValue = "1") int pageNum,
+            @RequestParam(required = false, defaultValue = "8") int pageSize) {
+        UserInfo userinfo = userService.getNowUserInfo();
+        if (userinfo != null) {
+            FileSearchKeys fileSearchKeys = new FileSearchKeys();
+            fileSearchKeys.setCatalogKey(catalogNameKey);
+            fileSearchKeys.setFileNameKey(fileNameKey);
+            fileSearchKeys.setUserId(userinfo.getUserId());
+            PageConfig pageConfig = new PageConfig();
+            pageConfig.setPageNum(pageNum);
+            pageConfig.setPageSize(pageSize);
+            return fileService.getPageUploaded(fileSearchKeys, pageConfig);
+        } else
+            return null;
+    }
+
+    /**
+     * 下载文件
+     * @param versionId 文件版本编号
+     * @return 文件流或错误信息
+     */
+    @RequestMapping(value = "/download/{versionId}", method = RequestMethod.GET)
+    public JsonResultVO downloadFile(
+            @PathVariable String versionId, HttpServletRequest request, HttpServletResponse response) {
+        UserInfo userInfo = userService.getNowUserInfo();
+        if (userInfo != null) {
+            return fileService.download(userInfo.getUserId(), versionId, request, response);
+        } else
+            return new JsonResultVO(JsonResultVO.FAILURE, "请重新登录");
     }
 }

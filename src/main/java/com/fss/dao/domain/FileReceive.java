@@ -19,6 +19,10 @@ public class FileReceive extends BaseEntity implements Serializable {
     private File file;
 
     @ManyToOne
+    @JoinColumn(name = "version_id")
+    private FileVersion fileVersion;
+
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User receiver;
 
@@ -40,6 +44,14 @@ public class FileReceive extends BaseEntity implements Serializable {
 
     public void setFile(File file) {
         this.file = file;
+    }
+
+    public FileVersion getFileVersion() {
+        return fileVersion;
+    }
+
+    public void setFileVersion(FileVersion fileVersion) {
+        this.fileVersion = fileVersion;
     }
 
     public User getReceiver() {

@@ -26,11 +26,6 @@ import java.util.*;
 @Service
 public class FileServiceImpl implements FileService{
 
-    private static final int USER_ALERT = 1; //查询提示文件
-    private static final int USER_RECEIVE = 2; //查询未接收文件
-    private static final int USER_RECEIVED = 3;//查询已接收文件
-    private static final int USER_UPLOADED = 4; //查询已上传文件
-
     private static final String FILE_PATH_HEAD = "/upload/file/";
 
     @Autowired
@@ -167,7 +162,8 @@ public class FileServiceImpl implements FileService{
                 FileReceive fileReceive = new FileReceive();
                 fileReceive.setFile(file);
                 fileReceive.setFileVersion(fileVersion);
-                fileReceive.setReceiver(user);
+                User receiver = userRepository.findOne(id);
+                fileReceive.setReceiver(receiver);
                 fileReceive.setIsAlert(mailTo);
                 fileReceive.setIsReceived(false);
                 fileReceive.setDownloadTime(date);
@@ -184,7 +180,8 @@ public class FileServiceImpl implements FileService{
                 FileReceive fileReceive = new FileReceive();
                 fileReceive.setFile(file);
                 fileReceive.setFileVersion(fileVersion);
-                fileReceive.setReceiver(user);
+                User receiver = userRepository.findOne(id);
+                fileReceive.setReceiver(receiver);
                 fileReceive.setIsAlert(mailTo);
                 fileReceive.setIsReceived(false);
                 fileReceive.setDownloadTime(date);
@@ -246,7 +243,8 @@ public class FileServiceImpl implements FileService{
         return fileInfoVoList;
     }
 
-    @Override public JsonResultVO download(String userId, String versionId, HttpServletRequest request,
+    @Override
+    public JsonResultVO download(String userId, String versionId, HttpServletRequest request,
             HttpServletResponse response) {
         FileReceive fileReceive = fileReceiveRepository.getReceiveBy(userId, versionId);
         FileVersion fileVersion = fileVersionRepository.findOne(versionId);

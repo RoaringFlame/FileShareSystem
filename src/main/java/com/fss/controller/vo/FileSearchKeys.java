@@ -3,7 +3,7 @@ package com.fss.controller.vo;
 public class FileSearchKeys {
     private String userId;
     private int searchFlag;    //1.提示2.未接收3.已接收4.已上传
-    private String departmentId = "";
+    private String departmentKey = "";
     private String catalogKey = "";
     private String nameKey = "";
     private String fileNameKey = "";
@@ -24,12 +24,12 @@ public class FileSearchKeys {
         this.searchFlag = searchFlag;
     }
 
-    public String getDepartmentId() {
-        return departmentId;
+    public String getDepartmentKey() {
+        return departmentKey;
     }
 
-    public void setDepartmentId(String departmentId) {
-        this.departmentId = departmentId;
+    public void setDepartmentKey(String departmentKey) {
+        this.departmentKey = departmentKey;
     }
 
     public String getCatalogKey() {

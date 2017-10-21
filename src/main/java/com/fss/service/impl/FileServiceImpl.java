@@ -58,6 +58,9 @@ public class FileServiceImpl implements FileService{
     @Autowired
     private TaskExecutor taskExecutor;
 
+    /**
+     * 初始化上传信息
+     */
     @Override
     public FileUploadInit getCatalogAndUserSelector(String userId) {
         List<User> userList = userRepository.findAll();
@@ -80,6 +83,12 @@ public class FileServiceImpl implements FileService{
         return fileUploadInit;
     }
 
+    /**
+     * 上传文件
+     * @param author 文件作者
+     * @param file  最新文件
+     * @param fileUploadParam 文件上传参数
+     */
     @Override
     public JsonResultVO upload(String author, MultipartFile file, FileUploadParam fileUploadParam,
             HttpServletRequest request) {
@@ -243,6 +252,9 @@ public class FileServiceImpl implements FileService{
         return fileInfoVoList;
     }
 
+    /**
+     * 文件下载
+     */
     @Override
     public JsonResultVO download(String userId, String versionId, HttpServletRequest request,
             HttpServletResponse response) {
@@ -311,4 +323,223 @@ public class FileServiceImpl implements FileService{
         fileVersion.setCount(fileVersion.getCount() + 1);
         fileVersionRepository.save(fileVersion);
     }
+
+    /**
+     * 删除文件
+     * @param fileId 文件编号
+     * @param userId 删除人
+     */
+    @Override
+    public JsonResultVO deleteFile(String fileId, String userId) {
+        try {
+            //写文件表
+            File file = fileRepository.findOne(fileId);
+            file.setUsable(false);
+            fileRepository.save(file);
+
+            //写操作表
+            Operate operate = new Operate();
+            Date date = new Date();
+            User user = userRepository.findOne(userId);
+            operate.setOperator(user);
+            operate.setFileVersion(file.getNewFileVersion());
+            operate.setOperateTime(date);
+            operate.setCreateTime(date);
+            operate.setOperateFlag(3);
+            operate.setUsable(true);
+            operateRepository.save(operate);
+            return new JsonResultVO(JsonResultVO.SUCCESS, "删除成功!");
+        } catch (Exception e) {
+            return new JsonResultVO(JsonResultVO.FAILURE, "删除失败!");
+        }
+    }
+
+    /**
+     * 初始化文件权限信息
+     */
+    @Override
+    public FileUploadInit getReviseSelector(String userId, String fileId) {
+        List<User> userList = userRepository.findAll();
+        List<FileReceive> fileReceiveList = fileReceiveRepository.findByFileId(fileId);
+        List<Catalog> catalogList = catalogRepository.findAll();
+        List<Selector> userSelector = new ArrayList<>();
+        Set<String> canLoadIds = new HashSet<>();
+        Set<String> canReviseIds = new HashSet<>();
+        List<Selector> userCanLoadSelector = new ArrayList<>();
+        List<Selector> userCanReviseSelector = new ArrayList<>();
+
+        //计算当前版本可修改人
+        for (FileReceive fr : fileReceiveList) {
+            if (fr.getCanRevise()) {//可修改的人
+                canReviseIds.add(fr.getReceiver().getId());
+            } else {
+                canLoadIds.add(fr.getReceiver().getId());
+            }
+        }
+
+        //放入对应的下拉框
+        for (User u : userList) {
+            String uid = u.getId();
+            Selector selector = new Selector(u.getId(), u.getName());
+            if (!userId.equals(uid)) {//避免放入自己
+                if (canLoadIds.contains(uid)) {
+                    userCanLoadSelector.add(selector);
+                } else if (canReviseIds.contains(uid)) {
+                    userCanReviseSelector.add(selector);
+                } else {
+                    userSelector.add(selector);
+                }
+            }
+        }
+        //目录下拉框
+        List<Selector> catalogSelector = new ArrayList<>();
+        for (Catalog c : catalogList) {
+            if (!c.getId().equals(c.getParentCatalog().getId())) {//避免放入根目录
+                catalogSelector.add(new Selector(c.getId(), c.getName()));
+            }
+        }
+        FileUploadInit fileUploadInit = new FileUploadInit();
+        fileUploadInit.setUserSelector(userSelector);
+        fileUploadInit.setCatalogSelector(catalogSelector);
+        fileUploadInit.setCanLoadSelector(userCanLoadSelector);
+        fileUploadInit.setCanReviseSelector(userCanReviseSelector);
+        return fileUploadInit;
+    }
+
+    /**
+     * 修改文件权限
+     */
+    @Override
+    public JsonResultVO reviseRole(String userId, String fileId, Set<String> canLoadIds,
+            Set<String> canReviseIds) {
+        File file = fileRepository.findOne(fileId);
+        FileVersion fileVersion = file.getNewFileVersion();
+        Date date = new Date();
+        try {
+            if (userId.equals(file.getAuthor().getId())) {
+                List<FileReceive> fileReceiveList = fileReceiveRepository.findByFileId(fileId);//当前可下载
+                for (FileReceive f : fileReceiveList) {
+                    String receiverId = f.getReceiver().getId();
+                    if (canLoadIds.contains(receiverId)) {//可下载
+                        if (f.getCanRevise()) {//可改写
+                            f.setCanRevise(false);
+                            fileReceiveRepository.save(f);
+                        }
+                        canLoadIds.remove(receiverId);
+                    } else if (canReviseIds.contains(receiverId)) {
+                        if (!f.getCanRevise()) {//改为可改写
+                            f.setCanRevise(true);
+                            fileReceiveRepository.save(f);
+                        }
+                        canReviseIds.remove(receiverId);
+                    } else {//不存在则删除
+                        fileReceiveRepository.deleteByReceiverIdAndFileId(receiverId,fileId);
+                    }
+                }
+                for (String userLoadId : canLoadIds) {//新建可读
+                    FileReceive fileReceive = new FileReceive();
+                    fileReceive.setFile(file);
+                    fileReceive.setFileVersion(fileVersion);
+                    User user = userRepository.findOne(userLoadId);
+                    fileReceive.setReceiver(user);
+                    fileReceive.setCanRevise(false);
+                    fileReceive.setDownloadTime(date);
+                    fileReceive.setIsAlert(false);
+                    fileReceive.setIsReceived(false);
+                    fileReceiveRepository.save(fileReceive);
+                }
+
+                for (String reviseIds : canReviseIds) {//新建可改写
+                    FileReceive fileReceive = new FileReceive();
+                    fileReceive.setFile(file);
+                    fileReceive.setFileVersion(fileVersion);
+                    User user = userRepository.findOne(reviseIds);
+                    fileReceive.setReceiver(user);
+                    fileReceive.setCanRevise(true);
+                    fileReceive.setDownloadTime(date);
+                    fileReceive.setIsAlert(false);
+                    fileReceive.setIsReceived(false);
+                    fileReceiveRepository.save(fileReceive);
+                }
+                return new JsonResultVO(JsonResultVO.SUCCESS, "权限修改成功！");
+            } else
+                return new JsonResultVO(JsonResultVO.FAILURE, "您无权修改本文件权限!");
+        }catch (Exception e){
+            return new JsonResultVO(JsonResultVO.FAILURE, "未知错误!");
+        }
+    }
+
+    /**
+     * 上传新版本文件
+     */
+    @Override
+    public JsonResultVO reviseFile(String userId, MultipartFile file, String fileVersionId, boolean canCover,
+            HttpServletRequest request) {
+        FileVersion fileVersion = fileVersionRepository.findOne(fileVersionId);
+        File oldFile = fileVersion.getFile();
+        if (oldFile.isUsable()) {
+            try {
+                //写入文件
+                String fileURL = FILE_PATH_HEAD;
+                String fileRealName = uploadService.upload(file, fileURL, request);
+
+                //写数据
+                fileVersion.setRealName(fileRealName);
+                this.writeReceive(userId, fileVersion, canCover);
+            } catch (Exception e) {
+                return new JsonResultVO(JsonResultVO.FAILURE, e.getMessage());
+            }
+            return new JsonResultVO(JsonResultVO.SUCCESS, "文件修改成功！");
+        } else
+            return new JsonResultVO(JsonResultVO.FAILURE, "文件已被删除！");
+    }
+
+    private void writeReceive(String userId, FileVersion fileVersion, boolean canCover) {
+        //新建版本表
+        Date data = new Date();
+        FileVersion newFileVersion = new FileVersion();
+        newFileVersion.setFile(fileVersion.getFile());
+        newFileVersion.setAuthor(fileVersion.getAuthor());
+        newFileVersion.setRealName(fileVersion.getRealName());
+        newFileVersion.setCreateTime(data);
+        newFileVersion.setUsable(true);
+        Double number = fileVersion.getNumber();
+        if (fileVersion.getCanCover()) {
+            //以前版本可覆盖
+            newFileVersion.setNumber(number + 0.1);
+        } else {
+            int i = number.intValue();//取整
+            newFileVersion.setNumber(i + 1.0);
+        }
+        newFileVersion.setCanCover(canCover);
+        newFileVersion.setCount(0);
+        fileVersionRepository.save(newFileVersion);
+
+        //更新最新文件版本编号
+        File file = fileVersion.getFile();
+        file.setNewFileVersion(newFileVersion);
+        file.setCreateTime(data);
+        fileRepository.save(file);
+
+        //写操作表
+        Operate operate = new Operate();
+        User user = userRepository.findOne(userId);
+        operate.setOperator(user);
+        operate.setFileVersion(newFileVersion);
+        operate.setOperateTime(data);
+        operate.setCreateTime(data);
+        operate.setOperateFlag(2);
+        operate.setUsable(true);
+        operateRepository.save(operate);
+
+        //处理已接收和未接收相关消息
+        List<FileReceive> fileReceiveList = fileReceiveRepository.findByFileId(file.getId());
+        for (FileReceive fileReceive : fileReceiveList) {
+            fileReceive.setIsReceived(userId.equals(fileReceive.getReceiver().getId()));
+            fileReceive.setFileVersion(newFileVersion);
+            fileReceive.setDownloadTime(data);
+            fileReceiveRepository.save(fileReceive);
+        }
+    }
+
 }

@@ -117,4 +117,75 @@ public class FileRESTController {
         } else
             return new JsonResultVO(JsonResultVO.FAILURE, "请重新登录");
     }
+
+    /**
+     * 删除文件
+     * @param fileId 文件编号
+     */
+    @RequestMapping(value = "/delete/{fileId}", method = RequestMethod.POST)
+    public JsonResultVO deleteFile(@PathVariable String fileId) {
+        UserInfo userInfo = userService.getNowUserInfo();
+        if (userInfo != null) {
+            return fileService.deleteFile(fileId, userInfo.getUserId());
+        } else
+            return new JsonResultVO(JsonResultVO.FAILURE, "请重新登录");
+    }
+
+    /**
+     * 初始化文件修改权限信息（加载权限）
+     * @param fileId 文件编号
+     * @return 权限信息
+     */
+    @RequestMapping(value = "/initRevise/{fileId}", method = RequestMethod.GET)
+    public FileUploadInit initRevise(@PathVariable String fileId) {
+        UserInfo userInfo = userService.getNowUserInfo();
+        return fileService.getReviseSelector(userInfo.getUserId(), fileId);
+    }
+
+    /**
+     * 修改文件权限
+     * @param fileId 文件编号
+     * @param canLoadUserIds 所有可下载人id
+     * @param canReviseUserIds 所有可修改人
+     */
+    @RequestMapping(value = "/reviseRole/{fileId}", method = RequestMethod.POST)
+    public JsonResultVO reviseRole(@PathVariable String fileId,
+            @RequestParam String canLoadUserIds,
+            @RequestParam String canReviseUserIds) {
+        UserInfo userInfo = userService.getNowUserInfo();
+        if (userInfo != null) {
+            List<String> canLoadIds = new ArrayList<>();
+            if (!StringUtils.isEmpty(canLoadUserIds)) {
+                canLoadUserIds = canLoadUserIds.substring(0, canLoadUserIds.length() - 1);
+                canLoadIds = Arrays.asList(canLoadUserIds.split(","));
+            }
+            List<String> canReviseIds = new ArrayList<>();
+            if (!StringUtils.isEmpty(canReviseUserIds)) {
+                canReviseUserIds = canReviseUserIds.substring(0, canReviseUserIds.length() - 1);
+                canReviseIds = Arrays.asList(canReviseUserIds.split(","));
+            }
+            Set<String> canLoadIdSet = new HashSet<>();
+            canLoadIdSet.addAll(canLoadIds);
+            Set<String> canReviseSet = new HashSet<>();
+            canReviseSet.addAll(canReviseIds);
+            return fileService.reviseRole(userInfo.getUserId(), fileId,canLoadIdSet,canReviseSet);
+        } else return new JsonResultVO(JsonResultVO.FAILURE, "请重新登录");
+    }
+
+    /**
+     * 修改文件（重传新版本）
+     * @param file 最新文件
+     * @param fileVersionId 文件旧版本编号
+     * @param canCover 是否可以覆盖
+     */
+    @RequestMapping(value = "/reviseFile/{fileVersionId}", method = RequestMethod.POST)
+    public JsonResultVO reviseFile(
+            @RequestParam MultipartFile file, @PathVariable String fileVersionId,
+            @RequestParam(required = false, defaultValue = "false") boolean canCover, HttpServletRequest request) {
+        UserInfo userInfo = userService.getNowUserInfo();
+        if (userInfo != null) {
+            return fileService.reviseFile(userInfo.getUserId(), file, fileVersionId, canCover, request);
+        }
+        return new JsonResultVO(JsonResultVO.FAILURE, "请重新登录");
+    }
 }

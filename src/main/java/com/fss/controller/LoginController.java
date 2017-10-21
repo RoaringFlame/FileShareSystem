@@ -15,6 +15,9 @@ import java.util.Map;
 @Controller
 public class LoginController {
 
+    /**
+     * 生成验证码图片
+     */
     @RequestMapping("/validate")
     public void validate(HttpSession session ,HttpServletRequest request, HttpServletResponse response) throws
             Exception {

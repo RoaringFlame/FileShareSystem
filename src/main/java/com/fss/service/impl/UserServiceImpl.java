@@ -68,8 +68,6 @@ public class UserServiceImpl implements UserService {
     /**
      * 增加或者修改用户
      * 注意：增加用户必须保证账号唯一
-     * @param userVO
-     * @return
      */
     @Override public JsonResultVO addOrUpdate(UserVO userVO) {
         User user = new User();

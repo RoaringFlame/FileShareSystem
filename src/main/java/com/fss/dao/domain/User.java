@@ -4,9 +4,6 @@ package com.fss.dao.domain;
 import com.fss.dao.enums.Department;
 import com.fss.dao.enums.Gender;
 import com.fss.dao.enums.UserRole;
-import org.hibernate.annotations.ResultCheckStyle;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,8 +12,6 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "t_user", catalog = "")
-@SQLDelete(sql = "UPDATE t_user SET usable = 0 WHERE id = ? and version = ?", check = ResultCheckStyle.COUNT)
-@Where(clause = "usable <> 0")
 public class User extends BaseEntity implements Serializable {
 
     @Column(name = "username")

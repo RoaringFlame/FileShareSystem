@@ -26,7 +26,7 @@ public class Operate extends BaseEntity implements Serializable {
     private Date operateTime;
 
     @Column(name = "operate_flag")
-    private Integer operateFlag;
+    private Integer operateFlag; //0上传文件，1下载，2修改版本，3删除
 
     public User getOperator() {
         return operator;

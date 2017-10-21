@@ -13,6 +13,9 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/validate")
 public class LoginRESTController {
 
+    /**
+     * 检查验证码是否正确
+     */
     @RequestMapping(value = "/check", method = RequestMethod.GET)
     public JsonResultVO validateCheck(HttpSession session,
             String code) {
@@ -25,6 +28,11 @@ public class LoginRESTController {
         return new JsonResultVO(JsonResultVO.FAILURE, "验证码错误!");
     }
 
+    /**
+     * 检查登录状况
+     * （spring默认登陆页面登录失败会自动添加后缀，导致页面js请求失效）
+     * @return 登录结果
+     */
     @RequestMapping(value = "/statue", method = RequestMethod.GET)
     public JsonResultVO loginStatue(
             HttpSession session) {

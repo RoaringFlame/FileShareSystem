@@ -34,10 +34,14 @@ public class PageUtil {
         pageVO.setHasPrePage(page.hasPrevious());
         if (pageVO.getHasPrePage()) {
             pageVO.setPrePage(pageVO.getPageNum() - 1);
+        }else{
+            pageVO.setPrePage(pageVO.getPageNum());
         }
         pageVO.setHasNextPage(page.hasNext());
         if (pageVO.getHasNextPage()) {
             pageVO.setNextPage(pageVO.getPageNum() + 1);
+        }else{
+            pageVO.setPrePage(pageVO.getPageNum());
         }
         return pageVO;
     }

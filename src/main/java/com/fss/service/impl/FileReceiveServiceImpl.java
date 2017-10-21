@@ -2,6 +2,7 @@ package com.fss.service.impl;
 
 import com.fss.controller.vo.FileInfoVO;
 import com.fss.controller.vo.FileSearchKeys;
+import com.fss.controller.vo.HomeFileReceiveVO;
 import com.fss.controller.vo.PageVO;
 import com.fss.dao.domain.File;
 import com.fss.dao.domain.FileReceive;
@@ -102,8 +103,8 @@ public class FileReceiveServiceImpl implements FileReceiveService {
                 String catalogKey = fileSearchKeys.getCatalogKey();
                 String authorNameKey = fileSearchKeys.getNameKey();
                 String departmentKey = fileSearchKeys.getDepartmentKey();
-                Join<FileReceive, File> fileJoin = root
-                        .join(root.getModel().getSingularAttribute("file", File.class), JoinType.LEFT);
+                Join<FileReceive, File> fileJoin = root.join(root.getModel().getSingularAttribute("file", File.class), JoinType.LEFT);
+                predicates.add(cb.equal(fileJoin.get("usable").as(Boolean.class),true));
                 if (!StringUtils.isEmpty(fileNameKey)) {
                     predicates.add(cb.like(fileJoin.get("fileName").as(String.class), "%" + fileNameKey + "%"));
                 }
@@ -122,6 +123,37 @@ public class FileReceiveServiceImpl implements FileReceiveService {
                 return query.where(predicates.toArray(pre)).getRestriction();
             }
         };
+    }
+
+    /**
+     * 获得首页待接收文件数据（文件列表+记录数）
+     */
+    @Override
+    public HomeFileReceiveVO getHomeFileNeedReceive(String userId) {
+        FileSearchKeys fileSearchKeys = new FileSearchKeys();
+        fileSearchKeys.setUserId(userId);
+        PageConfig pageConfig = new PageConfig();
+        pageConfig.setPageNum(1);
+        pageConfig.setPageSize(8);
+        PageVO<FileInfoVO> fileInfoVOPage = getPageFileNeedReceive(fileSearchKeys,pageConfig);
+        HomeFileReceiveVO homeFileReceiveVO = new HomeFileReceiveVO();
+        homeFileReceiveVO.setFileInfoVOList(fileInfoVOPage.getDataList());
+        homeFileReceiveVO.setCount(fileInfoVOPage.getDataCount());
+        return homeFileReceiveVO;
+    }
+
+    /**
+     *  获得首页已接收文件数据
+     */
+    @Override
+    public List<FileInfoVO> getHomeFileReceived(String userId) {
+        FileSearchKeys fileSearchKeys = new FileSearchKeys();
+        fileSearchKeys.setUserId(userId);
+        PageConfig pageConfig = new PageConfig();
+        pageConfig.setPageNum(1);
+        pageConfig.setPageSize(8);
+        PageVO<FileInfoVO> fileInfoVOPage = getPageFileReceived(fileSearchKeys,pageConfig);
+        return fileInfoVOPage.getDataList();
     }
 
 }

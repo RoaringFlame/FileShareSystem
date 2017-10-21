@@ -253,6 +253,19 @@ public class FileServiceImpl implements FileService{
     }
 
     /**
+     * 获得首页已上传数据
+     */
+    @Override public List<FileInfoVO> getHomeFileUploaded(String userId) {
+        FileSearchKeys fileSearchKeys = new FileSearchKeys();
+        fileSearchKeys.setUserId(userId);
+        PageConfig pageConfig = new PageConfig();
+        pageConfig.setPageNum(1);
+        pageConfig.setPageSize(8);
+        PageVO<FileInfoVO> fileInfoVOPage = getPageUploaded(fileSearchKeys,pageConfig);
+        return fileInfoVOPage.getDataList();
+    }
+
+    /**
      * 文件下载
      */
     @Override

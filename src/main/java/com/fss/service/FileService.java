@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Set;
 
 public interface FileService {
@@ -19,6 +20,8 @@ public interface FileService {
             FileUploadParam fileUploadParam, HttpServletRequest request);
 
     PageVO<FileInfoVO> getPageUploaded(FileSearchKeys fileSearchKeys, PageConfig pageConfig);
+
+    List<FileInfoVO> getHomeFileUploaded(String userId);
 
     @Transactional(propagation= Propagation.REQUIRED, rollbackFor = Exception.class)
     JsonResultVO download(String userId, String versionId, HttpServletRequest request, HttpServletResponse response);

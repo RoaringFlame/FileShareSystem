@@ -1,7 +1,5 @@
 package com.fss.controller.vo;
 
-import com.fss.util.PageConfig;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,7 +7,7 @@ public class PageVO<E> implements Serializable {
 
     private List<E> dataList;//所有数据
 
-    private Integer dataCount; //当前页面数量
+    private Integer dataCount; //总记录数
 
     private Integer pageCount;//总页数
 

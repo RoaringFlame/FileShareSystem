@@ -113,8 +113,8 @@ $(function () {
 
     function initReceive() {
         receiveList.empty();
-        FSS.sendAjax("get", "file/home/needReceive", {}, function (data) {
-            var fileInfoVoList = data.fileInfoVoList;
+        FSS.sendAjax("get", "home/file/needReceive", {}, function (data) {
+            var fileInfoVoList = data.fileInfoVOList;
             var count = data.count;
             if (count > 0) {
                 receiveCount.text(count);
@@ -159,7 +159,7 @@ $(function () {
 
     function initReceived() {
         receivedList.empty();
-        FSS.sendAjax("get", "file/home/received", {}, function (data) {
+        FSS.sendAjax("get", "home/file/received", {}, function (data) {
             if (data.length > 0) {
                 $(data).each(function (index, info) {
                     var newInfo = receivedBox.clone();
@@ -201,7 +201,7 @@ $(function () {
 
     function initUploaded() {
         uploadedList.empty();
-        FSS.sendAjax("get", "file/home/uploaded", {}, function (data) {
+        FSS.sendAjax("get", "home/file/uploaded", {}, function (data) {
             if (data.length > 0) {
                 $(data).each(function (index, info) {
                     var newInfo = uploadedBox.clone();

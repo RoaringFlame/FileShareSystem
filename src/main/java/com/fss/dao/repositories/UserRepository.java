@@ -1,11 +1,10 @@
 package com.fss.dao.repositories;
 
 import com.fss.dao.domain.User;
-import com.fss.dao.repositories.custom.UserRepositoryCustom;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends BaseRepository<User>,UserRepositoryCustom {
+public interface UserRepository extends BaseRepository<User>{
 
     /**
      * 用户姓名获取用户信息

@@ -30,9 +30,6 @@ dependencies {
     compile "com.google.guava:guava:17.0"
     compile "javax.inject:javax.inject:1"
 
-    compile files('src\\main\\webapp\\WEB-INF\\lib\\taobao-sdk-java-auto_1455552377940-20160607.jar')
-    compile files('src\\main\\webapp\\WEB-INF\\lib\\taobao-sdk-java-auto_1455552377940-20160607-source.jar')
-
     testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
     testCompile "com.icegreen:greenmail-spring:1.4.0"
 }

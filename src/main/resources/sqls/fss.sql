@@ -82,3 +82,5 @@ CREATE TABLE `t_user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `t_user` (`id`, `version`, `usable`, `create_time`, `username`, `password`, `name`, `gender`, `email`, `department`, `role`) VALUES ('1', '1', '1', '2017-10-10 15:22:13', 'test', 'dc483e80a7a0bd9ef71d8cf973673924', '测试', '1', '747522309@qq.com', '0', '0');
